@@ -207,7 +207,7 @@ input[type=checkbox]:checked{background:var(--accent);border-color:var(--accent)
 .pv-grid{background:linear-gradient(var(--line2) 1px,transparent 1px) 0 0/8px 8px,linear-gradient(90deg,var(--line2) 1px,transparent 1px) 0 0/8px 8px}
 .pv-check{background:radial-gradient(circle at 6px 5px,transparent 2px,var(--line2) 2.4px,var(--line2) 3.2px,transparent 3.6px) 0 0/100% 10px,repeating-linear-gradient(var(--paper) 0 9px,var(--line) 9px 10px)}
 .pv-cornell{background:linear-gradient(var(--line2),var(--line2)) 30% 0/1px 70% no-repeat,linear-gradient(var(--line2),var(--line2)) 0 70%/100% 1px no-repeat}
-textarea.body{flex:1;min-height:420px;border:none;border-radius:0;padding:0 6px;background-attachment:local}
+textarea.body{flex:1 0 auto;min-height:380px;border:none;border-radius:0;padding:0 6px;background-attachment:local}
 .t-lined{background:repeating-linear-gradient(to bottom,transparent 0 27px,var(--line2) 27px 28px);line-height:28px}
 .t-dot{background:radial-gradient(var(--dot) 1.1px,transparent 1.7px) 0 0/22px 22px;line-height:22px}
 .t-grid{background:linear-gradient(var(--line) 1px,transparent 1px) 0 0/22px 22px,linear-gradient(90deg,var(--line) 1px,transparent 1px) 0 0/22px 22px;line-height:22px}
@@ -273,6 +273,50 @@ input.title::placeholder{color:var(--line2)}
   #print{display:block!important;position:static!important}
   *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
 }
+.att,.lnkrow{display:flex;align-items:center;gap:8px;border-bottom:1px solid var(--line);min-height:34px}
+.ai{color:var(--muted);display:flex;flex:none}
+.an{font-weight:600;text-align:left;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.lnkrow .an{flex:0 1 auto}
+.att .an{flex:1}
+.an:hover{color:var(--accent)}
+.lnkrow .mu{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:11.5px}
+.att input.ln{border:none}
+.att input.url{color:var(--accent)}
+.att .mu{font-size:11.5px;white-space:nowrap}
+.nb.sm{height:24px;font-size:10px;padding:0 8px;flex:none}
+.att:hover .x,.lnkrow:hover .x,.thumb:hover .x{opacity:1}
+.lgh{font-size:10px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin:10px 0 2px}
+.gal{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:8px;margin:6px 0}
+.thumb{position:relative;aspect-ratio:4/3;border:1px solid var(--line2);border-radius:4px;overflow:hidden;cursor:zoom-in;background:var(--fill)}
+.thumb img{width:100%;height:100%;object-fit:cover;display:block}
+.thumb .x{position:absolute;top:3px;right:3px;background:var(--paper);border-radius:3px;padding:2px 6px}
+.addrow{display:flex;gap:2px;flex-wrap:wrap;align-items:center}
+.drophint{font-size:11px;color:var(--line2);margin:2px 0 0 6px}
+.slot .slinks{display:flex;gap:4px;flex:none;max-width:48%;overflow:hidden}
+.schip{display:inline-flex;align-items:center;gap:4px;font-size:10.5px;font-weight:700;padding:2px 8px;border-radius:10px;background:var(--fill);color:var(--accent);cursor:pointer;white-space:nowrap;max-width:170px;overflow:hidden;text-overflow:ellipsis}
+.schip:hover{background:var(--line2)}
+.slot .lk{opacity:0;color:var(--muted);padding:0 6px;display:flex;align-items:center;height:100%;flex:none}
+.slot .lk:hover{color:var(--accent)}
+.slot:hover .lk.can,.slot .lk.has{opacity:1}
+.slot.flash{animation:fl 1.8s ease}
+@keyframes fl{0%,50%{background:var(--fill)}100%{background:transparent}}
+.lpres{max-height:300px;overflow:auto;border:1px solid var(--line);border-radius:4px;min-height:60px}
+.lpi{display:flex;align-items:center;gap:10px;width:100%;padding:8px 10px;border-bottom:1px solid var(--line);text-align:left}
+.lpi:hover{background:var(--hi)}
+.lpi b{font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.lpi .mu{margin-left:auto;white-space:nowrap;font-size:11.5px}
+.lpnew{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.lpnew .dtw{flex:none;width:150px;border:1px solid var(--line2);border-radius:4px}
+.lpnew .dtw input.dt{border:none;padding:7px 9px;height:auto}
+.lpnew input.txt{flex:1;min-width:160px;font:inherit;color:inherit;background:transparent;border:1px solid var(--line2);border-radius:4px;padding:7px 9px;outline:none}
+.mbox.wide{width:min(900px,94vw)}
+.mbox .bigimg{max-width:100%;max-height:68vh;object-fit:contain;align-self:center;border-radius:4px}
+.dropping .page{outline:2px dashed var(--accent);outline-offset:-8px}
+.ptools{display:flex;justify-content:space-between;align-items:center;gap:10px;margin:10px 0 4px}
+.ptools .pfilter{margin:0}
+.ptools label{display:flex;align-items:center;gap:6px;font-size:10px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);white-space:nowrap}
+.ptools select{font:inherit;font-size:12px;text-transform:none;letter-spacing:0;font-weight:600;color:var(--ink);background:transparent;border:1px solid var(--line2);border-radius:4px;padding:4px 6px}
+#print .lk,#print .drophint,#print .addrow{display:none!important}
 </style>
 <style id="pagestyle"></style>
 </head>
@@ -302,7 +346,7 @@ input.title::placeholder{color:var(--line2)}
 <div id="dp"></div>
 <div id="print"></div>
 <script>
-const APP_VERSION='0.3.1';
+const APP_VERSION='0.4.0';
 const KEY='organizer.v1',UIKEY='organizer.ui';
 const IS_MAC=/Mac|iPhone|iPad/.test(navigator.platform||navigator.userAgent);
 const MOD=IS_MAC?'⌘':'Ctrl',ALT=IS_MAC?'⌥':'Alt';
@@ -355,7 +399,7 @@ en:{
   createProfile:'Create profile',saveProfile:'Save',skip:'Skip for now',profileSaved:'Profile saved',settingsSaved:'Settings saved',
   needName:'Enter at least your first name.',website:'Website',dayStart:'Day starts at',dayEnd:'Last time slot',timeScale:'Time scale',
   minutes:'{n} min',calSec:'Day planner',appearance:'Appearance',invalidHours:'The last time slot must be after the start of the day.',
-  profileOf:'Profile: {name}',dateFormat:'Date format',dfAuto:'Automatic (by language)',badDate:'That is not a valid date.',clearDate:'Clear'
+  profileOf:'Profile: {name}',dateFormat:'Date format',dfAuto:'Automatic (by language)',badDate:'That is not a valid date.',clearDate:'Clear',subject:'Subject',subjectPh:'Customer or other subject',group:'Group',groupPh:'e.g. Web, Internal',groupBy:'Group by',gbNone:'Nothing',noGroup:'No group',noSubject:'No subject',searchProjects:'Search projects, subjects, people, tasks…',searchNotes:'Search notes…',links:'Links',linkTo:'+ Link…',linkTitle:'Link to…',linkEvent:'Link this event to…',eventsL:'Calendar events',peopleL:'People',newEvent:'New event',createLink:'Create and link',eventText:'What is happening?',searchAll:'Search…',noResults:'Nothing found.',linkedOk:'Linked',attachments:'Attachments',addFile:'+ Add file…',addImage:'+ Add image…',addWebLink:'+ Add web link',open:'Open',showInFolder:'Show in folder',linkTitlePh:'Title',dropHint:'You can also drop files here or paste an image (Ctrl+V).',attachedN:'Attached: {n}',fileErr:'The file could not be opened.',needText:'Describe the event first.',slotTaken:'There is already an entry at that time, so it was linked.',noTarget:'Open a project, note or contact first.'
 },
 hr:{
   print:'Ispis…',printBtnBar:'Ispis',backup:'Sigurnosna kopija',year:'Godina',month:'Mjesec',week:'Tjedan',day:'Dan',contacts:'Kontakti',notes:'Bilješke',
@@ -404,7 +448,7 @@ hr:{
   createProfile:'Izradi profil',saveProfile:'Spremi',skip:'Preskoči za sada',profileSaved:'Profil je spremljen',settingsSaved:'Postavke su spremljene',
   needName:'Upišite barem svoje ime.',website:'Web stranica',dayStart:'Dan počinje u',dayEnd:'Zadnji termin',timeScale:'Vremenska skala',
   minutes:'{n} min',calSec:'Dnevni planer',appearance:'Izgled',invalidHours:'Zadnji termin mora biti nakon početka dana.',
-  profileOf:'Profil: {name}',dateFormat:'Format datuma',dfAuto:'Automatski (prema jeziku)',badDate:'To nije ispravan datum.',clearDate:'Očisti'
+  profileOf:'Profil: {name}',dateFormat:'Format datuma',dfAuto:'Automatski (prema jeziku)',badDate:'To nije ispravan datum.',clearDate:'Očisti',subject:'Subjekt',subjectPh:'Klijent ili drugi subjekt',group:'Grupa',groupPh:'npr. Web, Interno',groupBy:'Grupiraj po',gbNone:'Ništa',noGroup:'Bez grupe',noSubject:'Bez subjekta',searchProjects:'Traži projekte, subjekte, osobe, zadatke…',searchNotes:'Traži bilješke…',links:'Poveznice',linkTo:'+ Poveži…',linkTitle:'Poveži s…',linkEvent:'Poveži ovaj događaj s…',eventsL:'Događaji u kalendaru',peopleL:'Osobe',newEvent:'Novi događaj',createLink:'Izradi i poveži',eventText:'Što se događa?',searchAll:'Traži…',noResults:'Ništa nije pronađeno.',linkedOk:'Povezano',attachments:'Privici',addFile:'+ Dodaj datoteku…',addImage:'+ Dodaj sliku…',addWebLink:'+ Dodaj web poveznicu',open:'Otvori',showInFolder:'Prikaži u mapi',linkTitlePh:'Naslov',dropHint:'Datoteke možete i ispustiti ovdje ili zalijepiti sliku (Ctrl+V).',attachedN:'Priloženo: {n}',fileErr:'Datoteku nije moguće otvoriti.',needText:'Najprije opišite događaj.',slotTaken:'U to vrijeme već postoji unos pa je on povezan.',noTarget:'Najprije otvorite projekt, bilješku ili kontakt.'
 },
 de:{
   print:'Drucken…',printBtnBar:'Drucken',backup:'Sicherung',year:'Jahr',month:'Monat',week:'Woche',day:'Tag',contacts:'Kontakte',notes:'Notizen',
@@ -453,7 +497,7 @@ de:{
   createProfile:'Profil anlegen',saveProfile:'Speichern',skip:'Später',profileSaved:'Profil gespeichert',settingsSaved:'Einstellungen gespeichert',
   needName:'Geben Sie mindestens Ihren Vornamen ein.',website:'Website',dayStart:'Tag beginnt um',dayEnd:'Letzter Zeitslot',timeScale:'Zeitraster',
   minutes:'{n} Min.',calSec:'Tagesplaner',appearance:'Darstellung',invalidHours:'Der letzte Zeitslot muss nach dem Tagesbeginn liegen.',
-  profileOf:'Profil: {name}',dateFormat:'Datumsformat',dfAuto:'Automatisch (nach Sprache)',badDate:'Das ist kein gültiges Datum.',clearDate:'Leeren'
+  profileOf:'Profil: {name}',dateFormat:'Datumsformat',dfAuto:'Automatisch (nach Sprache)',badDate:'Das ist kein gültiges Datum.',clearDate:'Leeren',subject:'Auftraggeber',subjectPh:'Kunde oder anderer Auftraggeber',group:'Gruppe',groupPh:'z. B. Web, Intern',groupBy:'Gruppieren nach',gbNone:'Nichts',noGroup:'Ohne Gruppe',noSubject:'Ohne Auftraggeber',searchProjects:'Projekte, Auftraggeber, Personen, Aufgaben suchen…',searchNotes:'Notizen durchsuchen…',links:'Verknüpfungen',linkTo:'+ Verknüpfen…',linkTitle:'Verknüpfen mit…',linkEvent:'Diesen Termin verknüpfen mit…',eventsL:'Kalendertermine',peopleL:'Personen',newEvent:'Neuer Termin',createLink:'Erstellen und verknüpfen',eventText:'Was steht an?',searchAll:'Suchen…',noResults:'Nichts gefunden.',linkedOk:'Verknüpft',attachments:'Anhänge',addFile:'+ Datei hinzufügen…',addImage:'+ Bild hinzufügen…',addWebLink:'+ Weblink hinzufügen',open:'Öffnen',showInFolder:'Im Ordner zeigen',linkTitlePh:'Titel',dropHint:'Sie können Dateien auch hier ablegen oder ein Bild einfügen (Strg+V).',attachedN:'Angehängt: {n}',fileErr:'Die Datei konnte nicht geöffnet werden.',needText:'Beschreiben Sie zuerst den Termin.',slotTaken:'Zu dieser Zeit gibt es bereits einen Eintrag, er wurde verknüpft.',noTarget:'Öffnen Sie zuerst ein Projekt, eine Notiz oder einen Kontakt.'
 }};
 const LOCALES={en:'en-GB',hr:'hr-HR',de:'de-DE'};
 const ALPHA={en:'ABCDEFGHIJKLMNOPQRSTUVWXYZ',hr:'ABCČĆDĐEFGHIJKLMNOPRSŠTUVZŽ',de:'ABCDEFGHIJKLMNOPQRSTUVWXYZ'};
@@ -474,7 +518,7 @@ let ui={view:'day',contact:null,note:null,project:null,pfilter:'all',welcomed:fa
 try{const s=JSON.parse(localStorage.getItem(UIKEY)||'{}');Object.assign(ui,s,{print:Object.assign(ui.print,s.print||{})})}catch(e){}
 if(!I18N[ui.lang]){const n=(navigator.language||'en').slice(0,2).toLowerCase();ui.lang=I18N[n]?n:'en'}
 ui.cur=today();ui.q='';
-function saveUI(){try{localStorage.setItem(UIKEY,JSON.stringify({view:ui.view,contact:ui.contact,note:ui.note,project:ui.project,pfilter:ui.pfilter,welcomed:ui.welcomed,theme:ui.theme,lang:ui.lang,zoom:ui.zoom,print:ui.print}))}catch(e){}}
+function saveUI(){try{localStorage.setItem(UIKEY,JSON.stringify({view:ui.view,contact:ui.contact,note:ui.note,project:ui.project,pfilter:ui.pfilter,pgb:ui.pgb,welcomed:ui.welcomed,theme:ui.theme,lang:ui.lang,zoom:ui.zoom,print:ui.print}))}catch(e){}}
 
 const t=(k,v)=>{let s=I18N[ui.lang]?.[k]??I18N.en[k]??k;if(v)for(const x in v)s=s.split('{'+x+'}').join(v[x]);return s};
 const loc=()=>LOCALES[ui.lang]||'en-GB';
@@ -513,10 +557,11 @@ function seed(){
       c2:{first:'Marko',last:'Babić',company:'',title:'',emails:[{label:'Home',v:'marko.babic@example.com'}],phones:[{label:'Mobile',v:'+385 95 111 2222'},{label:'Home',v:'+385 51 333 444'}],address:'Korzo 8\n51000 Rijeka',birthday:`1988-${m}-${pad(Math.min(28,d.getDate()+4))}`,groups:'Family',notes:'Brother'},
       c3:{first:'Ivan',last:'Kovač',company:'Kovač Accounting',title:'Accountant',emails:[{label:'Work',v:'ivan.kovac@example.com'}],phones:[{label:'Office',v:'+385 21 456 789'}],address:'Riva 5\n21000 Split',birthday:'1979-07-02',groups:'Finance',notes:''},
       c4:{first:'Tomislav',last:'Jurić',company:'Jurić d.o.o.',title:'Client',emails:[{label:'Work',v:'tomislav.juric@example.com'}],phones:[{label:'Mobile',v:'+385 99 444 5555'}],address:'Osijek',birthday:'',groups:'Work',notes:''}},
-    projects:{p1:{name:'Website redesign',status:'active',start:td,due:ymd(addDays(d,9)),desc:'New company website with booking form.',
+    projects:{p1:{name:'Website redesign',subject:'Jurić d.o.o.',group:'Web',status:'active',start:td,due:ymd(addDays(d,9)),desc:'New company website with booking form.',
       people:[{id:'c1',role:'Designer'},{id:'c4',role:'Client'}],
       tasks:[{t:'Collect content from client',done:true,due:td,who:'c4'},{t:'First design draft',done:false,due:ymd(addDays(d,3)),who:'c1'},{t:'Review with client',done:false,due:ymd(addDays(d,6)),who:''}],notes:'',created:new Date().toISOString()}},
     settings:{dayStart:6,dayEnd:22,slot:60},
+    links:[{a:'project:p1',b:'note:n1'},{a:`event:${td}T11:00`,b:'contact:c1'},{a:`event:${tm}T15:00`,b:'project:p1'}],
     notes:{n1:{title:'Project ideas',tpl:'lined',body:'Organizer app\n- binder look, vertical tabs\n- sync with server later\n- print to A5',cues:'',summary:'',items:[],created:new Date().toISOString()}}};
 }
 function load(){try{const s=localStorage.getItem(KEY);if(s)return JSON.parse(s)}catch(e){}return seed()}
@@ -526,6 +571,7 @@ function fix(){
   DB.settings=Object.assign({dayStart:6,dayEnd:22,slot:60},DB.settings||{});
   for(const d of Object.values(DB.days)){if(!d.slots)continue;for(const k of Object.keys(d.slots)){if(/^\d\d$/.test(k)){const nk=k+':00';if(!d.slots[nk])d.slots[nk]=d.slots[k];delete d.slots[k]}}}
   if(DB.profile===undefined)DB.profile=null;
+  if(!Array.isArray(DB.links))DB.links=[];
 }
 fix();
 let saveT;
@@ -564,7 +610,9 @@ function slotTimes(k){
 function vDay(){
   const d=parse(ui.cur),k=ui.cur,p=dayP(k),[,wn]=isoWeek(d),{step,times}=slotTimes(k);
   let nowKey='';if(k===today()){const n=new Date(),m=n.getHours()*60+n.getMinutes();for(const x of times){const[h,mm]=x.split(':').map(Number);if(h*60+mm<=m)nowKey=x}}
-  const slots=times.map(x=>{const minor=!x.endsWith(':00');return`<div class="slot s${step} ${minor?'minor':''} ${x===nowKey?'now':''}"><div class="h">${x}</div>${inp(p+'.slots.'+x)}</div>`}).join('');
+  const sl=(DB.days[k]&&DB.days[k].slots)||{};
+  const slots=times.map(x=>{const minor=!x.endsWith(':00'),ref=`event:${k}T${x}`,ls=linksOf(ref).map(resolveRef).filter(Boolean),has=!!(sl[x]&&sl[x].trim());
+    return`<div class="slot s${step} ${minor?'minor':''} ${x===nowKey?'now':''}" data-time="${x}"><div class="h">${x}</div>${inp(p+'.slots.'+x)}${ls.length?`<span class="slinks">${ls.map(l=>`<span class="schip" data-act="goRef" data-ref="${esc(l.ref)}" title="${esc(l.label)}">${ICON[l.type]}${esc(l.label)}</span>`).join('')}</span>`:''}<button class="lk ${has?'can':''} ${ls.length?'has':''}" data-act="linkPick" data-ref="${ref}" title="${esc(t('linkTo').replace('+ ',''))}">${ICON.link}</button></div>`}).join('');
   const seg=`<span class="seg">${[60,30,15].map(v=>`<button class="${step===v?'on':''}" data-act="slot" data-v="${v}" title="${t('timeScale')}">${t('minutes',{n:v})}</button>`).join('')}</span>`;
   const bd=bdays(k.slice(5)),dl=deadlines(k);
   const L=head(`${dayName(dow(d))} · ${t('weekN',{n:wn})}`,dayTitle(d),navBtns())+`<div class="sec secrow"><span>${t('schedule')}</span>${seg}</div>`+slots;
@@ -639,23 +687,34 @@ function vContacts(){
     +sec(t('address'))+ta(p+'.address',3)
     +sec(t('personal'))+fr(t('birthday'),dateField({k:p+'.birthday'}))+fr(t('groups'),inp(p+'.groups',t('groupsPh')))
     +(()=>{const pr=Object.entries(DB.projects).map(([pid,P])=>[pid,P,(P.people||[]).find(x=>x.id===id)]).filter(x=>x[2]);return pr.length?sec(t('projects'))+pr.map(([pid,P,x])=>`<div class="todo" style="justify-content:space-between"><button class="lnk" data-act="selProject" data-id="${pid}">${esc(P.name||t('untitled'))}${x.role?` <span class="mu">· ${esc(x.role)}</span>`:''}</button><span class="chip ${P.status}">${t('st_'+P.status)}</span></div>`).join(''):''})()
+    +linksSection('contact:'+id)
+    +attSection(p)
     +sec(t('notesSec'))+ta(p+'.notes',4);
   return[L,R];
 }
 const PSTAT=['active','planned','hold','done'];
+function projText(P){return[P.name,P.subject,P.group,P.desc,P.notes,...(P.tasks||[]).map(x=>x.t),...(P.people||[]).map(x=>{const c=person(x.id);return c?cname(c)+' '+(x.role||'')+' '+(c.company||''):''})].join(' ').toLowerCase()}
 function projectList(){
-  const f=ui.pfilter||'all';
-  const all=Object.entries(DB.projects).filter(([,p])=>f==='all'||p.status===f)
+  const f=ui.pfilter||'all',q=(ui.pq||'').trim().toLowerCase(),gb=ui.pgb||'group';
+  const all=Object.entries(DB.projects).filter(([,p])=>(f==='all'||p.status===f)&&(!q||projText(p).includes(q)))
     .sort((a,b)=>PSTAT.indexOf(a[1].status)-PSTAT.indexOf(b[1].status)||(a[1].due||'9999').localeCompare(b[1].due||'9999')||(a[1].name||'').localeCompare(b[1].name||'',loc()));
   if(!all.length)return`<div class="mu" style="padding:14px 2px">${t('noProjects')}</div>`;
-  return all.map(([id,p])=>{const tk=(p.tasks||[]).filter(x=>x.t),dn=tk.filter(x=>x.done).length,pc=tk.length?Math.round(dn/tk.length*100):0;
+  const row=([id,p])=>{const tk=(p.tasks||[]).filter(x=>x.t),dn=tk.filter(x=>x.done).length,pc=tk.length?Math.round(dn/tk.length*100):0;
     return`<div class="ci ${id===ui.project?'on':''}" data-act="selProject" data-id="${id}"><div class="ctop"><div class="n">${esc(p.name||t('untitled'))}</div><span class="chip ${p.status}">${t('st_'+p.status)}</span></div>
-    <div class="s">${p.due?`${t('due')}: ${esc(fmt(parse(p.due),{day:'numeric',month:'short',year:'numeric'}))} · `:''}${tk.length?t('tasksDone',{d:dn,n:tk.length}):''}</div>${tk.length?`<div class="pbar"><i style="width:${pc}%"></i></div>`:''}</div>`}).join('');
+    <div class="s">${[p.subject?esc(p.subject):'',gb!=='group'&&p.group?esc(p.group):'',p.due?`${t('due')}: ${esc(fmtD(p.due))}`:'',tk.length?t('tasksDone',{d:dn,n:tk.length}):''].filter(Boolean).join(' · ')}</div>${tk.length?`<div class="pbar"><i style="width:${pc}%"></i></div>`:''}</div>`};
+  if(gb==='none')return all.map(row).join('');
+  const none=gb==='subject'?t('noSubject'):t('noGroup');
+  const keyOf=([,p])=>gb==='status'?t('st_'+p.status):((gb==='subject'?p.subject:p.group)||'').trim()||none;
+  const groups=new Map();all.forEach(e=>{const k=keyOf(e);if(!groups.has(k))groups.set(k,[]);groups.get(k).push(e)});
+  let keys=[...groups.keys()];if(gb!=='status')keys.sort((a,b)=>a===none?1:b===none?-1:a.localeCompare(b,loc()));
+  return keys.map(k=>`<div class="lt">${esc(k)} <span class="mu" style="letter-spacing:0">(${groups.get(k).length})</span></div>`+groups.get(k).map(row).join('')).join('');
 }
 function vProjects(){
   const n=Object.keys(DB.projects).length,f=ui.pfilter||'all';
   const L=head(t('projectsCount',{n}),t('projects'),`<div class="pnav"><button class="nb t" data-act="cmd" data-c="newProject">${t('newProject')}</button></div>`)
-    +`<div class="pfilter">${['all',...PSTAT].map(x=>`<button class="${f===x?'on':''}" data-act="pfilter" data-v="${x}">${x==='all'?t('all'):t('st_'+x)}</button>`).join('')}</div>`
+    +`<input class="search" id="pq" placeholder="${esc(t('searchProjects'))}" value="${esc(ui.pq||'')}" autocomplete="off">`
+    +`<div class="ptools"><div class="pfilter">${['all',...PSTAT].map(x=>`<button class="${f===x?'on':''}" data-act="pfilter" data-v="${x}">${x==='all'?t('all'):t('st_'+x)}</button>`).join('')}</div>`
+    +`<label>${t('groupBy')} <select id="pgb">${[['group',t('group')],['subject',t('subject')],['status',t('status')],['none',t('gbNone')]].map(([v,l])=>`<option value="${v}" ${(ui.pgb||'group')===v?'selected':''}>${l}</option>`).join('')}</select></label></div>`
     +`<div id="plist">${projectList()}</div>`;
   const id=ui.project,P=DB.projects[id];
   if(!P)return[L,`<div class="empty"><h1>${t('noProjectSel')}</h1><div>${t('noProjectHint')}</div><button class="nb t" data-act="cmd" data-c="newProject">${t('newProject')}</button></div>`];
@@ -670,22 +729,29 @@ function vProjects(){
   const tasks=`<div class="list">${(P.tasks||[]).map((x,i)=>`<div class="todo ptask ${x.done?'done':''}"><input type="checkbox" data-k="${p}.tasks.${i}.done" ${x.done?'checked':''} aria-label="Done">${inp(`${p}.tasks.${i}.t`)}${dateField({k:`${p}.tasks.${i}.due`,cls:'due'})}<select class="asg" data-k="${p}.tasks.${i}.who" title="${t('assignee')}">${opts(x.who||'')}</select><button class="x" data-act="del" data-path="${p}.tasks" data-i="${i}" aria-label="Remove">×</button></div>`).join('')}<button class="add" data-act="add" data-path="${p}.tasks" data-tpl="task">${t('addTask')}</button></div>`;
   const R=`<div class="ph"><div style="flex:1"><div class="kicker">${t('projects')}</div><input class="title" data-k="${p}.name" value="${esc(P.name)}" placeholder="${esc(t('projectName'))}"></div><div class="pnav"><button class="nb t danger" data-act="delProject">${t('del')}</button></div></div>`
     +fr(t('status'),`<select class="ln" data-k="${p}.status" data-rerender="1" style="border:none;padding-left:0">${PSTAT.map(x=>`<option value="${x}" ${P.status===x?'selected':''}>${t('st_'+x)}</option>`).join('')}</select>`)
+    +fr(t('subject'),`<input class="ln" list="dl-subj" data-k="${p}.subject" value="${esc(P.subject||'')}" placeholder="${esc(t('subjectPh'))}" autocomplete="off">`)
+    +fr(t('group'),`<input class="ln" list="dl-grp" data-k="${p}.group" value="${esc(P.group||'')}" placeholder="${esc(t('groupPh'))}" autocomplete="off">`)
+    +`<datalist id="dl-subj">${[...new Set([...Object.values(DB.projects).map(x=>x.subject),...Object.values(DB.contacts).flatMap(c=>[c.company,cname(c)])].filter(Boolean))].sort((a,b)=>a.localeCompare(b,loc())).map(v=>`<option value="${esc(v)}">`).join('')}</datalist>`
+    +`<datalist id="dl-grp">${[...new Set(Object.values(DB.projects).map(x=>x.group).filter(Boolean))].sort((a,b)=>a.localeCompare(b,loc())).map(v=>`<option value="${esc(v)}">`).join('')}</datalist>`
     +fr(t('start'),dateField({k:p+'.start'}))
     +fr(t('due'),dateField({k:p+'.due'}))
     +sec(t('description'))+ta(p+'.desc',3)
     +sec(t('people'))+people+picker
     +sec(t('tasks'))+tasks
+    +linksSection('project:'+id)
+    +attSection(p)
     +sec(t('notesSec'))+ta(p+'.notes',4);
   return[L,R];
 }
 const TPLS=['lined','dot','grid','check','cornell','blank'];
 function noteList(){
-  const all=Object.entries(DB.notes).sort((a,b)=>(b[1].created||'').localeCompare(a[1].created||''));
+  const q=(ui.nq||'').trim().toLowerCase();
+  const all=Object.entries(DB.notes).filter(([,n])=>!q||[n.title,n.body,n.cues,n.summary,...(n.items||[]).map(x=>x.t)].join(' ').toLowerCase().includes(q)).sort((a,b)=>(b[1].created||'').localeCompare(a[1].created||''));
   if(!all.length)return`<div class="mu" style="padding:14px 2px">${t('noPages')}</div>`;
   return all.map(([id,n])=>`<div class="ci ${id===ui.note?'on':''}" data-act="selNote" data-id="${id}"><div class="n">${esc(n.title||t('untitled'))}</div><div class="s">${t('tpl_'+n.tpl)} · ${shortDate(n.created)}</div></div>`).join('');
 }
 function vNotes(){
-  const L=head(t('notebook'),t('notes'))+sec(t('newFromTpl'))+`<div class="tplg">${TPLS.map(k=>`<button class="tpb" data-act="newNote" data-tpl="${k}"><div class="pv pv-${k}"></div>${t('tpl_'+k)}</button>`).join('')}</div>`+sec(t('pages'))+`<div id="nlist">${noteList()}</div>`;
+  const L=head(t('notebook'),t('notes'))+sec(t('newFromTpl'))+`<div class="tplg">${TPLS.map(k=>`<button class="tpb" data-act="newNote" data-tpl="${k}"><div class="pv pv-${k}"></div>${t('tpl_'+k)}</button>`).join('')}</div>`+sec(t('pages'))+`<input class="search" id="nq" placeholder="${esc(t('searchNotes'))}" value="${esc(ui.nq||'')}" autocomplete="off" style="margin:4px 0 2px">`+`<div id="nlist">${noteList()}</div>`;
   const id=ui.note,n=DB.notes[id];
   if(!n)return[L,`<div class="empty"><h1>${t('noPage')}</h1><div>${t('noPageHint')}</div></div>`];
   const p='notes.'+id;
@@ -693,7 +759,7 @@ function vNotes(){
   if(n.tpl==='check')body=todos(p+'.items');
   else if(n.tpl==='cornell')body=`<div class="cornell"><textarea class="cue" data-k="${p}.cues" placeholder="${esc(t('cues'))}">${esc(n.cues)}</textarea><textarea data-k="${p}.body" placeholder="${esc(t('notesSec'))}">${esc(n.body)}</textarea><textarea class="sum" data-k="${p}.summary" placeholder="${esc(t('summary'))}">${esc(n.summary)}</textarea></div>`;
   else body=`<textarea class="body t-${n.tpl}" data-k="${p}.body" placeholder="${esc(t('startWriting'))}">${esc(n.body)}</textarea>`;
-  const R=`<div class="ph"><div style="flex:1"><div class="kicker">${t('tpl_'+n.tpl)} · ${shortDate(n.created)}</div><input class="title" data-k="${p}.title" value="${esc(n.title)}" placeholder="${esc(t('untitled'))}"></div><div class="pnav"><button class="nb t danger" data-act="delNote">${t('del')}</button></div></div>`+body;
+  const R=`<div class="ph"><div style="flex:1"><div class="kicker">${t('tpl_'+n.tpl)} · ${shortDate(n.created)}</div><input class="title" data-k="${p}.title" value="${esc(n.title)}" placeholder="${esc(t('untitled'))}"></div><div class="pnav"><button class="nb t danger" data-act="delNote">${t('del')}</button></div></div>`+body+linksSection('note:'+id)+attSection(p);
   return[L,R];
 }
 
@@ -725,6 +791,8 @@ function render(){
   $('#rtabs').innerHTML=VIEWS.map((v,i)=>{const[bg,fg]=th.r[i];return`<div class="tab ${ui.view===v?'on':''}" role="button" tabindex="0" style="background:${bg};color:${fg}" data-act="cmd" data-c="view:${v}">${t(v)}</div>`}).join('');
   const[L,R]=VIEWFN[ui.view]();
   $('#lp').innerHTML=L;$('#rp').innerHTML=R;
+  hydrateImages(document.querySelector('.cover'));
+  if(ui.flash){const el=document.querySelector(`.slot[data-time="${ui.flash}"]`);ui.flash=null;if(el){el.scrollIntoView({block:'center'});el.classList.add('flash')}}
   saveUI();
 }
 function nav(n){const d=parse(ui.cur);
@@ -741,7 +809,7 @@ function toast(m){const x=$('#toast');x.textContent=m;x.classList.add('show');cl
 function arm(b){if(b.dataset.armed)return true;b.dataset.armed='1';b.textContent=t('confirmDel');setTimeout(()=>{if(b.isConnected){delete b.dataset.armed;b.textContent=t('del')}},3000);return false}
 
 /* ---------- dialogs ---------- */
-function openDlg(html){$('#dlgbox').innerHTML=html;$('#dlg').classList.remove('hidden');const f=$('#dlgbox').querySelector('[autofocus]');if(f)f.focus()}
+function openDlg(html,cls){$('#dlgbox').className='mbox '+(cls||'');$('#dlgbox').innerHTML=html;$('#dlg').classList.remove('hidden');const f=$('#dlgbox').querySelector('[autofocus]');if(f)f.focus()}
 function closeDlg(){closePicker();$('#dlg').classList.add('hidden');$('#dlgbox').innerHTML=''}
 const dlgOpen=()=>!$('#dlg').classList.contains('hidden');
 function openBackup(restoreMode){
@@ -870,6 +938,7 @@ function buildPrint(o){
   }
   P.querySelectorAll('textarea').forEach(x=>{const d=document.createElement('div');d.className='pta '+x.className;d.textContent=x.value;d.style.minHeight=(Math.max(1,x.rows||2)*1.6+0.8)+'em';x.replaceWith(d)});
   P.querySelectorAll('[id]').forEach(e=>e.removeAttribute('id'));
+  hydrateImages(P);
   P.querySelectorAll('.ppage').forEach(pp=>{const pin=pp.firstElementChild;if(!pin)return;const need=pin.scrollHeight,have=pp.clientHeight;
     if(need>have+1){const z=have/need;pin.style.transform=`scale(${z})`;pin.style.width=(100/z)+'%';pin.style.minHeight=(100/z)+'%'}});
   P.classList.remove('measure');
@@ -884,6 +953,146 @@ function doPrint(){
 const TAURI=window.__TAURI__;
 let NATIVE=false,lastCmd='',lastT=0;
 function tauriWin(){try{return TAURI.window.getCurrentWindow()}catch(e){return null}}
+/* ---------- icons ---------- */
+const SVG=p=>`<svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${p}</svg>`;
+const ICON={
+  link:SVG('<path d="M6.5 9.5a3 3 0 0 0 4.2 0l2.3-2.3a3 3 0 0 0-4.2-4.2l-.8.8"/><path d="M9.5 6.5a3 3 0 0 0-4.2 0L3 8.8a3 3 0 0 0 4.2 4.2l.8-.8"/>'),
+  file:SVG('<path d="M9 1.5H4a1 1 0 0 0-1 1v11a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V5.5z"/><path d="M9 1.5v4h4"/>'),
+  web:SVG('<circle cx="8" cy="8" r="6.5"/><path d="M1.5 8h13M8 1.5c2 2 2.8 4.2 2.8 6.5S10 12.5 8 14.5C6 12.5 5.2 10.3 5.2 8S6 3.5 8 1.5"/>'),
+  event:SVG('<rect x="1.5" y="2.5" width="13" height="12" rx="1.5"/><path d="M1.5 6h13M5 1v3M11 1v3"/>'),
+  project:SVG('<path d="M1.5 4a1 1 0 0 1 1-1h3.5l1.5 1.5h6a1 1 0 0 1 1 1V13a1 1 0 0 1-1 1h-11a1 1 0 0 1-1-1z"/>'),
+  note:SVG('<path d="M3 1.5h10v13H3z"/><path d="M5.5 5h5M5.5 8h5M5.5 11h3"/>'),
+  contact:SVG('<circle cx="8" cy="5.5" r="3"/><path d="M2.5 14.5c.6-3 2.8-4.5 5.5-4.5s4.9 1.5 5.5 4.5"/>')
+};
+
+/* ---------- links between items ---------- */
+const lkey=(a,b)=>a<b?a+'|'+b:b+'|'+a;
+const linksOf=ref=>(DB.links||[]).filter(l=>l.a===ref||l.b===ref).map(l=>l.a===ref?l.b:l.a);
+function addLink(a,b){if(!a||!b||a===b)return false;if(!Array.isArray(DB.links))DB.links=[];if(DB.links.some(l=>lkey(l.a,l.b)===lkey(a,b)))return false;DB.links.push({a,b});return true}
+function delLink(a,b){DB.links=(DB.links||[]).filter(l=>lkey(l.a,l.b)!==lkey(a,b))}
+function dropLinks(ref){DB.links=(DB.links||[]).filter(l=>l.a!==ref&&l.b!==ref)}
+function resolveRef(ref){
+  const i=ref.indexOf(':'),type=ref.slice(0,i),id=ref.slice(i+1);
+  if(type==='project'){const p=DB.projects[id];return p?{ref,type,id,label:p.name||t('untitled'),sub:[p.subject,t('st_'+p.status)].filter(Boolean).join(' · ')}:null}
+  if(type==='note'){const n=DB.notes[id];return n?{ref,type,id,label:n.title||t('untitled'),sub:`${t('tpl_'+n.tpl)} · ${shortDate(n.created)}`}:null}
+  if(type==='contact'){const c=person(id);return c?{ref,type,id,label:cname(c)+(id==='me'?` (${t('me')})`:''),sub:c.company||''}:null}
+  if(type==='event'){const[d,tm]=id.split('T');const v=DB.days[d]&&DB.days[d].slots&&DB.days[d].slots[tm];return v&&v.trim()?{ref,type,id,label:v,sub:`${dayShort(dow(parse(d)))} ${fmtD(d)} · ${tm}`,date:d,time:tm}:null}
+  return null;
+}
+const TYPES=['event','project','note','contact'];
+const TYPE_T={event:'eventsL',project:'projects',note:'notes',contact:'peopleL'};
+const ALLOWED={project:['event','note'],note:['event','project','contact'],contact:['event','note'],event:['project','note','contact']};
+function linksSection(ref){
+  const items=linksOf(ref).map(resolveRef).filter(Boolean);
+  let h=sec(t('links'));
+  for(const ty of TYPES){
+    const g=items.filter(x=>x.type===ty);if(!g.length)continue;
+    if(ty==='event')g.sort((a,b)=>(a.date+a.time).localeCompare(b.date+b.time));else g.sort((a,b)=>a.label.localeCompare(b.label,loc()));
+    h+=`<div class="lgh">${t(TYPE_T[ty])}</div>`+g.map(x=>`<div class="lnkrow"><span class="ai">${ICON[ty]}</span><button class="an" data-act="goRef" data-ref="${esc(x.ref)}">${esc(x.label)}</button><span class="mu">${esc(x.sub)}</span><button class="x" data-act="unlink" data-a="${esc(ref)}" data-b="${esc(x.ref)}" aria-label="Remove">×</button></div>`).join('');
+  }
+  return h+`<button class="add" data-act="linkPick" data-ref="${esc(ref)}">${t('linkTo')}</button>`;
+}
+function goRef(ref){
+  const i=ref.indexOf(':'),type=ref.slice(0,i),id=ref.slice(i+1);
+  closeDlg();
+  if(type==='project'){ui.project=id;ui.view='projects'}
+  else if(type==='note'){ui.note=id;ui.view='notes'}
+  else if(type==='contact'){if(id==='me'){run('profile');return}ui.contact=id;ui.view='contacts'}
+  else if(type==='event'){const[d,tm]=id.split('T');ui.cur=d;ui.view='day';ui.flash=tm}
+  render();
+}
+/* link picker */
+let LP=null;
+function openLinkPicker(ref){
+  const ty=ref.slice(0,ref.indexOf(':'));LP={ref,types:ALLOWED[ty]||TYPES,type:'all',q:''};
+  const ev=LP.types.includes('event'),own=resolveRef(ref);
+  const times=[];for(let m=0;m<24*60;m+=15)times.push(`${pad(Math.floor(m/60))}:${pad(m%60)}`);
+  openDlg(`<h2>${ty==='event'?t('linkEvent'):t('linkTitle')}</h2>${own?`<div class="mu">${ICON[ty]} ${esc(own.label)}</div>`:''}
+    <input class="search" id="lpq" placeholder="${esc(t('searchAll'))}" autocomplete="off">
+    <div class="pfilter" id="lptypes">${['all',...LP.types].map(x=>`<button class="${x==='all'?'on':''}" data-act="lpType" data-v="${x}">${x==='all'?t('all'):t(TYPE_T[x])}</button>`).join('')}</div>
+    <div class="lpres" id="lpres"></div>
+    ${ev?`<div class="sec" style="margin:4px 0 0">${t('newEvent')}</div><div class="lpnew">${dateField({id:'lpd',value:ui.cur})}<select id="lptime" class="ln" style="border:1px solid var(--line2);border-radius:4px;padding:7px">${times.map(x=>`<option ${x==='09:00'?'selected':''}>${x}</option>`).join('')}</select><input class="txt" id="lptext" placeholder="${esc(t('eventText'))}"><button class="bbtn pri" data-act="lpNewEvent">${t('createLink')}</button></div>`:''}
+    <div class="btns"><button class="bbtn" data-act="closeDlg">${t('close')}</button></div>`,'wide');
+  drawLP();setTimeout(()=>{const q=$('#lpq');if(q)q.focus()},0);
+}
+function lpCandidates(){
+  const out=[],linked=new Set(linksOf(LP.ref));
+  for(const ty of LP.types){
+    if(LP.type!=='all'&&LP.type!==ty)continue;
+    let refs=[];
+    if(ty==='project')refs=Object.keys(DB.projects).map(id=>'project:'+id);
+    if(ty==='note')refs=Object.keys(DB.notes).map(id=>'note:'+id);
+    if(ty==='contact')refs=[...(DB.profile?['contact:me']:[]),...sortedContacts().map(([id])=>'contact:'+id)];
+    if(ty==='event'){const td=today();for(const[d,v]of Object.entries(DB.days))for(const[tm,x]of Object.entries(v.slots||{}))if(x&&x.trim()&&/^\d\d:\d\d$/.test(tm))refs.push('event:'+d+'T'+tm);
+      refs.sort((a,b)=>{const da=Math.abs(parse(a.slice(6,16))-parse(td)),db=Math.abs(parse(b.slice(6,16))-parse(td));return da-db||a.localeCompare(b)})}
+    for(const r of refs){if(r===LP.ref||linked.has(r))continue;const x=resolveRef(r);if(x)out.push(x)}
+  }
+  const q=LP.q.trim().toLowerCase();
+  return(q?out.filter(x=>(x.label+' '+x.sub).toLowerCase().includes(q)):out).slice(0,80);
+}
+function drawLP(){if(!LP||!$('#lpres'))return;const c=lpCandidates();
+  $('#lpres').innerHTML=c.length?c.map(x=>`<button class="lpi" data-act="lpPick" data-b="${esc(x.ref)}"><span class="ai">${ICON[x.type]}</span><b>${esc(x.label)}</b><span class="mu">${esc(x.sub)}</span></button>`).join(''):`<div class="mu" style="padding:12px">${t('noResults')}</div>`}
+
+/* ---------- attachments ---------- */
+const IS_TAURI_FS=!!(TAURI&&TAURI.core&&TAURI.core.invoke);
+const MIME={png:'image/png',jpg:'image/jpeg',jpeg:'image/jpeg',gif:'image/gif',webp:'image/webp',bmp:'image/bmp',svg:'image/svg+xml',pdf:'application/pdf'};
+const mimeOf=n=>MIME[(String(n).split('.').pop()||'').toLowerCase()]||'application/octet-stream';
+const isImg=a=>a&&a.kind==='file'&&/^image\//.test(a.type||'');
+const fmtSize=b=>!b&&b!==0?'':b<1024?b+' B':b<1048576?(b/1024).toFixed(0)+' KB':(b/1048576).toFixed(1)+' MB';
+let _idb;
+function idb(){return _idb||(_idb=new Promise((res,rej)=>{const r=indexedDB.open('organizer-files',1);r.onupgradeneeded=()=>r.result.createObjectStore('f');r.onsuccess=()=>res(r.result);r.onerror=()=>rej(r.error)}))}
+const idbOp=(mode,fn)=>idb().then(db=>new Promise((res,rej)=>{const tx=db.transaction('f',mode),rq=fn(tx.objectStore('f'));tx.oncomplete=()=>res(rq&&rq.result);tx.onerror=()=>rej(tx.error)}));
+const idbPut=(k,v)=>idbOp('readwrite',s=>s.put(v,k)),idbGet=k=>idbOp('readonly',s=>s.get(k)),idbDel=k=>idbOp('readwrite',s=>s.delete(k));
+const ATT={
+  cache:{},
+  meta(r,name){return{id:uid(),kind:'file',name:name||r.name,file:r.file,size:r.size,type:mimeOf(name||r.name),added:new Date().toISOString()}},
+  async pick(images){
+    if(IS_TAURI_FS&&TAURI.dialog){
+      const r=await TAURI.dialog.open({multiple:true,filters:images?[{name:'Images',extensions:['png','jpg','jpeg','gif','webp','bmp','svg']}]:undefined});
+      if(!r)return[];const paths=Array.isArray(r)?r:[r];const out=[];for(const p of paths)out.push(await this.importPath(typeof p==='string'?p:p.path));return out;
+    }
+    return new Promise(res=>{const i=document.createElement('input');i.type='file';i.multiple=true;if(images)i.accept='image/*';i.style.display='none';document.body.appendChild(i);
+      i.onchange=async()=>{const out=[];for(const f of i.files)out.push(await this.saveBlob(f,f.name));i.remove();res(out)};i.click()});
+  },
+  async importPath(p){const r=await TAURI.core.invoke('import_file',{src:p});return this.meta(r)},
+  async saveBlob(blob,name){
+    name=name||('image-'+new Date().toISOString().slice(0,19).replace(/[:T]/g,'-')+'.'+((blob.type||'image/png').split('/')[1]||'png').replace('jpeg','jpg'));
+    if(IS_TAURI_FS){const buf=new Uint8Array(await blob.arrayBuffer());const r=await TAURI.core.invoke('save_attachment',buf,{headers:{'x-ext':(name.split('.').pop()||'bin')}});const m=this.meta(r,name);m.type=blob.type||m.type;m.size=blob.size;return m}
+    const k=uid()+uid();await idbPut(k,blob);return{id:uid(),kind:'file',name,file:'idb:'+k,size:blob.size,type:blob.type||mimeOf(name),added:new Date().toISOString()};
+  },
+  async url(a){
+    if(this.cache[a.file])return this.cache[a.file];
+    let blob=null;
+    try{if(a.file.startsWith('idb:'))blob=await idbGet(a.file.slice(4));else if(IS_TAURI_FS){const buf=await TAURI.core.invoke('read_attachment',{file:a.file});blob=new Blob([buf],{type:a.type})}}catch(e){blob=null}
+    return blob?(this.cache[a.file]=URL.createObjectURL(blob)):null;
+  },
+  async open(a){
+    if(a.kind==='url'){const u=normUrl(a.url);if(u)openUrl(u);return}
+    try{if(IS_TAURI_FS&&!a.file.startsWith('idb:')){await TAURI.core.invoke('open_attachment',{file:a.file});return}
+      const u=await this.url(a);if(!u)throw 0;const l=document.createElement('a');l.href=u;l.target='_blank';l.rel='noopener';l.download=isImg(a)?'':a.name;document.body.appendChild(l);l.click();l.remove()}catch(e){toast(t('fileErr'))}
+  },
+  reveal(a){if(IS_TAURI_FS)TAURI.core.invoke('reveal_attachment',{file:a.file}).catch(()=>toast(t('fileErr')))},
+  async remove(a){if(!a||a.kind!=='file')return;try{if(a.file.startsWith('idb:'))await idbDel(a.file.slice(4));else if(IS_TAURI_FS)await TAURI.core.invoke('delete_attachment',{file:a.file})}catch(e){}}
+};
+function normUrl(u){u=String(u||'').trim();if(!u)return'';if(/^(https?:|mailto:|tel:)/i.test(u))return u;if(/^[\w.-]+@[\w.-]+\.\w+$/.test(u))return'mailto:'+u;return'https://'+u}
+function openUrl(u){if(IS_TAURI_FS)TAURI.core.invoke('open_url',{url:u}).catch(()=>toast(t('fileErr')));else{const l=document.createElement('a');l.href=u;l.target='_blank';l.rel='noopener';document.body.appendChild(l);l.click();l.remove()}}
+function attSection(ep){
+  const arr=get(ep+'.files')||[],idx=arr.map((a,i)=>[a,i]);
+  const imgs=idx.filter(([a])=>isImg(a)),rest=idx.filter(([a])=>!isImg(a));
+  const xb=i=>`<button class="x" data-act="delAtt" data-ep="${ep}" data-i="${i}" aria-label="Remove">×</button>`;
+  return sec(t('attachments'))
+    +(imgs.length?`<div class="gal">${imgs.map(([a,i])=>`<div class="thumb" data-act="viewImg" data-ep="${ep}" data-i="${i}" title="${esc(a.name)}"><img data-att="${esc(a.file)}" data-type="${esc(a.type)}" alt="${esc(a.name)}">${xb(i)}</div>`).join('')}</div>`:'')
+    +rest.map(([a,i])=>a.kind==='url'
+      ?`<div class="att"><span class="ai">${ICON.web}</span><input class="ln" style="flex:1" data-k="${ep}.files.${i}.title" value="${esc(a.title)}" placeholder="${esc(t('linkTitlePh'))}"><input class="ln url" style="flex:1.4" data-k="${ep}.files.${i}.url" value="${esc(a.url)}" placeholder="https://…"><button class="nb t sm" data-act="openAtt" data-ep="${ep}" data-i="${i}">${t('open')}</button>${xb(i)}</div>`
+      :`<div class="att"><span class="ai">${ICON.file}</span><button class="an" data-act="openAtt" data-ep="${ep}" data-i="${i}" title="${esc(t('open'))}">${esc(a.name)}</button><span class="mu">${fmtSize(a.size)}</span>${IS_TAURI_FS&&!String(a.file).startsWith('idb:')?`<button class="nb t sm" data-act="revealAtt" data-ep="${ep}" data-i="${i}">${t('showInFolder')}</button>`:''}${xb(i)}</div>`).join('')
+    +`<div class="addrow"><button class="add" data-act="addFile" data-ep="${ep}">${t('addFile')}</button><button class="add" data-act="addImage" data-ep="${ep}">${t('addImage')}</button><button class="add" data-act="addUrl" data-ep="${ep}">${t('addWebLink')}</button></div><div class="drophint">${t('dropHint')}</div>`;
+}
+function hydrateImages(root){(root||document).querySelectorAll('img[data-att]').forEach(img=>{const f=img.dataset.att;if(ATT.cache[f]){img.src=ATT.cache[f];return}ATT.url({file:f,type:img.dataset.type}).then(u=>{if(u)img.src=u})})}
+function currentEP(){if(ui.view==='projects'&&DB.projects[ui.project])return'projects.'+ui.project;if(ui.view==='notes'&&DB.notes[ui.note])return'notes.'+ui.note;if(ui.view==='contacts'&&DB.contacts[ui.contact])return'contacts.'+ui.contact;return null}
+async function attachTo(ep,items){items=items.filter(Boolean);if(!ep||!items.length)return;const arr=get(ep+'.files')||[];arr.push(...items);set(ep+'.files',arr);save(true);render();toast(t('attachedN',{n:items.length}))}
+async function removeEntityFiles(e){for(const a of(e&&e.files)||[])await ATT.remove(a)}
+
+
 function run(cmd){
   const now=Date.now();if(cmd===lastCmd&&now-lastT<300)return;lastCmd=cmd;lastT=now;
   closeMenus();
@@ -1001,16 +1210,33 @@ document.addEventListener('click',e=>{
     case'selContact':if(x.dataset.id==='me'){run('profile');return}ui.contact=x.dataset.id;ui.view='contacts';break;
     case'selProject':ui.project=x.dataset.id;ui.view='projects';break;
     case'pfilter':ui.pfilter=x.dataset.v;break;
-    case'delProject':if(!arm(x))return;delete DB.projects[ui.project];ui.project=null;save();toast(t('projectDeleted'));break;
+    case'delProject':if(!arm(x))return;dropLinks('project:'+ui.project);removeEntityFiles(DB.projects[ui.project]);delete DB.projects[ui.project];ui.project=null;save();toast(t('projectDeleted'));break;
     case'slot':DB.settings.slot=+x.dataset.v;save();break;
     case'saveProfile':saveProfile();return;
     case'saveSettings':saveSettings();return;
-    case'delContact':if(!arm(x))return;for(const P of Object.values(DB.projects)){P.people=(P.people||[]).filter(q=>q.id!==ui.contact);(P.tasks||[]).forEach(q=>{if(q.who===ui.contact)q.who=''})}delete DB.contacts[ui.contact];ui.contact=null;save();toast(t('contactDeleted'));break;
+    case'delContact':if(!arm(x))return;for(const P of Object.values(DB.projects)){P.people=(P.people||[]).filter(q=>q.id!==ui.contact);(P.tasks||[]).forEach(q=>{if(q.who===ui.contact)q.who=''})}dropLinks('contact:'+ui.contact);removeEntityFiles(DB.contacts[ui.contact]);delete DB.contacts[ui.contact];ui.contact=null;save();toast(t('contactDeleted'));break;
     case'letter':ui.letter=ui.letter===x.dataset.l?'':x.dataset.l;break;
     case'newNote':newNote(x.dataset.tpl);return;
     case'selNote':ui.note=x.dataset.id;break;
-    case'delNote':if(!arm(x))return;delete DB.notes[ui.note];ui.note=null;save();toast(t('pageDeleted'));break;
+    case'delNote':if(!arm(x))return;dropLinks('note:'+ui.note);removeEntityFiles(DB.notes[ui.note]);delete DB.notes[ui.note];ui.note=null;save();toast(t('pageDeleted'));break;
     case'closeDlg':closeDlg();return;
+    case'goRef':goRef(x.dataset.ref);return;
+    case'unlink':delLink(x.dataset.a,x.dataset.b);save();break;
+    case'linkPick':openLinkPicker(x.dataset.ref);return;
+    case'lpType':if(LP){LP.type=x.dataset.v;document.querySelectorAll('#lptypes button').forEach(b=>b.classList.toggle('on',b===x));drawLP()}return;
+    case'lpPick':if(LP&&addLink(LP.ref,x.dataset.b)){save();render();drawLP();toast(t('linkedOk'))}return;
+    case'lpNewEvent':{if(!LP)return;const de=$('#lpd');if(!commitTyped(de))return;const d=de.dataset.iso,tm=$('#lptime').value,tx=$('#lptext').value.trim();
+      if(!d){de.focus();return}const dp=dayP(d),cur=(get(dp+'.slots.'+tm)||'').trim();
+      if(!cur){if(!tx){toast(t('needText'));$('#lptext').focus();return}set(dp+'.slots.'+tm,tx)}else toast(t('slotTaken'));
+      addLink(LP.ref,`event:${d}T${tm}`);save(true);$('#lptext').value='';render();drawLP();if(!cur)toast(t('linkedOk'));return}
+    case'addFile':case'addImage':{const ep=x.dataset.ep;ATT.pick(a==='addImage').then(items=>attachTo(ep,items)).catch(e=>toast(t('fileErr')));return}
+    case'addUrl':{const ep=x.dataset.ep,arr=get(ep+'.files')||[];arr.push({id:uid(),kind:'url',title:'',url:'',added:new Date().toISOString()});set(ep+'.files',arr);save();render();const el=$(`[data-k="${ep}.files.${arr.length-1}.url"]`);if(el)el.focus();return}
+    case'openAtt':{const at=(get(x.dataset.ep+'.files')||[])[+x.dataset.i];if(at)ATT.open(at);return}
+    case'revealAtt':{const at=(get(x.dataset.ep+'.files')||[])[+x.dataset.i];if(at)ATT.reveal(at);return}
+    case'delAtt':{e.stopPropagation();if(!x.dataset.armed){x.dataset.armed='1';x.textContent=t('confirmDel');setTimeout(()=>{if(x.isConnected){delete x.dataset.armed;x.textContent='×'}},3000);return}
+      const arr=get(x.dataset.ep+'.files')||[],at=arr.splice(+x.dataset.i,1)[0];ATT.remove(at);save(true);break}
+    case'viewImg':{const at=(get(x.dataset.ep+'.files')||[])[+x.dataset.i];if(!at)return;
+      openDlg(`<h2>${esc(at.name)}</h2><img class="bigimg" data-att="${esc(at.file)}" data-type="${esc(at.type)}" alt="${esc(at.name)}"><div class="btns"><button class="bbtn" data-act="openAtt" data-ep="${x.dataset.ep}" data-i="${x.dataset.i}">${t('open')}</button><button class="bbtn pri" data-act="closeDlg" autofocus>${t('close')}</button></div>`,'wide');hydrateImages($('#dlgbox'));return}
     case'dpick':{const el=x.parentElement.querySelector('input.dt');if(DP&&DP.el===el){closePicker();return}el.focus();openPicker(el);return}
     case'dpNav':if(DP){DP.m+=+x.dataset.d;if(DP.m<0){DP.m=11;DP.y--}if(DP.m>11){DP.m=0;DP.y++}drawPicker()}return;
     case'dpDay':if(DP){const el=DP.el;setDate(el,x.dataset.iso);closePicker();if(el.id==='gd')$('[data-act=goDateOk]').click()}return;
@@ -1029,6 +1255,10 @@ document.addEventListener('input',e=>{
   const el=e.target;
   if(el.matches('input.dt')){if(DP&&DP.el===el)closePicker();return}
   if(el.id==='q'){ui.q=el.value;$('#clist').innerHTML=contactList();return}
+  if(el.id==='pq'){ui.pq=el.value;$('#plist').innerHTML=projectList();return}
+  if(el.id==='nq'){ui.nq=el.value;$('#nlist').innerHTML=noteList();return}
+  if(el.id==='lpq'){if(LP){LP.q=el.value;drawLP()}return}
+  if(el.closest&&el.closest('.slot')){const b=el.closest('.slot').querySelector('.lk');if(b)b.classList.toggle('can',!!el.value.trim())}
   const k=el.dataset.k;if(!k)return;
   set(k,el.type==='checkbox'?el.checked:el.value);save();
   if(el.type==='checkbox'){const row=el.closest('.todo');if(row)row.classList.toggle('done',el.checked)}
@@ -1039,6 +1269,7 @@ document.addEventListener('input',e=>{
 });
 document.addEventListener('change',e=>{
   if(e.target.name==='pw')printFields();
+  if(e.target.id==='pgb'){ui.pgb=e.target.value;saveUI();$('#plist').innerHTML=projectList();return}
   if(e.target.matches('select.pick')&&e.target.value&&ui.project&&DB.projects[ui.project]){const P=DB.projects[ui.project];(P.people=P.people||[]).push({id:e.target.value,role:''});save();render();return}
   if(e.target.id==='wLang'){const v=collectProfile();ui.lang=e.target.value;render();renderChrome();rebuildMenu();openProfile(true,v);return}
   if(e.target.id==='bkfile'){const f=e.target.files[0];if(!f)return;f.text().then(x=>{$('#bk').value=x;$('#bkmsg').textContent=t('fileLoaded')});e.target.value=''}
@@ -1080,6 +1311,17 @@ document.addEventListener('keydown',e=>{
   else if(k==='t')run('today');
 });
 window.addEventListener('storage',e=>{if(e.key===KEY&&e.newValue){try{DB=JSON.parse(e.newValue);fix();render()}catch(err){}}});
+
+document.addEventListener('paste',e=>{const ep=currentEP();if(!ep||dlgOpen())return;const files=[...(e.clipboardData&&e.clipboardData.files||[])].filter(f=>/^image\//.test(f.type));if(!files.length)return;e.preventDefault();
+  Promise.all(files.map(f=>ATT.saveBlob(f))).then(items=>attachTo(ep,items)).catch(()=>toast(t('fileErr')))});
+document.addEventListener('dragover',e=>{if(e.dataTransfer&&[...e.dataTransfer.types].includes('Files')){e.preventDefault();document.body.classList.add('dropping')}});
+document.addEventListener('dragleave',e=>{if(!e.relatedTarget)document.body.classList.remove('dropping')});
+document.addEventListener('drop',e=>{document.body.classList.remove('dropping');if(!e.dataTransfer||!e.dataTransfer.files.length)return;e.preventDefault();const ep=currentEP();if(!ep){toast(t('noTarget'));return}
+  Promise.all([...e.dataTransfer.files].map(f=>ATT.saveBlob(f,f.name))).then(items=>attachTo(ep,items)).catch(()=>toast(t('fileErr')))});
+if(IS_TAURI_FS&&TAURI.webview){try{TAURI.webview.getCurrentWebview().onDragDropEvent(ev=>{const pl=ev.payload||{};
+  if(pl.type==='enter'||pl.type==='over')document.body.classList.add('dropping');else document.body.classList.remove('dropping');
+  if(pl.type==='drop'&&pl.paths&&pl.paths.length){const ep=currentEP();if(!ep){toast(t('noTarget'));return}Promise.all(pl.paths.map(p=>ATT.importPath(p).catch(()=>null))).then(items=>attachTo(ep,items))}})}catch(err){}}
+document.addEventListener('click',e=>{const a=e.target.closest('a[href]');if(!a)return;const h=a.getAttribute('href');if(/^(https?:|mailto:|tel:)/i.test(h)&&IS_TAURI_FS){e.preventDefault();openUrl(h)}},true);
 
 render();
 renderChrome();

@@ -10,6 +10,7 @@
     "core:window:allow-close",
     "core:window:allow-set-fullscreen",
     "core:window:allow-is-fullscreen",
-    "core:webview:allow-print"
+    "core:webview:allow-print",
+    "dialog:allow-open"
   ]
 }

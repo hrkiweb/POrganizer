@@ -1,6 +1,6 @@
 [package]
 name = "organizer"
-version = "0.3.1"
+version = "0.4.0"
 description = "Personal organizer"
 edition = "2021"
 
@@ -9,6 +9,9 @@ tauri-build = { version = "2", features = [] }
 
 [dependencies]
 tauri = { version = "2", features = [] }
+tauri-plugin-dialog = "2"
+tauri-plugin-opener = "2"
+serde = { version = "1", features = ["derive"] }
 
 [profile.release]
 codegen-units = 1
