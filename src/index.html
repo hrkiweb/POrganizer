@@ -169,6 +169,9 @@ body.marble .slot .h{background:#f2f2f2}
 body.marble .sec{background:#d9d9d9;color:#333}
 body.marble .pfoot{background:#d4d4d4;color:#333}
 .tab:focus-visible{outline:2px solid var(--ink)}
+.tabs .tab{background:var(--tc);color:var(--tf)}
+.tabs .tab:not(.on):hover{filter:brightness(1.06)}
+.tabs .tab.on{background:var(--paper);color:var(--ink);box-shadow:inset -5px 0 0 var(--tc);font-weight:800}
 .page{flex:1;min-width:0;background:var(--paper);display:flex;flex-direction:column;position:relative;z-index:1;overflow:hidden}
 .pbody{flex:1;min-height:0;padding:26px 32px 18px;overflow:auto;display:flex;flex-direction:column}
 .pfoot{flex:none;height:30px;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:0 14px;border-top:1px solid var(--line2);background:var(--fill);font-size:10.5px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);white-space:nowrap;overflow:hidden}
@@ -562,7 +565,7 @@ body.d-tight .ph{margin-bottom:7px}
 <div id="dp"></div>
 <div id="print"></div>
 <script>
-const APP_VERSION='0.6.2';
+const APP_VERSION='0.6.3';
 const KEY='organizer.v1',UIKEY='organizer.ui';
 const IS_MAC=/Mac|iPhone|iPad/.test(navigator.platform||navigator.userAgent);
 const MOD=IS_MAC?'⌘':'Ctrl',ALT=IS_MAC?'⌥':'Alt';
@@ -1281,7 +1284,7 @@ const tabOf=v=>CAL_VIEWS.includes(v)?'calendar':v;
 const calSel=()=>`<select id="calsel" title="${esc(t('calView'))}">${[['day',t('dailyPlanner')],['week:planner',t('layoutPlanner')],['week:spread',t('layoutSpread')],['month',t('month')],['year',t('year')]].map(([v,l])=>`<option value="${v}" ${(ui.view==='week'?'week:'+(ui.wlay||'planner'):ui.view)===v?'selected':''}>${l}</option>`).join('')}</select>`;
 const THEMES={
   sand:{r:[['#56453b','#f6eee6'],['#665246','#f6eee6'],['#776152','#f6eee6'],['#88705f','#f6eee6'],['#99806d','#f6eee6'],['#aa907c','#2f2620'],['#bba08c','#2f2620'],['#cab09d','#3a2f29'],['#d8c1af','#3a2f29'],['#e5d3c4','#3a2f29'],['#f1e5da','#3a2f29']]},
-  nordic:{r:[['#f2f4f6','#1f2328'],['#e7eaed','#1f2328'],['#dce0e4','#1f2328'],['#d1d6db','#1f2328'],['#c6ccd2','#1f2328'],['#bbc2c9','#1f2328'],['#b0b8c0','#14181c'],['#a5aeb7','#14181c'],['#9aa4ae','#14181c'],['#8f9aa5','#14181c'],['#84909c','#ffffff']]},
+  nordic:{r:[['#5b6b7a','#ffffff'],['#66768a','#ffffff'],['#718195','#ffffff'],['#7c8ca0','#ffffff'],['#4f7a8c','#ffffff'],['#8796a8','#ffffff'],['#6f8796','#ffffff'],['#56707f','#ffffff'],['#7e8f9c','#ffffff'],['#617b8f','#ffffff'],['#8a7f9c','#ffffff']]},
   marble:{r:[['#2b6870','#ffffff'],['#2f7272','#ffffff'],['#327a74','#ffffff'],['#2f7f6c','#ffffff'],['#2e7d5b','#ffffff'],['#a8634a','#ffffff'],['#a9852a','#ffffff'],['#3b7f4b','#ffffff'],['#7b872c','#ffffff'],['#a0506a','#ffffff'],['#6a4a9a','#ffffff']]},
   classic:{r:[['#F5C4B3','#712B13'],['#FAC775','#633806'],['#C0DD97','#27500A'],['#B5D4F4','#0C447C'],['#9FE1CB','#085041'],['#F0997B','#4A1B0C'],['#EF9F27','#412402'],['#CECBF6','#3C3489'],['#97C459','#173404'],['#F4C0D1','#72243E'],['#AFA9EC','#26215C']]}};
 const VIEWFN={year:vYear,month:vMonth,week:vWeek,day:vDay,todo:vTodo,planner:vPlanner,projects:vProjects,contacts:vContacts,calls:vCalls,notes:vNotes,anniv:vAnniv};
@@ -1403,7 +1406,7 @@ function render(){
   document.documentElement.style.zoom=ui.zoom;
   if(CAL_VIEWS.includes(ui.view))ui.calView=ui.view;
   const th=THEMES[ui.theme],d=parse(ui.cur),cur=tabOf(ui.view),vi=TABS.indexOf(cur);
-  const stab=v=>{const[bg,fg]=th.r[TAB_COLOR[v]];return`<div class="tab ${cur===v?'on':''}" role="button" tabindex="0" style="background:${bg};color:${fg}" data-act="cmd" data-c="view:${v}">${t(v)}</div>`};
+  const stab=v=>{const[bg,fg]=th.r[TAB_COLOR[v]];return`<div class="tab ${cur===v?'on':''}" role="button" tabindex="0" style="--tc:${bg};--tf:${fg}" data-act="cmd" data-c="view:${v}">${t(v)}</div>`};
   $('#stabsL').innerHTML=TABS.slice(0,vi+1).map(stab).join('');
   $('#stabsR').innerHTML=TABS.slice(vi+1).map(stab).join('');
   const[EL,ER]=edgeTabs();$('#etabsL').innerHTML=EL;$('#etabsR').innerHTML=ER;
