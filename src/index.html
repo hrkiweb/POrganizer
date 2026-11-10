@@ -562,7 +562,7 @@ body.d-tight .ph{margin-bottom:7px}
 <div id="dp"></div>
 <div id="print"></div>
 <script>
-const APP_VERSION='0.6.0';
+const APP_VERSION='0.6.1';
 const KEY='organizer.v1',UIKEY='organizer.ui';
 const IS_MAC=/Mac|iPhone|iPad/.test(navigator.platform||navigator.userAgent);
 const MOD=IS_MAC?'⌘':'Ctrl',ALT=IS_MAC?'⌥':'Alt';
@@ -600,7 +600,7 @@ en:{
   paper:'Paper',layout:'Layout',l2:'Two pages per sheet (landscape)',l1:'One page per sheet (portrait)',tplLbl:'Template',nPages:'Number of pages',
   printBtn:'Print',cancel:'Cancel',goDateTitle:'Go to date',go:'Go',
   aboutText:'Version {v}. A personal organizer. Your data is stored on this computer.',
-  kViews:'Switch section (Year … Notes)',kArrows:'Previous / next page (outside text fields)',kZoom:'Zoom in / out / actual size',kNextTodo:'Add the next item in a to-do list',
+  kViews:'Switch section (Calendar … Anniversaries)',calendar:'Calendar',calView:'Calendar view',kArrows:'Previous / next page (outside text fields)',kZoom:'Zoom in / out / actual size',kNextTodo:'Add the next item in a to-do list',
   dateLbl:'Date'
   ,projects:'Projects',newProject:'+ New project',newProjectM:'New project',projectsCount:'Projects: {n}',all:'All',
   st_planned:'Planned',st_active:'Active',st_hold:'On hold',st_done:'Done',
@@ -665,7 +665,7 @@ hr:{
   paper:'Papir',layout:'Raspored',l2:'Dvije stranice po listu (položeno)',l1:'Jedna stranica po listu (uspravno)',tplLbl:'Predložak',nPages:'Broj stranica',
   printBtn:'Ispiši',cancel:'Odustani',goDateTitle:'Idi na datum',go:'Idi',
   aboutText:'Verzija {v}. Osobni rokovnik. Vaši se podaci spremaju na ovom računalu.',
-  kViews:'Promjena odjeljka (Godina … Bilješke)',kArrows:'Prethodna / sljedeća stranica (izvan polja za unos)',kZoom:'Povećaj / smanji / stvarna veličina',kNextTodo:'Dodaj sljedeću stavku u popis zadataka',
+  kViews:'Promjena odjeljka (Kalendar … Obljetnice)',calendar:'Kalendar',calView:'Prikaz kalendara',kArrows:'Prethodna / sljedeća stranica (izvan polja za unos)',kZoom:'Povećaj / smanji / stvarna veličina',kNextTodo:'Dodaj sljedeću stavku u popis zadataka',
   dateLbl:'Datum'
   ,projects:'Projekti',newProject:'+ Novi projekt',newProjectM:'Novi projekt',projectsCount:'Projekata: {n}',all:'Svi',
   st_planned:'Planirano',st_active:'Aktivno',st_hold:'Na čekanju',st_done:'Završeno',
@@ -730,7 +730,7 @@ de:{
   paper:'Papier',layout:'Layout',l2:'Zwei Seiten pro Blatt (quer)',l1:'Eine Seite pro Blatt (hoch)',tplLbl:'Vorlage',nPages:'Anzahl Seiten',
   printBtn:'Drucken',cancel:'Abbrechen',goDateTitle:'Gehe zu Datum',go:'Los',
   aboutText:'Version {v}. Ein persönlicher Organizer. Ihre Daten werden auf diesem Computer gespeichert.',
-  kViews:'Bereich wechseln (Jahr … Notizen)',kArrows:'Vorherige / nächste Seite (außerhalb von Textfeldern)',kZoom:'Vergrößern / verkleinern / Originalgröße',kNextTodo:'Nächsten Eintrag in einer Aufgabenliste hinzufügen',
+  kViews:'Bereich wechseln (Kalender … Jahrestage)',calendar:'Kalender',calView:'Kalenderansicht',kArrows:'Vorherige / nächste Seite (außerhalb von Textfeldern)',kZoom:'Vergrößern / verkleinern / Originalgröße',kNextTodo:'Nächsten Eintrag in einer Aufgabenliste hinzufügen',
   dateLbl:'Datum'
   ,projects:'Projekte',newProject:'+ Neues Projekt',newProjectM:'Neues Projekt',projectsCount:'Projekte: {n}',all:'Alle',
   st_planned:'Geplant',st_active:'Aktiv',st_hold:'Pausiert',st_done:'Erledigt',
@@ -782,7 +782,7 @@ let ui={density:'compact',tsort:'prio',tdone:false,nsort:'page',cf:'all',side:tr
 try{const s=JSON.parse(localStorage.getItem(UIKEY)||'{}');Object.assign(ui,s,{print:Object.assign(ui.print,s.print||{})})}catch(e){}
 if(!I18N[ui.lang]){const n=(navigator.language||'en').slice(0,2).toLowerCase();ui.lang=I18N[n]?n:'en'}
 ui.cur=today();ui.q='';
-function saveUI(){try{localStorage.setItem(UIKEY,JSON.stringify({density:ui.density,tsort:ui.tsort,tdone:ui.tdone,tpf:ui.tpf,tcat:ui.tcat,task:ui.task,nsort:ui.nsort,ncat:ui.ncat,pcat:ui.pcat,ccat:ui.ccat,call:ui.call,cf:ui.cf,pkey:ui.pkey,side:ui.side,wlay:ui.wlay,view:ui.view,contact:ui.contact,note:ui.note,project:ui.project,pfilter:ui.pfilter,pgb:ui.pgb,welcomed:ui.welcomed,theme:ui.theme,lang:ui.lang,zoom:ui.zoom,print:ui.print}))}catch(e){}}
+function saveUI(){try{localStorage.setItem(UIKEY,JSON.stringify({calView:ui.calView,density:ui.density,tsort:ui.tsort,tdone:ui.tdone,tpf:ui.tpf,tcat:ui.tcat,task:ui.task,nsort:ui.nsort,ncat:ui.ncat,pcat:ui.pcat,ccat:ui.ccat,call:ui.call,cf:ui.cf,pkey:ui.pkey,side:ui.side,wlay:ui.wlay,view:ui.view,contact:ui.contact,note:ui.note,project:ui.project,pfilter:ui.pfilter,pgb:ui.pgb,welcomed:ui.welcomed,theme:ui.theme,lang:ui.lang,zoom:ui.zoom,print:ui.print}))}catch(e){}}
 
 const t=(k,v)=>{let s=I18N[ui.lang]?.[k]??I18N.en[k]??k;if(v)for(const x in v)s=s.split('{'+x+'}').join(v[x]);return s};
 const loc=()=>LOCALES[ui.lang]||'en-GB';
@@ -1274,6 +1274,11 @@ function notesOrdered(){return Object.entries(DB.notes).sort((a,b)=>(a[1].order|
 function pageNumbers(){const m={};let ch=0;notesOrdered().forEach(([id,n],i)=>{if(n.chapter)ch++;m[id]={page:i+1,chapter:n.chapter?ch:0}});return m}
 
 const VIEWS=['year','month','week','day','todo','planner','projects','contacts','calls','notes','anniv'];
+const TABS=['calendar','day','todo','planner','projects','contacts','calls','notes','anniv'];
+const TAB_COLOR={calendar:0,day:3,todo:4,planner:5,projects:6,contacts:7,calls:8,notes:9,anniv:10};
+const CAL_VIEWS=['year','month','week'];
+const tabOf=v=>CAL_VIEWS.includes(v)?'calendar':v;
+const calSel=()=>`<select id="calsel" title="${esc(t('calView'))}">${[['week:planner',t('layoutPlanner')],['week:spread',t('layoutSpread')],['month',t('month')],['year',t('year')]].map(([v,l])=>`<option value="${v}" ${(ui.view==='week'?'week:'+(ui.wlay||'planner'):ui.view)===v?'selected':''}>${l}</option>`).join('')}</select>`;
 const THEMES={
   sand:{r:[['#56453b','#f6eee6'],['#665246','#f6eee6'],['#776152','#f6eee6'],['#88705f','#f6eee6'],['#99806d','#f6eee6'],['#aa907c','#2f2620'],['#bba08c','#2f2620'],['#cab09d','#3a2f29'],['#d8c1af','#3a2f29'],['#e5d3c4','#3a2f29'],['#f1e5da','#3a2f29']]},
   nordic:{r:[['#f2f4f6','#1f2328'],['#e7eaed','#1f2328'],['#dce0e4','#1f2328'],['#d1d6db','#1f2328'],['#c6ccd2','#1f2328'],['#bbc2c9','#1f2328'],['#b0b8c0','#14181c'],['#a5aeb7','#14181c'],['#9aa4ae','#14181c'],['#8f9aa5','#14181c'],['#84909c','#ffffff']]},
@@ -1302,14 +1307,14 @@ function footers(){
   const sel=(id,opts,cur)=>`<select id="${id}">${opts.map(([v,l])=>`<option value="${v}" ${cur===v?'selected':''}>${l}</option>`).join('')}</select>`;
   switch(ui.view){
     case'day':return[`<span class="fv">${t('dailyPlanner')}</span><span>${t('dayOfYear',{n:doy})}</span>`,`<span>${t('daysLeft',{n:diy-doy})}</span>`];
-    case'week':return[`<span class="fv">${sel('wlay',[['planner',t('layoutPlanner')],['spread',t('layoutSpread')]],ui.wlay||'planner')}</span><span>${t('weekN',{n:wn})}</span>`,`<span>${t('weeksLeft',{n:Math.max(0,wmax-wn)})}</span>`];
-    case'month':return[`<span class="fv">${monthName(d.getMonth())} ${y}</span><span>${t('weekN',{n:isoWeek(new Date(y,d.getMonth(),1))[1]})} – ${t('weekN',{n:isoWeek(new Date(y,d.getMonth()+1,0))[1]})}</span>`,`<span>${t('daysLeft',{n:diy-doy})}</span>`];
+    case'week':return[`<span class="fv">${calSel()}</span><span>${t('weekN',{n:wn})}</span>`,`<span>${t('weeksLeft',{n:Math.max(0,wmax-wn)})}</span>`];
+    case'month':return[`<span class="fv">${calSel()}</span><span>${t('weekN',{n:isoWeek(new Date(y,d.getMonth(),1))[1]})} – ${t('weekN',{n:isoWeek(new Date(y,d.getMonth()+1,0))[1]})}</span>`,`<span>${t('daysLeft',{n:diy-doy})}</span>`];
     case'todo':{const all=allTasks(),od=all.filter(x=>x.st==='overdue').length,op=all.filter(x=>!x.o.done).length;
       return[`<span class="fv">${sel('tsort',[['prio',t('byPrio')],['status',t('byStatus')],['start',t('byStart')],['due',t('byDue')],['cat',t('byCat')],['source',t('bySource')]],ui.tsort||'prio')}<label><input type="checkbox" id="tdone" ${ui.tdone?'checked':''}> ${t('showDone')}</label></span>`,`<span class="fv">${catFilterSel('tcat',ui.tcat||'')}</span><span>${t('tasksOpen',{n:op})}${od?' · '+t('overdueN',{n:od}):''}</span>`]}
     case'planner':{let n=0;const yy=`${y}`;const seen=new Set();for(const q of DB.planner||[]){let x=parse(q.start),e=parse(q.end);while(x<=e){const k=ymd(x);if(k.startsWith(yy))seen.add(k);x=addDays(x,1)}}n=seen.size;return[`<span class="fv">${t('planner')} ${y}</span>`,`<span>${t('markedDays',{n})}</span>`]}
     case'calls':{const pl=Object.values(DB.calls||{}).filter(c=>c.status==='planned').length;return[`<span class="fv">${t('calls')}</span><span>${t('planned')}: ${pl}</span>`,ui.call&&DB.calls[ui.call]?`<span>${fmtD(DB.calls[ui.call].date)} ${DB.calls[ui.call].time||''}</span>`:'']}
     case'anniv':return[`<span class="fv">${t('anniv')} ${y}</span>`,`<span>${t('daysLeft',{n:diy-doy})}</span>`];
-    case'year':return[`<span class="fv">${y}</span><span>${monthName(0)} – ${monthName(5)}</span>`,`<span>${monthName(6)} – ${monthName(11)}</span>`];
+    case'year':return[`<span class="fv">${calSel()}</span><span>${monthName(0)} – ${monthName(5)}</span>`,`<span>${monthName(6)} – ${monthName(11)}</span>`];
     case'projects':{const n=Object.keys(DB.projects).length,act=Object.values(DB.projects).filter(p=>p.status==='active').length;return[`<span class="fv">${catFilterSel('pcat',ui.pcat||'')}</span><span>${t('st_active')}: ${act}</span>`,ui.project&&DB.projects[ui.project]?`<span>${t('st_'+DB.projects[ui.project].status)}</span>`:'']}
     case'contacts':{const list=sortedContacts(),i=list.findIndex(([id])=>id===ui.contact);return[`<span class="fv">${catFilterSel('ccat',ui.ccat||'')}</span><span>${t('contactsCount',{n:list.length})}</span>`,i>=0?`<span>${t('contactNofM',{i:i+1,n:list.length})}</span>`:'']}
     case'notes':{const list=notesOrdered(),i=list.findIndex(([id])=>id===ui.note);return[`<span class="fv">${sel('nsort',[['page',t('byPage')],['title',t('byTitle')],['date',t('byDate')]],ui.nsort||'page')}${catFilterSel('ncat',ui.ncat||'')}</span><span>${t('pages')}: ${list.length}</span>`,i>=0?`<span>${t('pageNofM',{i:i+1,n:list.length})}</span>`:'']}
@@ -1396,10 +1401,11 @@ function render(){
   if(!VIEWFN[ui.view])ui.view='day';
   document.body.className=ui.theme+(ui.density==='tight'?' d-compact d-tight':ui.density==='comfort'?'':' d-compact');
   document.documentElement.style.zoom=ui.zoom;
-  const th=THEMES[ui.theme],d=parse(ui.cur),vi=VIEWS.indexOf(ui.view);
-  const stab=(v,i)=>{const[bg,fg]=th.r[i];return`<div class="tab ${ui.view===v?'on':''}" role="button" tabindex="0" style="background:${bg};color:${fg}" data-act="cmd" data-c="view:${v}">${t(v)}</div>`};
-  $('#stabsL').innerHTML=VIEWS.slice(0,vi+1).map((v,i)=>stab(v,i)).join('');
-  $('#stabsR').innerHTML=VIEWS.slice(vi+1).map((v,i)=>stab(v,i+vi+1)).join('');
+  if(CAL_VIEWS.includes(ui.view))ui.calView=ui.view;
+  const th=THEMES[ui.theme],d=parse(ui.cur),cur=tabOf(ui.view),vi=TABS.indexOf(cur);
+  const stab=v=>{const[bg,fg]=th.r[TAB_COLOR[v]];return`<div class="tab ${cur===v?'on':''}" role="button" tabindex="0" style="background:${bg};color:${fg}" data-act="cmd" data-c="view:${v}">${t(v)}</div>`};
+  $('#stabsL').innerHTML=TABS.slice(0,vi+1).map(stab).join('');
+  $('#stabsR').innerHTML=TABS.slice(vi+1).map(stab).join('');
   const[EL,ER]=edgeTabs();$('#etabsL').innerHTML=EL;$('#etabsR').innerHTML=ER;
   const[L,R]=VIEWFN[ui.view]();
   $('#lp').innerHTML=L;$('#rp').innerHTML=R;
@@ -1715,7 +1721,7 @@ function run(cmd){
   closeMenus();
   const[c,arg]=cmd.split(':');
   switch(c){
-    case'view':ui.view=arg;if(arg==='contacts'){}break;
+    case'view':ui.view=arg==='calendar'?(CAL_VIEWS.includes(ui.calView)?ui.calView:'week'):arg;if(arg==='contacts'){}break;
     case'theme':ui.theme=arg;render();renderChrome();rebuildMenu();return;
     case'lang':ui.lang=arg;render();renderChrome();rebuildMenu();return;
     case'today':ui.cur=today();if(!['day','week','month','year'].includes(ui.view))ui.view='day';break;
@@ -1731,6 +1737,7 @@ function run(cmd){
     case'newEvent':openNewEvent();return;
     case'newTask':ui.view='todo';render();setTimeout(()=>{const el=document.querySelector('input.newin[data-new="tasks"]');if(el)el.focus()},0);return;
     case'newCall':newCall('',today());return;
+    case'calv':{const[v,l]=arg.split('-');ui.view=v;if(l)ui.wlay=l;break}
     case'density':ui.density=arg;render();rebuildMenu();return;
     case'categories':openEditCats();return;
     case'sidebar':ui.side=!ui.side;saveUI();renderSide();rebuildMenu();return;
@@ -1764,7 +1771,7 @@ function MENU(native){
   if(native&&IS_MAC)m.push({label:'Organizer',items:[{id:'about',label:t('about')},S,{pre:'Hide'},{pre:'HideOthers'},{pre:'ShowAll'},S,{pre:'Quit'}]});
   m.push({label:t('mFile'),items:[{id:'newEvent',label:t('newEventM'),acc:'CmdOrCtrl+E'},{id:'newTask',label:t('addTask').replace('+ ',''),acc:'CmdOrCtrl+Shift+T'},{id:'newCall',label:t('newCallM'),acc:'CmdOrCtrl+L'},{id:'newNote',label:t('newNote'),acc:'CmdOrCtrl+N'},{id:'newContact',label:t('newContactM'),acc:'CmdOrCtrl+Shift+N'},{id:'newProject',label:t('newProjectM'),acc:'CmdOrCtrl+Shift+P'},S,{id:'profile',label:t('myProfile')},{id:'settings',label:t('settings'),acc:'CmdOrCtrl+,'},{id:'categories',label:t('editCats')},S,{id:'print',label:t('print'),acc:'CmdOrCtrl+P'},S,{id:'backup',label:t('backupMenu')},{id:'restore',label:t('restoreMenu')},...((native&&!IS_MAC)?[S,{id:'quit',label:t('quit'),acc:'CmdOrCtrl+Q'}]:[])]});
   m.push({label:t('mEdit'),items:[...edit,S,{id:'find',label:t('findContact'),acc:'CmdOrCtrl+F'}]});
-  m.push({label:t('mView'),items:[...VIEWS.map((v,i)=>({id:'view:'+v,label:t(v),acc:i<9?'CmdOrCtrl+'+(i+1):''})),S,
+  m.push({label:t('mView'),items:[...TABS.map((v,i)=>({id:'view:'+v,label:t(v),acc:'CmdOrCtrl+'+(i+1)})),{label:t('calView'),items:[['week:planner',t('layoutPlanner')],['week:spread',t('layoutSpread')],['month',t('month')],['year',t('year')]].map(([v,l])=>({id:'calv:'+v.replace(':','-'),label:l}))},S,
     {label:t('themeM'),items:Object.keys(THEMES).map(x=>({id:'theme:'+x,label:t('theme_'+x),check:true,checked:ui.theme===x}))},
     {label:t('language'),items:langs.map(([k,n])=>({id:'lang:'+k,label:n,check:true,checked:ui.lang===k}))},{id:'sidebar',label:t('sidebar'),acc:'F9',check:true,checked:!!ui.side},{label:t('density'),items:[['comfort',t('dComfort')],['compact',t('dCompact')],['tight',t('dTight')]].map(([k,n])=>({id:'density:'+k,label:n,check:true,checked:(ui.density||'compact')===k}))},S,
     {id:'zoomIn',label:t('zoomIn'),acc:'CmdOrCtrl+='},{id:'zoomOut',label:t('zoomOut'),acc:'CmdOrCtrl+-'},{id:'zoomReset',label:t('zoomReset'),acc:'CmdOrCtrl+0'},S,
@@ -1925,6 +1932,7 @@ document.addEventListener('input',e=>{
 document.addEventListener('change',e=>{
   if(e.target.name==='pw')printFields();
   if(e.target.id==='wlay'){ui.wlay=e.target.value;render();return}
+  if(e.target.id==='calsel'){const[v,l]=e.target.value.split(':');ui.view=v;if(l)ui.wlay=l;render();rebuildMenu();return}
   if(['tsort','nsort'].includes(e.target.id)){ui[e.target.id]=e.target.value;render();return}
   if(['tcat','ncat','pcat','ccat'].includes(e.target.id)){ui[e.target.id]=e.target.value;render();return}
   if(e.target.id==='tdone'){ui.tdone=e.target.checked;render();return}
@@ -1952,7 +1960,7 @@ document.addEventListener('keydown',e=>{
   let cmd=null;
   if(mod&&!e.altKey){
     const kk=k.toLowerCase();
-    if(/^[1-9]$/.test(k))cmd='view:'+VIEWS[+k-1];
+    if(/^[1-9]$/.test(k))cmd='view:'+TABS[+k-1];
     else if(kk==='p')cmd=e.shiftKey?'newProject':'print';
     else if(k===',')cmd='settings';
     else if(kk==='e')cmd='newEvent';
