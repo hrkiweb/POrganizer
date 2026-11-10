@@ -13,11 +13,24 @@ body.classic{--desk:#e6dfd2;--cover:#5c3a21;--cover-edge:#472c18;--paper:#f8f2e1
 html,body{margin:0;height:100%}
 body{font-family:Manrope,system-ui,sans-serif;background:var(--desk);color:var(--ink);font-size:14px;display:flex;flex-direction:column;min-width:1020px}
 button{font:inherit;color:inherit;cursor:pointer;background:none;border:none;padding:0}
-.bar{display:flex;align-items:center;gap:16px;padding:12px 24px;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.bar{display:flex;align-items:center;gap:14px;padding:10px 24px;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:600;position:relative;z-index:30}
 .brand{font-weight:800;color:var(--ink);letter-spacing:.24em;font-size:12px}
 .sp{flex:1}
 .bbtn{padding:6px 11px;border:1px solid var(--line2);border-radius:4px;font-size:11px;letter-spacing:.12em;text-transform:uppercase;font-weight:700;color:var(--ink);background:transparent;font-family:inherit}
 .bbtn:hover{background:var(--paper)}
+.menubar{display:flex;gap:2px}
+.mb{position:relative}
+.mb>button{padding:5px 9px;border-radius:4px;font-size:11px;letter-spacing:.12em;text-transform:uppercase;font-weight:700;color:var(--ink)}
+.mb>button:hover,.mb.open>button{background:var(--paper)}
+.dd{display:none;position:absolute;top:100%;left:0;min-width:250px;background:var(--paper);border:1px solid var(--line2);border-radius:6px;padding:5px;box-shadow:0 8px 28px rgba(0,0,0,.14);text-transform:none;letter-spacing:0}
+.mb.open>.dd{display:block}
+.msub{position:relative}
+.msub>.dd{top:-6px;left:100%}
+.msub:hover>.dd{display:block}
+.mi{display:flex;justify-content:space-between;gap:28px;width:100%;padding:6px 10px;border-radius:4px;font-size:13px;font-weight:500;color:var(--ink);text-align:left;white-space:nowrap}
+.mi:hover{background:var(--hi)}
+.mi .k{color:var(--muted);font-size:11.5px}
+.msep{height:1px;background:var(--line);margin:4px 6px}
 .wrap{flex:1;min-height:0;padding:0 24px 24px;display:flex}
 .cover{flex:1;min-height:640px;background:var(--cover);border-radius:14px;padding:16px 8px;display:flex;border:1px solid var(--cover-edge)}
 .tabs{display:flex;flex-direction:column;gap:4px;padding:22px 0}
@@ -75,11 +88,11 @@ input[type=checkbox]:checked{background:var(--accent);border-color:var(--accent)
 .ev.b{color:var(--accent);font-weight:600}
 .ev .tm{color:var(--muted);font-weight:700;font-size:11px;margin-right:4px}
 .yg{display:grid;grid-template-columns:1fr 1fr;gap:22px 28px}
-.mini .mt{font-size:10.5px;font-weight:800;letter-spacing:.18em;margin-bottom:6px;cursor:pointer;padding:6px 10px;background:var(--fill);border-radius:3px;color:var(--muted)}
+.mini .mt{font-size:10.5px;font-weight:800;letter-spacing:.18em;margin-bottom:6px;cursor:pointer;padding:6px 10px;background:var(--fill);border-radius:3px;color:var(--muted);text-transform:uppercase}
 .mini .mt:hover{color:var(--ink)}
 .mini .g{display:grid;grid-template-columns:repeat(7,1fr);font-size:11.5px;text-align:center;row-gap:2px}
 .mini .g span{padding:4px 0;border-radius:3px;position:relative}
-.mini .g .wdh{color:var(--muted);font-weight:800;font-size:10px}
+.mini .g .wdh{color:var(--muted);font-weight:800;font-size:10px;text-transform:uppercase}
 .mini .g span[data-act]{cursor:pointer}
 .mini .g span[data-act]:hover{background:var(--hi)}
 .mini .g .has::after{content:'';position:absolute;bottom:1px;left:50%;width:4px;height:4px;margin-left:-2px;border-radius:50%;background:var(--accent)}
@@ -94,7 +107,7 @@ input[type=checkbox]:checked{background:var(--accent);border-color:var(--accent)
 .wk.today .dl b,.wk.today .dl span{color:var(--accent);font-weight:700}
 .wk .de{flex:1;padding:7px 12px;font-size:12.5px;min-width:0}
 .wk .ev:first-child{margin-top:0}
-.hhead{display:flex;justify-content:flex-end;gap:6px;font-size:10px;color:var(--muted);font-weight:800;padding-right:29px;margin-top:4px}
+.hhead{display:flex;justify-content:flex-end;gap:6px;font-size:10px;color:var(--muted);font-weight:800;padding-right:29px;margin-top:4px;text-transform:uppercase}
 .hhead span{width:15px;text-align:center}
 .hab{display:flex;align-items:center;gap:6px;border-bottom:1px solid var(--line)}
 .hab input.ln{border:none;flex:1}
@@ -113,9 +126,9 @@ input[type=checkbox]:checked{background:var(--accent);border-color:var(--accent)
 .ci .n{font-weight:700}
 .ci .s{font-size:12px;color:var(--muted);margin-top:1px}
 .fr{display:flex;align-items:center;gap:8px;border-bottom:1px solid var(--line)}
-.fr .lbl{width:96px;font-size:10.5px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);flex:none;padding-left:2px}
+.fr .lbl{width:104px;font-size:10.5px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);flex:none;padding-left:2px}
 .fr input.ln{border:none}
-.fr input.lab{width:96px;flex:none;font-size:10.5px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.fr input.lab{width:104px;flex:none;font-size:10.5px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
 .fr a{color:var(--accent);font-size:10.5px;font-weight:800;letter-spacing:.14em;text-decoration:none;text-transform:uppercase;flex:none}
 .avatar{width:56px;height:56px;border-radius:50%;background:var(--fill);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:18px;color:var(--muted);letter-spacing:.06em;flex:none}
 .empty{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;color:var(--muted);gap:14px;text-align:center}
@@ -137,26 +150,77 @@ textarea.body{flex:1;min-height:420px;border:none;border-radius:0;padding:0 6px;
 input.title{font:inherit;font-size:22px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;border:none;border-bottom:2px solid var(--ink);padding:4px 2px;width:100%;background:transparent;outline:none;color:inherit}
 input.title::placeholder{color:var(--line2)}
 .cornell{display:grid;grid-template-columns:30% 1fr;grid-template-rows:1fr auto;flex:1;border:1px solid var(--line2);min-height:440px}
-.cornell textarea{border:none;border-radius:0;height:100%;background:repeating-linear-gradient(to bottom,transparent 0 27px,var(--line) 27px 28px);background-attachment:local;line-height:28px}
+.cornell textarea,.cornell .pta{border:none;border-radius:0;height:100%;background:repeating-linear-gradient(to bottom,transparent 0 27px,var(--line) 27px 28px);background-attachment:local;line-height:28px}
 .cornell .cue{border-right:1px solid var(--line2)}
 .cornell .sum{grid-column:1/3;border-top:1px solid var(--line2);min-height:100px}
-.modal{position:fixed;inset:0;background:rgba(20,15,10,.35);display:flex;align-items:center;justify-content:center;z-index:10}
+.modal{position:fixed;inset:0;background:rgba(20,15,10,.35);display:flex;align-items:center;justify-content:center;z-index:40}
 .modal.hidden{display:none}
-.mbox{background:var(--paper);border-radius:8px;padding:26px;width:min(600px,92vw);display:flex;flex-direction:column;gap:12px}
+.mbox{background:var(--paper);border-radius:8px;padding:26px;width:min(600px,92vw);display:flex;flex-direction:column;gap:12px;max-height:90vh;overflow:auto}
 .mbox h2{margin:0;font-size:16px;font-weight:800;letter-spacing:.12em;text-transform:uppercase}
 .mbox textarea{height:200px;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:11.5px;line-height:1.5}
-.toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);background:var(--ink);color:var(--paper);padding:9px 16px;border-radius:4px;font-size:12px;opacity:0;transition:opacity .2s;pointer-events:none;z-index:20}
+.fld{display:flex;flex-direction:column;gap:6px}
+.fld>label,.fld>.fl{font-size:10.5px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.radios{display:flex;flex-direction:column;gap:6px}
+.radios label{display:flex;gap:8px;align-items:center;cursor:pointer}
+.mbox select,.mbox input[type=number],.mbox input[type=date]{font:inherit;color:inherit;background:transparent;border:1px solid var(--line2);border-radius:4px;padding:7px 9px}
+.btns{display:flex;gap:8px;justify-content:flex-end;margin-top:6px}
+.bbtn.pri{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.sct{width:100%;border-collapse:collapse;font-size:13px}
+.sct td{padding:6px 4px;border-bottom:1px solid var(--line)}
+.sct td:first-child{font-weight:700;white-space:nowrap;width:42%;color:var(--accent)}
+.toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);background:var(--ink);color:var(--paper);padding:9px 16px;border-radius:4px;font-size:12px;opacity:0;transition:opacity .2s;pointer-events:none;z-index:50}
 .toast.show{opacity:1}
+#print{display:none}
+#print.measure{display:block;position:absolute;left:-99999px;top:0}
+.sheet{display:flex;gap:10mm;overflow:hidden;break-after:page;page-break-after:always}
+.sheet:last-child{break-after:auto;page-break-after:auto}
+.ppage{flex:1;min-width:0;overflow:hidden;background:#fff;position:relative}
+.pin{display:flex;flex-direction:column;min-height:100%;font-size:12px;transform-origin:0 0}
+#print .page{padding:0;overflow:visible;border-radius:0;background:#fff}
+#print .add,#print .x,#print .pnav,#print .az,#print .search,#print .tplg,#print .tpb{display:none!important}
+#print ::placeholder{color:transparent}
+#print .pta{border:1px solid var(--line);border-radius:3px;padding:6px 8px;white-space:pre-wrap;line-height:1.6;flex:none}
+#print .pta.body{flex:1;border:none}
+#print .mg{min-height:0}
+#print .wk{min-height:0}
+#print h1{font-size:22px}
+.btitle{height:30px;border-bottom:2px solid var(--ink);flex:none}
+.bdate{display:flex;gap:8px;align-items:flex-end;font-size:10.5px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin:8px 0 10px}
+.bdate span{flex:none;width:40mm;border-bottom:1px solid var(--line2);height:16px}
+.bbody{flex:1;border:1px solid var(--line2)}
+.bt-lined{background:repeating-linear-gradient(to bottom,transparent 0 calc(8mm - 1px),var(--line2) calc(8mm - 1px) 8mm)}
+.bt-dot{background:radial-gradient(circle,var(--muted) .25mm,transparent .35mm) 0 0/5mm 5mm}
+.bt-grid{background:linear-gradient(var(--line2) 1px,transparent 1px) 0 0/5mm 5mm,linear-gradient(90deg,var(--line2) 1px,transparent 1px) 0 0/5mm 5mm}
+.bt-check{background:radial-gradient(circle at 4mm 4.6mm,transparent 1.3mm,var(--muted) 1.35mm,var(--muted) 1.6mm,transparent 1.65mm) 0 0/100% 8mm,repeating-linear-gradient(to bottom,transparent 0 calc(8mm - 1px),var(--line2) calc(8mm - 1px) 8mm)}
+.bt-cornell{display:grid;grid-template-columns:30% 1fr;grid-template-rows:1fr 22%}
+.bt-cornell div{background:repeating-linear-gradient(to bottom,transparent 0 calc(8mm - 1px),var(--line) calc(8mm - 1px) 8mm)}
+.bt-cornell div:first-child{border-right:1px solid var(--line2)}
+.bt-cornell div:last-child{grid-column:1/3;border-top:1px solid var(--line2)}
+.pcols{columns:2;column-gap:10mm;font-size:11px}
+.pc{break-inside:avoid;padding:2.5mm 0;border-bottom:1px solid var(--line)}
+.pc .pcn{font-weight:800;font-size:12.5px}
+.pc .pl{display:inline-block;width:22mm;font-size:9px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.pc .pa{white-space:pre-line;margin-top:1mm}
+.pcols .lt{break-after:avoid;margin-top:4mm}
+@media print{
+  html,body{height:auto;min-width:0;background:#fff;display:block}
+  body>*:not(#print){display:none!important}
+  #print{display:block!important;position:static!important}
+  *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
 </style>
+<style id="pagestyle"></style>
 </head>
 <body class="sand">
 <div class="bar">
   <span class="brand">Organizer</span>
+  <nav class="menubar" id="menubar"></nav>
   <span id="todaylbl"></span>
   <span class="sp"></span>
-  <span>Theme</span>
-  <select id="theme" class="bbtn" aria-label="Theme"><option value="sand">Sand</option><option value="nordic">Nordic</option><option value="classic">Classic</option></select>
-  <button class="bbtn" data-act="backup">Backup</button>
+  <select id="lang" class="bbtn" aria-label="Language"><option value="en">English</option><option value="hr">Hrvatski</option><option value="de">Deutsch</option></select>
+  <select id="theme" class="bbtn" aria-label="Theme"></select>
+  <button class="bbtn" data-act="cmd" data-c="print" id="bPrint"></button>
+  <button class="bbtn" data-act="cmd" data-c="backup" id="bBackup"></button>
 </div>
 <div class="wrap">
   <div class="cover">
@@ -167,27 +231,124 @@ input.title::placeholder{color:var(--line2)}
     <div class="tabs r" id="rtabs"></div>
   </div>
 </div>
-<div id="modal" class="modal hidden">
-  <div class="mbox">
-    <h2>Backup and restore</h2>
-    <div class="mu">Your data is stored only on this computer, in this app. Copy or download a backup, or paste or open one to restore it.</div>
-    <textarea id="bk" spellcheck="false"></textarea>
-    <div class="row">
-      <button class="bbtn" data-act="copy">Copy</button>
-      <button class="bbtn" data-act="download">Download</button>
-      <label class="bbtn" style="cursor:pointer">Open file<input type="file" id="bkfile" accept=".json,application/json" hidden></label>
-      <span class="sp"></span>
-      <button class="bbtn" data-act="restore">Restore</button>
-      <button class="bbtn" data-act="close">Close</button>
-    </div>
-    <div id="bkmsg" class="mu"></div>
-  </div>
-</div>
+<div id="dlg" class="modal hidden"><div class="mbox" id="dlgbox"></div></div>
 <div class="toast" id="toast"></div>
+<div id="print"></div>
 <script>
+const APP_VERSION='0.2.0';
 const KEY='organizer.v1',UIKEY='organizer.ui';
-const MONTHS=['January','February','March','April','May','June','July','August','September','October','November','December'];
-const DAYS=['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'];
+const IS_MAC=/Mac|iPhone|iPad/.test(navigator.platform||navigator.userAgent);
+const MOD=IS_MAC?'⌘':'Ctrl',ALT=IS_MAC?'⌥':'Alt';
+
+const I18N={
+en:{
+  print:'Print…',printBtnBar:'Print',backup:'Backup',year:'Year',month:'Month',week:'Week',day:'Day',contacts:'Contacts',notes:'Notes',
+  today:'Today',prev:'Previous',next:'Next',weekN:'Week {n}',schedule:'Schedule',dailyPlanner:'Daily planner',birthdays:'Birthdays',
+  todaysFocus:"Today's focus",focusPh:'One thing that matters today',priorities:'Priorities',todo:'To do',notesSec:'Notes',addItem:'+ Add item',
+  weeklyPlanner:'Weekly planner',weekFocus:"This week's focus",habitTracker:'Habit tracker',habit:'Habit',addHabit:'+ Add habit',
+  clickDay:'Click a day to open its page',birthdayOf:'Birthday · {name}',openTodos:'Open to-dos: {n}',monthLbl:'{y} · Month',
+  monthlyOverview:'Monthly overview',monthlyFocus:'Monthly focus',goals:'Goals',bdaysMonth:'Birthdays this month',none:'None',more:'+{n} more',
+  yearHint:'A dot marks days with entries or birthdays. Click a day or a month to open it.',
+  contactsCount:'Contacts: {n}',addressBook:'Address book',newContact:'+ New contact',newContactM:'New contact',searchPh:'Search name, company, email, phone',
+  noContacts:'No contacts found.',noContactSel:'No contact selected',noContactHint:'Pick someone from the list, or add a new contact.',
+  contact:'Contact',del:'Delete',confirmDel:'Confirm delete',name:'Name',first:'First name',last:'Last name',company:'Company',jobTitle:'Job title',
+  email:'Email',phone:'Phone',address:'Address',personal:'Personal',birthday:'Birthday',groups:'Groups',groupsPh:'Family, Work',
+  addEmail:'+ Add email',addPhone:'+ Add phone',write:'Write',call:'Call',unnamed:'Unnamed',lblHome:'Home',lblMobile:'Mobile',
+  notebook:'Notebook',newFromTpl:'New page from template',pages:'Pages',noPages:'No pages yet. Pick a template above.',noPage:'No page open',
+  noPageHint:'Open a page from the list, or start a new one from a template.',untitled:'Untitled',startWriting:'Start writing',
+  cues:'Cues and questions',summary:'Summary',
+  tpl_lined:'Lined',tpl_dot:'Dot grid',tpl_grid:'Graph',tpl_check:'Checklist',tpl_cornell:'Cornell',tpl_blank:'Blank',
+  contactDeleted:'Contact deleted',pageDeleted:'Page deleted',
+  backupTitle:'Backup and restore',backupHint:'Your data is stored only on this computer, in this app. Copy or download a backup, or paste or open one to restore it.',
+  restoreHint:'Paste a backup below or open a backup file, then click Restore.',
+  copy:'Copy',download:'Download',openFile:'Open file',restore:'Restore',close:'Close',copied:'Backup copied',
+  pressCopy:'Press Ctrl+C (Cmd+C on Mac) to copy.',dlHint:'If nothing downloaded, use Copy instead.',dlNo:'Download is not available here. Use Copy instead.',
+  restored:'Backup restored',invalid:'That is not a valid organizer backup.',fileLoaded:'File loaded. Click Restore to replace your current data with it.',
+  mFile:'File',mEdit:'Edit',mView:'View',mGo:'Go',mHelp:'Help',newNote:'New note page',backupMenu:'Backup…',restoreMenu:'Restore from backup…',quit:'Quit',
+  undo:'Undo',redo:'Redo',cut:'Cut',copyM:'Copy',paste:'Paste',selectAll:'Select all',findContact:'Find contact',pasteHint:'Use Ctrl+V to paste.',
+  themeM:'Theme',language:'Language',zoomIn:'Zoom in',zoomOut:'Zoom out',zoomReset:'Actual size',fullscreen:'Full screen',
+  goToday:'Today',goPrev:'Previous page',goNext:'Next page',goDate:'Go to date…',shortcuts:'Keyboard shortcuts',about:'About Organizer',
+  theme_sand:'Sand',theme_nordic:'Nordic',theme_classic:'Classic',
+  printTitle:'Print',printWhat:'What to print',pCurrent:'Current pages',pContacts:'Address book',pBlank:'Blank template pages',
+  paper:'Paper',layout:'Layout',l2:'Two pages per sheet (landscape)',l1:'One page per sheet (portrait)',tplLbl:'Template',nPages:'Number of pages',
+  printBtn:'Print',cancel:'Cancel',goDateTitle:'Go to date',go:'Go',
+  aboutText:'Version {v}. A personal organizer. Your data is stored on this computer.',
+  kViews:'Switch section (Year … Notes)',kArrows:'Previous / next page (outside text fields)',kZoom:'Zoom in / out / actual size',kNextTodo:'Add the next item in a to-do list',
+  dateLbl:'Date'
+},
+hr:{
+  print:'Ispis…',printBtnBar:'Ispis',backup:'Sigurnosna kopija',year:'Godina',month:'Mjesec',week:'Tjedan',day:'Dan',contacts:'Kontakti',notes:'Bilješke',
+  today:'Danas',prev:'Prethodno',next:'Sljedeće',weekN:'{n}. tjedan',schedule:'Raspored',dailyPlanner:'Dnevni planer',birthdays:'Rođendani',
+  todaysFocus:'Današnji fokus',focusPh:'Jedna stvar koja je danas važna',priorities:'Prioriteti',todo:'Zadaci',notesSec:'Bilješke',addItem:'+ Dodaj stavku',
+  weeklyPlanner:'Tjedni planer',weekFocus:'Fokus ovog tjedna',habitTracker:'Praćenje navika',habit:'Navika',addHabit:'+ Dodaj naviku',
+  clickDay:'Kliknite dan da ga otvorite',birthdayOf:'Rođendan · {name}',openTodos:'Otvoreni zadaci: {n}',monthLbl:'{y} · Mjesec',
+  monthlyOverview:'Mjesečni pregled',monthlyFocus:'Fokus mjeseca',goals:'Ciljevi',bdaysMonth:'Rođendani ovog mjeseca',none:'Nema',more:'+{n} još',
+  yearHint:'Točka označava dane s unosima ili rođendanima. Kliknite dan ili mjesec da ga otvorite.',
+  contactsCount:'Kontakata: {n}',addressBook:'Imenik',newContact:'+ Novi kontakt',newContactM:'Novi kontakt',searchPh:'Traži ime, tvrtku, e-poštu, telefon',
+  noContacts:'Nema pronađenih kontakata.',noContactSel:'Nijedan kontakt nije odabran',noContactHint:'Odaberite osobu s popisa ili dodajte novi kontakt.',
+  contact:'Kontakt',del:'Obriši',confirmDel:'Potvrdi brisanje',name:'Ime',first:'Ime',last:'Prezime',company:'Tvrtka',jobTitle:'Radno mjesto',
+  email:'E-pošta',phone:'Telefon',address:'Adresa',personal:'Osobno',birthday:'Rođendan',groups:'Grupe',groupsPh:'Obitelj, Posao',
+  addEmail:'+ Dodaj e-poštu',addPhone:'+ Dodaj telefon',write:'Piši',call:'Nazovi',unnamed:'Bez imena',lblHome:'Privatno',lblMobile:'Mobitel',
+  notebook:'Bilježnica',newFromTpl:'Nova stranica iz predloška',pages:'Stranice',noPages:'Još nema stranica. Odaberite predložak iznad.',noPage:'Nijedna stranica nije otvorena',
+  noPageHint:'Otvorite stranicu s popisa ili započnite novu iz predloška.',untitled:'Bez naslova',startWriting:'Počnite pisati',
+  cues:'Natuknice i pitanja',summary:'Sažetak',
+  tpl_lined:'Crte',tpl_dot:'Točkice',tpl_grid:'Kockice',tpl_check:'Popis',tpl_cornell:'Cornell',tpl_blank:'Prazno',
+  contactDeleted:'Kontakt je obrisan',pageDeleted:'Stranica je obrisana',
+  backupTitle:'Sigurnosna kopija i vraćanje',backupHint:'Podaci se spremaju samo na ovom računalu, u ovoj aplikaciji. Kopirajte ili preuzmite sigurnosnu kopiju, ili je zalijepite ili otvorite da biste je vratili.',
+  restoreHint:'Zalijepite sigurnosnu kopiju ispod ili otvorite datoteku, zatim kliknite Vrati.',
+  copy:'Kopiraj',download:'Preuzmi',openFile:'Otvori datoteku',restore:'Vrati',close:'Zatvori',copied:'Sigurnosna kopija je kopirana',
+  pressCopy:'Pritisnite Ctrl+C (Cmd+C na Macu) za kopiranje.',dlHint:'Ako se ništa nije preuzelo, upotrijebite Kopiraj.',dlNo:'Preuzimanje ovdje nije dostupno. Upotrijebite Kopiraj.',
+  restored:'Sigurnosna kopija je vraćena',invalid:'To nije valjana sigurnosna kopija.',fileLoaded:'Datoteka je učitana. Kliknite Vrati da njome zamijenite trenutne podatke.',
+  mFile:'Datoteka',mEdit:'Uredi',mView:'Prikaz',mGo:'Idi',mHelp:'Pomoć',newNote:'Nova stranica bilješki',backupMenu:'Sigurnosna kopija…',restoreMenu:'Vrati iz sigurnosne kopije…',quit:'Izlaz',
+  undo:'Poništi',redo:'Ponovi',cut:'Izreži',copyM:'Kopiraj',paste:'Zalijepi',selectAll:'Odaberi sve',findContact:'Traži kontakt',pasteHint:'Za lijepljenje upotrijebite Ctrl+V.',
+  themeM:'Tema',language:'Jezik',zoomIn:'Povećaj',zoomOut:'Smanji',zoomReset:'Stvarna veličina',fullscreen:'Cijeli zaslon',
+  goToday:'Danas',goPrev:'Prethodna stranica',goNext:'Sljedeća stranica',goDate:'Idi na datum…',shortcuts:'Tipkovnički prečaci',about:'O programu Organizer',
+  theme_sand:'Pijesak',theme_nordic:'Nordijska',theme_classic:'Klasična',
+  printTitle:'Ispis',printWhat:'Što ispisati',pCurrent:'Trenutne stranice',pContacts:'Imenik',pBlank:'Prazne stranice predloška',
+  paper:'Papir',layout:'Raspored',l2:'Dvije stranice po listu (položeno)',l1:'Jedna stranica po listu (uspravno)',tplLbl:'Predložak',nPages:'Broj stranica',
+  printBtn:'Ispiši',cancel:'Odustani',goDateTitle:'Idi na datum',go:'Idi',
+  aboutText:'Verzija {v}. Osobni rokovnik. Vaši se podaci spremaju na ovom računalu.',
+  kViews:'Promjena odjeljka (Godina … Bilješke)',kArrows:'Prethodna / sljedeća stranica (izvan polja za unos)',kZoom:'Povećaj / smanji / stvarna veličina',kNextTodo:'Dodaj sljedeću stavku u popis zadataka',
+  dateLbl:'Datum'
+},
+de:{
+  print:'Drucken…',printBtnBar:'Drucken',backup:'Sicherung',year:'Jahr',month:'Monat',week:'Woche',day:'Tag',contacts:'Kontakte',notes:'Notizen',
+  today:'Heute',prev:'Zurück',next:'Weiter',weekN:'KW {n}',schedule:'Zeitplan',dailyPlanner:'Tagesplaner',birthdays:'Geburtstage',
+  todaysFocus:'Fokus des Tages',focusPh:'Eine Sache, die heute zählt',priorities:'Prioritäten',todo:'Aufgaben',notesSec:'Notizen',addItem:'+ Eintrag hinzufügen',
+  weeklyPlanner:'Wochenplaner',weekFocus:'Fokus dieser Woche',habitTracker:'Gewohnheiten',habit:'Gewohnheit',addHabit:'+ Gewohnheit hinzufügen',
+  clickDay:'Tag anklicken, um ihn zu öffnen',birthdayOf:'Geburtstag · {name}',openTodos:'Offene Aufgaben: {n}',monthLbl:'{y} · Monat',
+  monthlyOverview:'Monatsübersicht',monthlyFocus:'Fokus des Monats',goals:'Ziele',bdaysMonth:'Geburtstage in diesem Monat',none:'Keine',more:'+{n} weitere',
+  yearHint:'Ein Punkt markiert Tage mit Einträgen oder Geburtstagen. Tag oder Monat anklicken, um ihn zu öffnen.',
+  contactsCount:'Kontakte: {n}',addressBook:'Adressbuch',newContact:'+ Neuer Kontakt',newContactM:'Neuer Kontakt',searchPh:'Name, Firma, E-Mail, Telefon suchen',
+  noContacts:'Keine Kontakte gefunden.',noContactSel:'Kein Kontakt ausgewählt',noContactHint:'Wählen Sie jemanden aus der Liste oder legen Sie einen neuen Kontakt an.',
+  contact:'Kontakt',del:'Löschen',confirmDel:'Löschen bestätigen',name:'Name',first:'Vorname',last:'Nachname',company:'Firma',jobTitle:'Position',
+  email:'E-Mail',phone:'Telefon',address:'Adresse',personal:'Persönlich',birthday:'Geburtstag',groups:'Gruppen',groupsPh:'Familie, Arbeit',
+  addEmail:'+ E-Mail hinzufügen',addPhone:'+ Telefon hinzufügen',write:'Schreiben',call:'Anrufen',unnamed:'Ohne Namen',lblHome:'Privat',lblMobile:'Mobil',
+  notebook:'Notizbuch',newFromTpl:'Neue Seite aus Vorlage',pages:'Seiten',noPages:'Noch keine Seiten. Wählen Sie oben eine Vorlage.',noPage:'Keine Seite geöffnet',
+  noPageHint:'Öffnen Sie eine Seite aus der Liste oder beginnen Sie eine neue aus einer Vorlage.',untitled:'Ohne Titel',startWriting:'Schreiben Sie los',
+  cues:'Stichworte und Fragen',summary:'Zusammenfassung',
+  tpl_lined:'Liniert',tpl_dot:'Punktraster',tpl_grid:'Kariert',tpl_check:'Checkliste',tpl_cornell:'Cornell',tpl_blank:'Blanko',
+  contactDeleted:'Kontakt gelöscht',pageDeleted:'Seite gelöscht',
+  backupTitle:'Sichern und wiederherstellen',backupHint:'Ihre Daten werden nur auf diesem Computer in dieser App gespeichert. Kopieren oder laden Sie eine Sicherung herunter, oder fügen Sie eine ein bzw. öffnen Sie eine, um sie wiederherzustellen.',
+  restoreHint:'Fügen Sie unten eine Sicherung ein oder öffnen Sie eine Sicherungsdatei, dann klicken Sie auf Wiederherstellen.',
+  copy:'Kopieren',download:'Herunterladen',openFile:'Datei öffnen',restore:'Wiederherstellen',close:'Schließen',copied:'Sicherung kopiert',
+  pressCopy:'Drücken Sie Strg+C (Cmd+C auf dem Mac) zum Kopieren.',dlHint:'Falls nichts heruntergeladen wurde, verwenden Sie Kopieren.',dlNo:'Herunterladen ist hier nicht verfügbar. Verwenden Sie Kopieren.',
+  restored:'Sicherung wiederhergestellt',invalid:'Das ist keine gültige Sicherung.',fileLoaded:'Datei geladen. Klicken Sie auf Wiederherstellen, um Ihre aktuellen Daten zu ersetzen.',
+  mFile:'Datei',mEdit:'Bearbeiten',mView:'Ansicht',mGo:'Gehe zu',mHelp:'Hilfe',newNote:'Neue Notizseite',backupMenu:'Sicherung…',restoreMenu:'Aus Sicherung wiederherstellen…',quit:'Beenden',
+  undo:'Rückgängig',redo:'Wiederholen',cut:'Ausschneiden',copyM:'Kopieren',paste:'Einfügen',selectAll:'Alles auswählen',findContact:'Kontakt suchen',pasteHint:'Zum Einfügen Strg+V verwenden.',
+  themeM:'Design',language:'Sprache',zoomIn:'Vergrößern',zoomOut:'Verkleinern',zoomReset:'Originalgröße',fullscreen:'Vollbild',
+  goToday:'Heute',goPrev:'Vorherige Seite',goNext:'Nächste Seite',goDate:'Gehe zu Datum…',shortcuts:'Tastenkürzel',about:'Über Organizer',
+  theme_sand:'Sand',theme_nordic:'Nordisch',theme_classic:'Klassisch',
+  printTitle:'Drucken',printWhat:'Was drucken',pCurrent:'Aktuelle Seiten',pContacts:'Adressbuch',pBlank:'Leere Vorlagenseiten',
+  paper:'Papier',layout:'Layout',l2:'Zwei Seiten pro Blatt (quer)',l1:'Eine Seite pro Blatt (hoch)',tplLbl:'Vorlage',nPages:'Anzahl Seiten',
+  printBtn:'Drucken',cancel:'Abbrechen',goDateTitle:'Gehe zu Datum',go:'Los',
+  aboutText:'Version {v}. Ein persönlicher Organizer. Ihre Daten werden auf diesem Computer gespeichert.',
+  kViews:'Bereich wechseln (Jahr … Notizen)',kArrows:'Vorherige / nächste Seite (außerhalb von Textfeldern)',kZoom:'Vergrößern / verkleinern / Originalgröße',kNextTodo:'Nächsten Eintrag in einer Aufgabenliste hinzufügen',
+  dateLbl:'Datum'
+}};
+const LOCALES={en:'en-GB',hr:'hr-HR',de:'de-DE'};
+const ALPHA={en:'ABCDEFGHIJKLMNOPQRSTUVWXYZ',hr:'ABCČĆDĐEFGHIJKLMNOPRSŠTUVZŽ',de:'ABCDEFGHIJKLMNOPQRSTUVWXYZ'};
+
 const $=s=>document.querySelector(s);
 const pad=n=>String(n).padStart(2,'0');
 const ymd=d=>`${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`;
@@ -196,15 +357,32 @@ const addDays=(d,n)=>{const x=new Date(d);x.setDate(x.getDate()+n);return x};
 const monday=d=>addDays(d,-((d.getDay()+6)%7));
 const today=()=>ymd(new Date());
 const dow=d=>(d.getDay()+6)%7;
-const isoWeek=d=>{const t=new Date(Date.UTC(d.getFullYear(),d.getMonth(),d.getDate()));const day=t.getUTCDay()||7;t.setUTCDate(t.getUTCDate()+4-day);const y0=new Date(Date.UTC(t.getUTCFullYear(),0,1));return[t.getUTCFullYear(),Math.ceil(((t-y0)/864e5+1)/7)]};
+const isoWeek=d=>{const x=new Date(Date.UTC(d.getFullYear(),d.getMonth(),d.getDate()));const day=x.getUTCDay()||7;x.setUTCDate(x.getUTCDate()+4-day);const y0=new Date(Date.UTC(x.getUTCFullYear(),0,1));return[x.getUTCFullYear(),Math.ceil(((x-y0)/864e5+1)/7)]};
 const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const uid=()=>Math.random().toString(36).slice(2,10);
-const fmtDate=iso=>{if(!iso)return'';const d=new Date(iso);return`${d.getDate()} ${MONTHS[d.getMonth()].slice(0,3)} ${d.getFullYear()}`};
+
+let ui={view:'day',contact:null,note:null,q:'',letter:'',theme:'sand',lang:'',zoom:1,print:{what:'current',paper:'A4',layout:'2',tpl:'lined',n:5}};
+try{const s=JSON.parse(localStorage.getItem(UIKEY)||'{}');Object.assign(ui,s,{print:Object.assign(ui.print,s.print||{})})}catch(e){}
+if(!I18N[ui.lang]){const n=(navigator.language||'en').slice(0,2).toLowerCase();ui.lang=I18N[n]?n:'en'}
+ui.cur=today();ui.q='';
+function saveUI(){try{localStorage.setItem(UIKEY,JSON.stringify({view:ui.view,contact:ui.contact,note:ui.note,theme:ui.theme,lang:ui.lang,zoom:ui.zoom,print:ui.print}))}catch(e){}}
+
+const t=(k,v)=>{let s=I18N[ui.lang]?.[k]??I18N.en[k]??k;if(v)for(const x in v)s=s.split('{'+x+'}').join(v[x]);return s};
+const loc=()=>LOCALES[ui.lang]||'en-GB';
+const fmt=(d,o)=>new Intl.DateTimeFormat(loc(),o).format(d);
+const monthName=i=>fmt(new Date(2001,i,1),{month:'long'});
+const monthShort=i=>fmt(new Date(2001,i,1),{month:'short'}).replace('.','');
+const dayName=i=>fmt(new Date(2001,0,1+i),{weekday:'long'});
+const dayShort=i=>fmt(new Date(2001,0,1+i),{weekday:'short'}).replace('.','');
+const dayNarrow=i=>fmt(new Date(2001,0,1+i),{weekday:'narrow'});
+const dayTitle=d=>fmt(d,{day:'numeric',month:'long'});
+const fullDate=d=>fmt(d,{weekday:'long',day:'numeric',month:'long',year:'numeric'});
+const shortDate=iso=>iso?fmt(new Date(iso),{day:'numeric',month:'short',year:'numeric'}):'';
 
 function seed(){
-  const t=today(),d=new Date(),tm=ymd(addDays(d,1)),y=d.getFullYear(),m=pad(d.getMonth()+1);
+  const d=new Date(),td=today(),tm=ymd(addDays(d,1)),m=pad(d.getMonth()+1);
   return{v:1,
-    days:{[t]:{slots:{'09':'Stand-up meeting','11':'Call with Ana','13':'Lunch with Ivan','17':'Gym'},focus:'Finish the quarterly report',prios:['Quarterly report','Reply to Tomislav',''],todos:[{t:'Renew domain',done:false},{t:'Pick up parcel',done:true},{t:'Book dentist',done:false}],notes:''},
+    days:{[td]:{slots:{'09':'Stand-up meeting','11':'Call with Ana','13':'Lunch with Ivan','17':'Gym'},focus:'Finish the quarterly report',prios:['Quarterly report','Reply to Tomislav',''],todos:[{t:'Renew domain',done:false},{t:'Pick up parcel',done:true},{t:'Book dentist',done:false}],notes:''},
           [tm]:{slots:{'10':'Dentist','15':'Project review'},focus:'',prios:['','',''],todos:[],notes:''}},
     weeks:{},months:{},
     contacts:{
@@ -227,79 +405,74 @@ const dayP=k=>{if(!DB.days[k])DB.days[k]={slots:{},focus:'',prios:['','',''],tod
 const weekP=k=>{if(!DB.weeks[k])DB.weeks[k]={focus:'',prios:['','',''],todos:[],habits:[],notes:''};return'weeks.'+k};
 const monthP=k=>{if(!DB.months[k])DB.months[k]={focus:'',goals:'',prios:['','',''],notes:''};return'months.'+k};
 
-let ui={view:'day',contact:null,note:null,q:'',letter:'',theme:'sand'};
-try{Object.assign(ui,JSON.parse(localStorage.getItem(UIKEY)||'{}'))}catch(e){}
-ui.cur=today();ui.q='';
-function saveUI(){try{localStorage.setItem(UIKEY,JSON.stringify({view:ui.view,contact:ui.contact,note:ui.note,theme:ui.theme}))}catch(e){}}
-
-const cname=c=>[c.first,c.last].filter(Boolean).join(' ')||'Unnamed';
+const cname=c=>[c.first,c.last].filter(Boolean).join(' ')||t('unnamed');
 const initials=c=>(((c.first||'')[0]||'')+((c.last||'')[0]||'')).toUpperCase()||'?';
-const letterOf=c=>((c.last||c.first||'#').trim().charAt(0)||'#').toUpperCase();
+const letterOf=c=>((c.last||c.first||'#').trim().charAt(0)||'#').toLocaleUpperCase(loc());
 const bdays=md=>Object.entries(DB.contacts).filter(([,c])=>c.birthday&&c.birthday.slice(5)===md);
 const dayEntries=k=>{const d=DB.days[k];if(!d)return[];return Object.entries(d.slots||{}).filter(([,v])=>v&&v.trim()).sort((a,b)=>a[0].localeCompare(b[0]))};
-const hasData=k=>{const d=DB.days[k];return!!d&&(dayEntries(k).length>0||(d.todos||[]).some(t=>t.t))};
+const hasData=k=>{const d=DB.days[k];return!!d&&(dayEntries(k).length>0||(d.todos||[]).some(x=>x.t))};
+const sortedContacts=()=>Object.entries(DB.contacts).sort((a,b)=>((a[1].last||a[1].first||'')+' '+(a[1].first||'')).localeCompare((b[1].last||b[1].first||'')+' '+(b[1].first||''),loc()));
 
 const inp=(p,ph='',cls='ln')=>`<input class="${cls}" data-k="${p}" value="${esc(get(p))}" placeholder="${esc(ph)}">`;
 const ta=(p,rows=3,ph='',cls='')=>`<textarea class="${cls}" rows="${rows}" data-k="${p}" placeholder="${esc(ph)}">${esc(get(p))}</textarea>`;
-const sec=t=>`<div class="sec">${t}</div>`;
+const sec=x=>`<div class="sec">${x}</div>`;
 const prios=p=>[0,1,2].map(i=>`<div class="row"><span class="num">${i+1}.</span>${inp(p+'.prios.'+i)}</div>`).join('');
-const todos=(p,label='item')=>{const a=get(p)||[];return`<div class="list">${a.map((x,i)=>`<div class="todo ${x.done?'done':''}"><input type="checkbox" data-k="${p}.${i}.done" ${x.done?'checked':''} aria-label="Done">${inp(`${p}.${i}.t`)}<button class="x" data-act="del" data-path="${p}" data-i="${i}" aria-label="Remove">×</button></div>`).join('')}<button class="add" data-act="add" data-path="${p}" data-tpl="todo">+ Add ${label}</button></div>`};
-const navBtns=`<div class="pnav"><button class="nb" data-act="nav" data-d="-1" aria-label="Previous">‹</button><button class="nb t" data-act="today">Today</button><button class="nb" data-act="nav" data-d="1" aria-label="Next">›</button></div>`;
+const todos=p=>{const a=get(p)||[];return`<div class="list">${a.map((x,i)=>`<div class="todo ${x.done?'done':''}"><input type="checkbox" data-k="${p}.${i}.done" ${x.done?'checked':''} aria-label="Done">${inp(`${p}.${i}.t`)}<button class="x" data-act="del" data-path="${p}" data-i="${i}" aria-label="Remove">×</button></div>`).join('')}<button class="add" data-act="add" data-path="${p}" data-tpl="todo">${t('addItem')}</button></div>`};
+const navBtns=()=>`<div class="pnav"><button class="nb" data-act="cmd" data-c="prev" aria-label="${t('prev')}">‹</button><button class="nb t" data-act="cmd" data-c="today">${t('today')}</button><button class="nb" data-act="cmd" data-c="next" aria-label="${t('next')}">›</button></div>`;
 const head=(kicker,title,right='')=>`<div class="ph"><div><div class="kicker">${kicker}</div><h1>${title}</h1></div>${right}</div>`;
 
 function vDay(){
   const d=parse(ui.cur),k=ui.cur,p=dayP(k),[,wn]=isoWeek(d),nowH=k===today()?new Date().getHours():-1;
   let slots='';for(let h=6;h<=22;h++){const hh=pad(h);slots+=`<div class="slot ${h===nowH?'now':''}"><div class="h">${hh}:00</div>${inp(p+'.slots.'+hh)}</div>`}
   const bd=bdays(k.slice(5));
-  const L=head(`${DAYS[dow(d)]} · Week ${wn}`,`${d.getDate()} ${MONTHS[d.getMonth()]}`,navBtns)+sec('Schedule')+slots;
-  const R=head('Daily planner',DAYS[dow(d)])
-    +(bd.length?sec('Birthdays')+bd.map(([id,c])=>`<button class="lnk" data-act="selContact" data-id="${id}" style="text-align:left">${esc(cname(c))}</button>`).join(''):'')
-    +sec("Today's focus")+ta(p+'.focus',2,'One thing that matters today')
-    +sec('Priorities')+prios(p)+sec('To do')+todos(p+'.todos')+sec('Notes')+ta(p+'.notes',5);
+  const L=head(`${dayName(dow(d))} · ${t('weekN',{n:wn})}`,dayTitle(d),navBtns())+sec(t('schedule'))+slots;
+  const R=head(t('dailyPlanner'),dayName(dow(d)))
+    +(bd.length?sec(t('birthdays'))+bd.map(([id,c])=>`<button class="lnk" data-act="selContact" data-id="${id}" style="text-align:left">${esc(cname(c))}</button>`).join(''):'')
+    +sec(t('todaysFocus'))+ta(p+'.focus',2,t('focusPh'))
+    +sec(t('priorities'))+prios(p)+sec(t('todo'))+todos(p+'.todos')+sec(t('notesSec'))+ta(p+'.notes',5);
   return[L,R];
 }
 function vWeek(){
   const d=parse(ui.cur),m=monday(d),[wy,wn]=isoWeek(d),k=`${wy}-W${pad(wn)}`,p=weekP(k),e=addDays(m,6);
-  const range=`${m.getDate()} ${MONTHS[m.getMonth()].slice(0,3)} – ${e.getDate()} ${MONTHS[e.getMonth()].slice(0,3)} ${e.getFullYear()}`;
-  const habits=(get(p+'.habits')||[]).map((h,i)=>`<div class="hab">${inp(`${p}.habits.${i}.name`,'Habit')}<div class="hd">${h.d.map((v,j)=>`<input type="checkbox" data-k="${p}.habits.${i}.d.${j}" ${v?'checked':''} aria-label="${DAYS[j]}">`).join('')}</div><button class="x" data-act="del" data-path="${p}.habits" data-i="${i}" aria-label="Remove">×</button></div>`).join('');
-  const L=head(`Week ${wn} · ${range}`,'Weekly planner',navBtns)+sec("This week's focus")+ta(p+'.focus',2)+sec('Priorities')+prios(p)+sec('To do')+todos(p+'.todos')
-    +sec('Habit tracker')+`<div class="hhead">${'MTWTFSS'.split('').map(c=>`<span>${c}</span>`).join('')}</div>${habits}<button class="add" data-act="add" data-path="${p}.habits" data-tpl="habit">+ Add habit</button>`;
+  const range=`${fmt(m,{day:'numeric',month:'short'})} – ${fmt(e,{day:'numeric',month:'short',year:'numeric'})}`;
+  const habits=(get(p+'.habits')||[]).map((h,i)=>`<div class="hab">${inp(`${p}.habits.${i}.name`,t('habit'))}<div class="hd">${h.d.map((v,j)=>`<input type="checkbox" data-k="${p}.habits.${i}.d.${j}" ${v?'checked':''} aria-label="${dayName(j)}">`).join('')}</div><button class="x" data-act="del" data-path="${p}.habits" data-i="${i}" aria-label="Remove">×</button></div>`).join('');
+  const L=head(`${t('weekN',{n:wn})} · ${range}`,t('weeklyPlanner'),navBtns())+sec(t('weekFocus'))+ta(p+'.focus',2)+sec(t('priorities'))+prios(p)+sec(t('todo'))+todos(p+'.todos')
+    +sec(t('habitTracker'))+`<div class="hhead">${[0,1,2,3,4,5,6].map(j=>`<span>${dayNarrow(j)}</span>`).join('')}</div>${habits}<button class="add" data-act="add" data-path="${p}.habits" data-tpl="habit">${t('addHabit')}</button>`;
   let rows='';
-  for(let i=0;i<7;i++){const x=addDays(m,i),xk=ymd(x),en=dayEntries(xk),bd=bdays(xk.slice(5)),dd=DB.days[xk],open=dd?(dd.todos||[]).filter(t=>t.t&&!t.done).length:0;
-    rows+=`<div class="wk ${xk===today()?'today':''}" data-act="goDay" data-k="${xk}"><div class="dl"><b>${DAYS[i].slice(0,3)}</b><span>${x.getDate()}</span></div><div class="de">${bd.map(([,c])=>`<div class="ev b">Birthday · ${esc(cname(c))}</div>`).join('')}${en.map(([h,v])=>`<div class="ev"><span class="tm">${h}:00</span>${esc(v)}</div>`).join('')}${open?`<div class="ev mu">${open} open to-do${open>1?'s':''}</div>`:''}</div></div>`}
-  const R=head('Click a day to open its page',MONTHS[m.getMonth()]+(e.getMonth()!==m.getMonth()?' / '+MONTHS[e.getMonth()]:''))+`<div class="wks">${rows}</div>`+sec('Notes')+ta(p+'.notes',3);
+  for(let i=0;i<7;i++){const x=addDays(m,i),xk=ymd(x),en=dayEntries(xk),bd=bdays(xk.slice(5)),dd=DB.days[xk],open=dd?(dd.todos||[]).filter(q=>q.t&&!q.done).length:0;
+    rows+=`<div class="wk ${xk===today()?'today':''}" data-act="goDay" data-k="${xk}"><div class="dl"><b>${dayShort(i)}</b><span>${x.getDate()}</span></div><div class="de">${bd.map(([,c])=>`<div class="ev b">${esc(t('birthdayOf',{name:cname(c)}))}</div>`).join('')}${en.map(([h,v])=>`<div class="ev"><span class="tm">${h}:00</span>${esc(v)}</div>`).join('')}${open?`<div class="ev mu">${t('openTodos',{n:open})}</div>`:''}</div></div>`}
+  const R=head(t('clickDay'),monthName(m.getMonth())+(e.getMonth()!==m.getMonth()?' / '+monthName(e.getMonth()):''))+`<div class="wks">${rows}</div>`+sec(t('notesSec'))+ta(p+'.notes',3);
   return[L,R];
 }
 function vMonth(){
   const d=parse(ui.cur),y=d.getFullYear(),mo=d.getMonth(),k=`${y}-${pad(mo+1)}`,p=monthP(k);
   const first=new Date(y,mo,1),start=monday(first),n=new Date(y,mo+1,0).getDate(),weeks=Math.ceil((dow(first)+n)/7);
-  let g=DAYS.map(x=>`<div class="dh">${x.slice(0,3)}</div>`).join('');
+  let g=[0,1,2,3,4,5,6].map(i=>`<div class="dh">${dayShort(i)}</div>`).join('');
   for(let i=0;i<weeks*7;i++){const x=addDays(start,i),xk=ymd(x),out=x.getMonth()!==mo,en=out?[]:dayEntries(xk),bd=out?[]:bdays(xk.slice(5));
-    g+=`<div class="mc ${out?'out':''} ${xk===today()?'today':''}" data-act="goDay" data-k="${xk}"><span class="d">${x.getDate()}</span>${bd.map(([,c])=>`<div class="ev b">${esc(cname(c))}</div>`).join('')}${en.slice(0,3).map(([h,v])=>`<div class="ev"><span class="tm">${h}</span>${esc(v)}</div>`).join('')}${en.length>3?`<div class="ev mu">+${en.length-3} more</div>`:''}</div>`}
-  const L=head(`${y} · Month`,MONTHS[mo],navBtns)+`<div class="mg" style="grid-template-rows:auto repeat(${weeks},minmax(70px,1fr))">${g}</div>`;
+    g+=`<div class="mc ${out?'out':''} ${xk===today()?'today':''}" data-act="goDay" data-k="${xk}"><span class="d">${x.getDate()}</span>${bd.map(([,c])=>`<div class="ev b">${esc(cname(c))}</div>`).join('')}${en.slice(0,3).map(([h,v])=>`<div class="ev"><span class="tm">${h}</span>${esc(v)}</div>`).join('')}${en.length>3?`<div class="ev mu">${t('more',{n:en.length-3})}</div>`:''}</div>`}
+  const L=head(t('monthLbl',{y}),monthName(mo),navBtns())+`<div class="mg" style="grid-template-rows:auto repeat(${weeks},minmax(70px,1fr))">${g}</div>`;
   const imp=Object.entries(DB.contacts).filter(([,c])=>c.birthday&&+c.birthday.slice(5,7)===mo+1).sort((a,b)=>a[1].birthday.slice(8).localeCompare(b[1].birthday.slice(8)));
-  const R=head('Monthly overview',`${MONTHS[mo]} ${y}`)+sec('Monthly focus')+ta(p+'.focus',2)+sec('Goals')+ta(p+'.goals',4)+sec('Priorities')+prios(p)
-    +sec('Birthdays this month')+(imp.length?imp.map(([id,c])=>`<div class="todo"><span class="num" style="width:26px">${+c.birthday.slice(8)}.</span><button class="lnk" data-act="selContact" data-id="${id}">${esc(cname(c))}</button></div>`).join(''):`<div class="mu" style="padding:6px 2px">None</div>`)
-    +sec('Notes')+ta(p+'.notes',4);
+  const R=head(t('monthlyOverview'),fmt(d,{month:'long',year:'numeric'}))+sec(t('monthlyFocus'))+ta(p+'.focus',2)+sec(t('goals'))+ta(p+'.goals',4)+sec(t('priorities'))+prios(p)
+    +sec(t('bdaysMonth'))+(imp.length?imp.map(([id,c])=>`<div class="todo"><span class="num" style="width:26px">${+c.birthday.slice(8)}.</span><button class="lnk" data-act="selContact" data-id="${id}">${esc(cname(c))}</button></div>`).join(''):`<div class="mu" style="padding:6px 2px">${t('none')}</div>`)
+    +sec(t('notesSec'))+ta(p+'.notes',4);
   return[L,R];
 }
 function mini(y,m){
   const first=new Date(y,m,1),n=new Date(y,m+1,0).getDate();
-  let c='MTWTFSS'.split('').map(x=>`<span class="wdh">${x}</span>`).join('')+'<span></span>'.repeat(dow(first));
+  let c=[0,1,2,3,4,5,6].map(i=>`<span class="wdh">${dayNarrow(i)}</span>`).join('')+'<span></span>'.repeat(dow(first));
   for(let d=1;d<=n;d++){const k=`${y}-${pad(m+1)}-${pad(d)}`;c+=`<span class="${k===today()?'today':''} ${hasData(k)||bdays(k.slice(5)).length?'has':''}" data-act="goDay" data-k="${k}">${d}</span>`}
-  return`<div class="mini"><div class="mt" data-act="goMonth" data-y="${y}" data-m="${m}">${MONTHS[m].toUpperCase()}</div><div class="g">${c}</div></div>`;
+  return`<div class="mini"><div class="mt" data-act="goMonth" data-y="${y}" data-m="${m}">${monthName(m)}</div><div class="g">${c}</div></div>`;
 }
 function vYear(){
   const y=parse(ui.cur).getFullYear();
-  const L=head('January – June',`${y}`,navBtns)+`<div class="yg">${[0,1,2,3,4,5].map(m=>mini(y,m)).join('')}</div>`;
-  const R=head('July – December',`${y}`)+`<div class="yg">${[6,7,8,9,10,11].map(m=>mini(y,m)).join('')}</div><div class="mu" style="margin-top:18px">A dot marks days with entries or birthdays. Click a day or a month to open it.</div>`;
+  const L=head(`${monthName(0)} – ${monthName(5)}`,`${y}`,navBtns())+`<div class="yg">${[0,1,2,3,4,5].map(m=>mini(y,m)).join('')}</div>`;
+  const R=head(`${monthName(6)} – ${monthName(11)}`,`${y}`)+`<div class="yg">${[6,7,8,9,10,11].map(m=>mini(y,m)).join('')}</div><div class="mu" style="margin-top:18px">${t('yearHint')}</div>`;
   return[L,R];
 }
 function contactList(){
   const q=ui.q.trim().toLowerCase();
-  const all=Object.entries(DB.contacts).sort((a,b)=>((a[1].last||a[1].first||'')+' '+(a[1].first||'')).localeCompare((b[1].last||b[1].first||'')+' '+(b[1].first||''),'hr'));
-  const f=all.filter(([,c])=>(!ui.letter||letterOf(c)===ui.letter)&&(!q||JSON.stringify(c).toLowerCase().includes(q)));
-  if(!f.length)return`<div class="mu" style="padding:14px 2px">No contacts found.</div>`;
+  const f=sortedContacts().filter(([,c])=>(!ui.letter||letterOf(c)===ui.letter)&&(!q||JSON.stringify(c).toLowerCase().includes(q)));
+  if(!f.length)return`<div class="mu" style="padding:14px 2px">${t('noContacts')}</div>`;
   let h='',cur='';
   f.forEach(([id,c])=>{const L=letterOf(c);if(L!==cur){cur=L;h+=`<div class="lt">${esc(L)}</div>`}
     const sub=[c.company,(c.emails||[]).find(e=>e.v)?.v||(c.phones||[]).find(e=>e.v)?.v].filter(Boolean).join(' · ');
@@ -308,61 +481,68 @@ function contactList(){
 }
 function vContacts(){
   const n=Object.keys(DB.contacts).length,have=new Set(Object.values(DB.contacts).map(letterOf));
-  const AZ='ABCČĆDĐEFGHIJKLMNOPQRSŠTUVWXYZŽ'.split('');
-  const L=head(`${n} contact${n===1?'':'s'}`,'Address book',`<div class="pnav"><button class="nb t" data-act="newContact">+ New contact</button></div>`)
-    +`<input class="search" id="q" placeholder="Search name, company, email, phone" value="${esc(ui.q)}">`
-    +`<div class="az">${AZ.map(l=>`<button class="${ui.letter===l?'on':''} ${have.has(l)?'':'dim'}" data-act="letter" data-l="${l}">${l}</button>`).join('')}</div>`
+  const AZ=Array.from(new Set([...(ALPHA[ui.lang]||ALPHA.en),...have])).sort((a,b)=>a.localeCompare(b,loc()));
+  const L=head(t('contactsCount',{n}),t('addressBook'),`<div class="pnav"><button class="nb t" data-act="cmd" data-c="newContact">${t('newContact')}</button></div>`)
+    +`<input class="search" id="q" placeholder="${esc(t('searchPh'))}" value="${esc(ui.q)}">`
+    +`<div class="az">${AZ.map(l=>`<button class="${ui.letter===l?'on':''} ${have.has(l)?'':'dim'}" data-act="letter" data-l="${esc(l)}">${esc(l)}</button>`).join('')}</div>`
     +`<div id="clist">${contactList()}</div>`;
   const id=ui.contact,c=DB.contacts[id];
-  if(!c)return[L,`<div class="empty"><h1>No contact selected</h1><div>Pick someone from the list, or add a new contact.</div><button class="nb t" data-act="newContact">+ New contact</button></div>`];
+  if(!c)return[L,`<div class="empty"><h1>${t('noContactSel')}</h1><div>${t('noContactHint')}</div><button class="nb t" data-act="cmd" data-c="newContact">${t('newContact')}</button></div>`];
   const p='contacts.'+id,fr=(l,h)=>`<div class="fr"><span class="lbl">${l}</span>${h}</div>`;
-  const multi=(path,tpl)=>(get(path)||[]).map((x,i)=>`<div class="fr"><input class="ln lab" data-k="${path}.${i}.label" value="${esc(x.label)}" aria-label="Label">${inp(`${path}.${i}.v`,tpl==='email'?'name@example.com':'+385 …')}${x.v?`<a href="${tpl==='email'?'mailto:':'tel:'}${esc(x.v.replace(/\s/g,''))}">${tpl==='email'?'Write':'Call'}</a>`:''}<button class="x" data-act="del" data-path="${path}" data-i="${i}" aria-label="Remove">×</button></div>`).join('')+`<button class="add" data-act="add" data-path="${path}" data-tpl="${tpl}">+ Add ${tpl}</button>`;
-  const R=`<div class="ph"><div class="row" style="gap:16px"><div class="avatar" id="cav">${esc(initials(c))}</div><div><div class="kicker" id="ckick">${esc(c.company||'Contact')}</div><h1 id="cname">${esc(cname(c))}</h1></div></div><div class="pnav"><button class="nb t danger" data-act="delContact">Delete</button></div></div>`
-    +sec('Name')+fr('First name',inp(p+'.first'))+fr('Last name',inp(p+'.last'))+fr('Company',inp(p+'.company'))+fr('Job title',inp(p+'.title'))
-    +sec('Email')+multi(p+'.emails','email')+sec('Phone')+multi(p+'.phones','phone')
-    +sec('Address')+ta(p+'.address',3)
-    +sec('Personal')+fr('Birthday',`<input class="ln" type="date" data-k="${p}.birthday" value="${esc(c.birthday)}">`)+fr('Groups',inp(p+'.groups','Family, Work'))
-    +sec('Notes')+ta(p+'.notes',4);
+  const multi=(path,tpl)=>(get(path)||[]).map((x,i)=>`<div class="fr"><input class="ln lab" data-k="${path}.${i}.label" value="${esc(x.label)}" aria-label="Label">${inp(`${path}.${i}.v`,tpl==='email'?'name@example.com':'+385 …')}${x.v?`<a href="${tpl==='email'?'mailto:':'tel:'}${esc(x.v.replace(/\s/g,''))}">${tpl==='email'?t('write'):t('call')}</a>`:''}<button class="x" data-act="del" data-path="${path}" data-i="${i}" aria-label="Remove">×</button></div>`).join('')+`<button class="add" data-act="add" data-path="${path}" data-tpl="${tpl}">${tpl==='email'?t('addEmail'):t('addPhone')}</button>`;
+  const R=`<div class="ph"><div class="row" style="gap:16px"><div class="avatar" id="cav">${esc(initials(c))}</div><div><div class="kicker" id="ckick">${esc(c.company||t('contact'))}</div><h1 id="cname">${esc(cname(c))}</h1></div></div><div class="pnav"><button class="nb t danger" data-act="delContact">${t('del')}</button></div></div>`
+    +sec(t('name'))+fr(t('first'),inp(p+'.first'))+fr(t('last'),inp(p+'.last'))+fr(t('company'),inp(p+'.company'))+fr(t('jobTitle'),inp(p+'.title'))
+    +sec(t('email'))+multi(p+'.emails','email')+sec(t('phone'))+multi(p+'.phones','phone')
+    +sec(t('address'))+ta(p+'.address',3)
+    +sec(t('personal'))+fr(t('birthday'),`<input class="ln" type="date" data-k="${p}.birthday" value="${esc(c.birthday)}">`)+fr(t('groups'),inp(p+'.groups',t('groupsPh')))
+    +sec(t('notesSec'))+ta(p+'.notes',4);
   return[L,R];
 }
-const TPL=[['lined','Lined'],['dot','Dot grid'],['grid','Graph'],['check','Checklist'],['cornell','Cornell'],['blank','Blank']];
-const TPLN=Object.fromEntries(TPL);
+const TPLS=['lined','dot','grid','check','cornell','blank'];
 function noteList(){
   const all=Object.entries(DB.notes).sort((a,b)=>(b[1].created||'').localeCompare(a[1].created||''));
-  if(!all.length)return`<div class="mu" style="padding:14px 2px">No pages yet. Pick a template above.</div>`;
-  return all.map(([id,n])=>`<div class="ci ${id===ui.note?'on':''}" data-act="selNote" data-id="${id}"><div class="n">${esc(n.title||'Untitled')}</div><div class="s">${TPLN[n.tpl]||''} · ${fmtDate(n.created)}</div></div>`).join('');
+  if(!all.length)return`<div class="mu" style="padding:14px 2px">${t('noPages')}</div>`;
+  return all.map(([id,n])=>`<div class="ci ${id===ui.note?'on':''}" data-act="selNote" data-id="${id}"><div class="n">${esc(n.title||t('untitled'))}</div><div class="s">${t('tpl_'+n.tpl)} · ${shortDate(n.created)}</div></div>`).join('');
 }
 function vNotes(){
-  const L=head('Notebook','Notes')+sec('New page from template')+`<div class="tplg">${TPL.map(([k,n])=>`<button class="tpb" data-act="newNote" data-tpl="${k}"><div class="pv pv-${k}"></div>${n}</button>`).join('')}</div>`+sec('Pages')+`<div id="nlist">${noteList()}</div>`;
+  const L=head(t('notebook'),t('notes'))+sec(t('newFromTpl'))+`<div class="tplg">${TPLS.map(k=>`<button class="tpb" data-act="newNote" data-tpl="${k}"><div class="pv pv-${k}"></div>${t('tpl_'+k)}</button>`).join('')}</div>`+sec(t('pages'))+`<div id="nlist">${noteList()}</div>`;
   const id=ui.note,n=DB.notes[id];
-  if(!n)return[L,`<div class="empty"><h1>No page open</h1><div>Open a page from the list, or start a new one from a template.</div></div>`];
+  if(!n)return[L,`<div class="empty"><h1>${t('noPage')}</h1><div>${t('noPageHint')}</div></div>`];
   const p='notes.'+id;
   let body;
   if(n.tpl==='check')body=todos(p+'.items');
-  else if(n.tpl==='cornell')body=`<div class="cornell"><textarea class="cue" data-k="${p}.cues" placeholder="Cues and questions">${esc(n.cues)}</textarea><textarea data-k="${p}.body" placeholder="Notes">${esc(n.body)}</textarea><textarea class="sum" data-k="${p}.summary" placeholder="Summary">${esc(n.summary)}</textarea></div>`;
-  else body=`<textarea class="body t-${n.tpl}" data-k="${p}.body" placeholder="Start writing">${esc(n.body)}</textarea>`;
-  const R=`<div class="ph"><div style="flex:1"><div class="kicker">${TPLN[n.tpl]} page · ${fmtDate(n.created)}</div><input class="title" data-k="${p}.title" value="${esc(n.title)}" placeholder="Untitled"></div><div class="pnav"><button class="nb t danger" data-act="delNote">Delete</button></div></div>`+body;
+  else if(n.tpl==='cornell')body=`<div class="cornell"><textarea class="cue" data-k="${p}.cues" placeholder="${esc(t('cues'))}">${esc(n.cues)}</textarea><textarea data-k="${p}.body" placeholder="${esc(t('notesSec'))}">${esc(n.body)}</textarea><textarea class="sum" data-k="${p}.summary" placeholder="${esc(t('summary'))}">${esc(n.summary)}</textarea></div>`;
+  else body=`<textarea class="body t-${n.tpl}" data-k="${p}.body" placeholder="${esc(t('startWriting'))}">${esc(n.body)}</textarea>`;
+  const R=`<div class="ph"><div style="flex:1"><div class="kicker">${t('tpl_'+n.tpl)} · ${shortDate(n.created)}</div><input class="title" data-k="${p}.title" value="${esc(n.title)}" placeholder="${esc(t('untitled'))}"></div><div class="pnav"><button class="nb t danger" data-act="delNote">${t('del')}</button></div></div>`+body;
   return[L,R];
 }
 
-const VIEWS=[['year','Year'],['month','Month'],['week','Week'],['day','Day'],['contacts','Contacts'],['notes','Notes']];
+const VIEWS=['year','month','week','day','contacts','notes'];
 const THEMES={
   sand:{r:[['#5f4d42','#f6eee6'],['#8c7464','#f6eee6'],['#b79e8a','#2f2620'],['#d6c0ad','#3a2f29'],['#e8d6c9','#3a2f29'],['#f3e8de','#3a2f29']],l:[['#f1e7dd','#5a4a3f'],['#e3d3c3','#5a4a3f'],['#d3bda8','#4a3c33']]},
-  nordic:{r:[['#f2f4f6','#1f2328'],['#dfe4e9','#1f2328'],['#c9d1d8','#1f2328'],['#aab4be','#1f2328'],['#7f8b97','#ffffff'],['#2f5d8a','#ffffff']],l:[['#eef1f3','#3a4249'],['#dce1e5','#3a4249'],['#c7ced4','#2a3036']]},
+  nordic:{r:[['#f2f4f6','#1f2328'],['#e2e6ea','#1f2328'],['#d2d8dd','#1f2328'],['#c2c9cf','#1f2328'],['#b1b9c1','#1f2328'],['#a0aab3','#14181c']],l:[['#eef1f3','#3a4249'],['#dce1e5','#3a4249'],['#c7ced4','#2a3036']]},
   classic:{r:[['#F5C4B3','#712B13'],['#FAC775','#633806'],['#C0DD97','#27500A'],['#B5D4F4','#0C447C'],['#CECBF6','#3C3489'],['#F4C0D1','#72243E']],l:[['#F5C4B3','#712B13'],['#FAC775','#633806'],['#C0DD97','#27500A'],['#B5D4F4','#0C447C'],['#CECBF6','#3C3489'],['#F4C0D1','#72243E']]}};
 const VIEWFN={year:vYear,month:vMonth,week:vWeek,day:vDay,contacts:vContacts,notes:vNotes};
 
+function renderChrome(){
+  document.documentElement.lang=ui.lang;
+  $('#lang').value=ui.lang;
+  $('#theme').innerHTML=Object.keys(THEMES).map(k=>`<option value="${k}">${t('theme_'+k)}</option>`).join('');
+  $('#theme').value=ui.theme;
+  $('#bPrint').textContent=t('printBtnBar');$('#bBackup').textContent=t('backup');
+  const d=new Date();$('#todaylbl').textContent=fullDate(d);
+  if(!NATIVE)renderHtmlMenu();
+}
 function render(){
   if(!THEMES[ui.theme])ui.theme='sand';
   if(!VIEWFN[ui.view])ui.view='day';
   document.body.className=ui.theme;
+  document.documentElement.style.zoom=ui.zoom;
   const th=THEMES[ui.theme],d=parse(ui.cur),cal=['month','week','day'].includes(ui.view);
-  $('#ltabs').innerHTML=MONTHS.map((m,i)=>{const[bg,fg]=th.l[i%th.l.length];return`<div class="tab ${cal&&d.getMonth()===i?'on':''}" role="button" tabindex="0" style="background:${bg};color:${fg}" data-act="goMonth" data-y="${d.getFullYear()}" data-m="${i}">${m.slice(0,3)}</div>`}).join('');
-  $('#rtabs').innerHTML=VIEWS.map(([v,n],i)=>{const[bg,fg]=th.r[i];return`<div class="tab ${ui.view===v?'on':''}" role="button" tabindex="0" style="background:${bg};color:${fg}" data-act="view" data-v="${v}">${n}</div>`}).join('');
+  $('#ltabs').innerHTML=[...Array(12).keys()].map(i=>{const[bg,fg]=th.l[i%th.l.length];return`<div class="tab ${cal&&d.getMonth()===i?'on':''}" role="button" tabindex="0" style="background:${bg};color:${fg}" data-act="goMonth" data-y="${d.getFullYear()}" data-m="${i}">${monthShort(i)}</div>`}).join('');
+  $('#rtabs').innerHTML=VIEWS.map((v,i)=>{const[bg,fg]=th.r[i];return`<div class="tab ${ui.view===v?'on':''}" role="button" tabindex="0" style="background:${bg};color:${fg}" data-act="cmd" data-c="view:${v}">${t(v)}</div>`}).join('');
   const[L,R]=VIEWFN[ui.view]();
   $('#lp').innerHTML=L;$('#rp').innerHTML=R;
-  $('#theme').value=ui.theme;
-  const t=new Date();$('#todaylbl').textContent=`${DAYS[dow(t)]} ${t.getDate()} ${MONTHS[t.getMonth()]} ${t.getFullYear()}`;
   saveUI();
 }
 function nav(n){const d=parse(ui.cur);
@@ -370,41 +550,217 @@ function nav(n){const d=parse(ui.cur);
   else if(ui.view==='week')d.setDate(d.getDate()+7*n);
   else if(ui.view==='month'){d.setDate(1);d.setMonth(d.getMonth()+n)}
   else if(ui.view==='year'){d.setDate(1);d.setFullYear(d.getFullYear()+n)}
-  else return;
-  ui.cur=ymd(d);
+  else return false;
+  ui.cur=ymd(d);return true;
 }
-const NEW={todo:()=>({t:'',done:false}),habit:()=>({name:'',d:[false,false,false,false,false,false,false]}),email:()=>({label:'Home',v:''}),phone:()=>({label:'Mobile',v:''})};
+const NEW={todo:()=>({t:'',done:false}),habit:()=>({name:'',d:[false,false,false,false,false,false,false]}),email:()=>({label:t('lblHome'),v:''}),phone:()=>({label:t('lblMobile'),v:''})};
 const FKEY={todo:'t',habit:'name',email:'v',phone:'v'};
-function toast(m){const t=$('#toast');t.textContent=m;t.classList.add('show');clearTimeout(t._h);t._h=setTimeout(()=>t.classList.remove('show'),1800)}
-function arm(b){if(b.dataset.armed)return true;b.dataset.armed='1';b.textContent='Confirm delete';setTimeout(()=>{if(b.isConnected){delete b.dataset.armed;b.textContent='Delete'}},3000);return false}
-function backupText(){return JSON.stringify(DB,null,2)}
+function toast(m){const x=$('#toast');x.textContent=m;x.classList.add('show');clearTimeout(x._h);x._h=setTimeout(()=>x.classList.remove('show'),2000)}
+function arm(b){if(b.dataset.armed)return true;b.dataset.armed='1';b.textContent=t('confirmDel');setTimeout(()=>{if(b.isConnected){delete b.dataset.armed;b.textContent=t('del')}},3000);return false}
 
+/* ---------- dialogs ---------- */
+function openDlg(html){$('#dlgbox').innerHTML=html;$('#dlg').classList.remove('hidden');const f=$('#dlgbox').querySelector('[autofocus]');if(f)f.focus()}
+function closeDlg(){$('#dlg').classList.add('hidden');$('#dlgbox').innerHTML=''}
+const dlgOpen=()=>!$('#dlg').classList.contains('hidden');
+function openBackup(restoreMode){
+  openDlg(`<h2>${t('backupTitle')}</h2><div class="mu">${restoreMode?t('restoreHint'):t('backupHint')}</div>
+  <textarea id="bk" spellcheck="false">${restoreMode?'':esc(JSON.stringify(DB,null,2))}</textarea>
+  <div class="row"><button class="bbtn" data-act="copyBk">${t('copy')}</button><button class="bbtn" data-act="dlBk">${t('download')}</button>
+  <label class="bbtn" style="cursor:pointer">${t('openFile')}<input type="file" id="bkfile" accept=".json,application/json" hidden></label>
+  <span class="sp"></span><button class="bbtn" data-act="restoreBk">${t('restore')}</button><button class="bbtn" data-act="closeDlg">${t('close')}</button></div>
+  <div id="bkmsg" class="mu"></div>`);
+  if(restoreMode)$('#bk').focus();
+}
+function openPrint(){
+  const p=ui.print,opt=(v,l,cur)=>`<option value="${v}" ${v===cur?'selected':''}>${l}</option>`;
+  openDlg(`<h2>${t('printTitle')}</h2>
+  <div class="fld"><span class="fl">${t('printWhat')}</span><div class="radios">
+    ${[['current',t('pCurrent')+' — '+t(ui.view)],['contacts',t('pContacts')],['blank',t('pBlank')]].map(([v,l])=>`<label><input type="radio" name="pw" value="${v}" ${p.what===v?'checked':''}> ${l}</label>`).join('')}
+  </div></div>
+  <div class="row" style="gap:16px;align-items:flex-start">
+    <div class="fld"><label for="pPaper">${t('paper')}</label><select id="pPaper">${['A4','A5','Letter'].map(x=>opt(x,x,p.paper)).join('')}</select></div>
+    <div class="fld" id="pLayoutF" style="flex:1"><label for="pLayout">${t('layout')}</label><select id="pLayout">${opt('2',t('l2'),p.layout)}${opt('1',t('l1'),p.layout)}</select></div>
+  </div>
+  <div class="row" id="pTplF" style="gap:16px;align-items:flex-start">
+    <div class="fld" style="flex:1"><label for="pTpl">${t('tplLbl')}</label><select id="pTpl">${TPLS.map(k=>opt(k,t('tpl_'+k),p.tpl)).join('')}</select></div>
+    <div class="fld"><label for="pN">${t('nPages')}</label><input type="number" id="pN" min="1" max="60" value="${p.n}" style="width:90px"></div>
+  </div>
+  <div class="btns"><button class="bbtn" data-act="closeDlg">${t('cancel')}</button><button class="bbtn pri" data-act="doPrint" autofocus>${t('printBtn')}</button></div>`);
+  printFields();
+}
+function printFields(){const w=document.querySelector('input[name=pw]:checked')?.value;if(!w)return;$('#pLayoutF').style.display=w==='contacts'?'none':'';$('#pTplF').style.display=w==='blank'?'':'none'}
+function openGoDate(){openDlg(`<h2>${t('goDateTitle')}</h2><input type="date" id="gd" value="${ui.cur}" autofocus><div class="btns"><button class="bbtn" data-act="closeDlg">${t('cancel')}</button><button class="bbtn pri" data-act="goDateOk">${t('go')}</button></div>`)}
+function openShortcuts(){
+  const rows=[[`${MOD}+1 … 6`,t('kViews')],[`${ALT}+← / →`,`${t('goPrev')} / ${t('goNext')}`],['← / →',t('kArrows')],[`${MOD}+T`,t('goToday')],[`${MOD}+G`,t('goDate').replace('…','')],[`${MOD}+P`,t('print').replace('…','')],[`${MOD}+N`,t('newNote')],[`${MOD}+Shift+N`,t('newContactM')],[`${MOD}+F`,t('findContact')],[`${MOD}+ =  /  −  /  0`,t('kZoom')],[IS_MAC?'Ctrl+⌘+F':'F11',t('fullscreen')],['Enter',t('kNextTodo')]];
+  openDlg(`<h2>${t('shortcuts')}</h2><table class="sct">${rows.map(([k,d])=>`<tr><td>${esc(k)}</td><td>${esc(d)}</td></tr>`).join('')}</table><div class="btns"><button class="bbtn" data-act="closeDlg" autofocus>${t('close')}</button></div>`);
+}
+function openAbout(){openDlg(`<h2>Organizer</h2><div>${t('aboutText',{v:APP_VERSION})}</div><div class="btns"><button class="bbtn" data-act="closeDlg" autofocus>${t('close')}</button></div>`)}
+
+/* ---------- printing ---------- */
+const PAPER={A4:[210,297],A5:[148,210],Letter:[215.9,279.4]};
+function blankPage(tpl){
+  const body=tpl==='cornell'?`<div class="bbody bt-cornell"><div></div><div></div><div></div></div>`:`<div class="bbody bt-${tpl}"></div>`;
+  return`<div class="kicker">${t('tpl_'+tpl)}</div><div class="btitle"></div><div class="bdate">${t('dateLbl')} <span></span></div>${body}`;
+}
+function contactsPrint(){
+  let h='',cur='';
+  sortedContacts().forEach(([,c])=>{const L=letterOf(c);if(L!==cur){cur=L;h+=`<div class="lt">${esc(L)}</div>`}
+    const bd=c.birthday?fmt(parse(c.birthday),{day:'numeric',month:'long'}):'';
+    h+=`<div class="pc"><div class="pcn">${esc(cname(c))}</div>${c.company||c.title?`<div class="mu">${esc([c.company,c.title].filter(Boolean).join(' · '))}</div>`:''}`
+      +(c.emails||[]).filter(e=>e.v).map(e=>`<div><span class="pl">${esc(e.label)}</span>${esc(e.v)}</div>`).join('')
+      +(c.phones||[]).filter(e=>e.v).map(e=>`<div><span class="pl">${esc(e.label)}</span>${esc(e.v)}</div>`).join('')
+      +(c.address?`<div class="pa">${esc(c.address)}</div>`:'')+(bd?`<div><span class="pl">${t('birthday')}</span>${esc(bd)}</div>`:'')+`</div>`});
+  return`<div class="ph"><div><div class="kicker">${fullDate(new Date())}</div><h1>${t('addressBook')}</h1></div></div><div class="pcols">${h}</div>`;
+}
+function buildPrint(o){
+  const[pw,ph]=PAPER[o.paper]||PAPER.A4,two=o.what!=='contacts'&&o.layout==='2';
+  const W=two?ph:pw,H=two?pw:ph,m=o.paper==='A5'?8:10,iw=W-2*m,ih=H-2*m;
+  $('#pagestyle').textContent=`@page{size:${W}mm ${H}mm;margin:${m}mm}`;
+  const P=$('#print');P.innerHTML='';P.classList.add('measure');
+  if(o.what==='contacts'){P.innerHTML=`<div class="pin" style="width:${iw}mm">${contactsPrint()}</div>`}
+  else{
+    let pages=o.what==='blank'?Array.from({length:Math.max(1,Math.min(60,o.n|0||1))},()=>blankPage(o.tpl)):VIEWFN[ui.view]();
+    const per=two?2:1;
+    for(let i=0;i<pages.length;i+=per){
+      const s=document.createElement('div');s.className='sheet';s.style.width=iw+'mm';s.style.height=ih+'mm';
+      pages.slice(i,i+per).forEach(h=>{const pp=document.createElement('div');pp.className='ppage';pp.innerHTML=`<div class="pin">${h}</div>`;s.appendChild(pp)});
+      if(per===2&&pages.slice(i,i+per).length===1)s.appendChild(Object.assign(document.createElement('div'),{className:'ppage'}));
+      P.appendChild(s);
+    }
+  }
+  P.querySelectorAll('textarea').forEach(x=>{const d=document.createElement('div');d.className='pta '+x.className;d.textContent=x.value;d.style.minHeight=(Math.max(1,x.rows||2)*1.6+0.8)+'em';x.replaceWith(d)});
+  P.querySelectorAll('[id]').forEach(e=>e.removeAttribute('id'));
+  P.querySelectorAll('.ppage').forEach(pp=>{const pin=pp.firstElementChild;if(!pin)return;const need=pin.scrollHeight,have=pp.clientHeight;
+    if(need>have+1){const z=have/need;pin.style.transform=`scale(${z})`;pin.style.width=(100/z)+'%';pin.style.minHeight=(100/z)+'%'}});
+  P.classList.remove('measure');
+}
+function doPrint(){
+  const o={what:document.querySelector('input[name=pw]:checked')?.value||'current',paper:$('#pPaper').value,layout:$('#pLayout').value,tpl:$('#pTpl').value,n:+$('#pN').value||1};
+  ui.print=o;saveUI();closeDlg();buildPrint(o);
+  setTimeout(()=>{try{const r=window.print();if(r&&r.catch)r.catch(e=>toast(String(e)))}catch(e){toast(String(e))}},60);
+}
+
+/* ---------- commands ---------- */
+const TAURI=window.__TAURI__;
+let NATIVE=false,lastCmd='',lastT=0;
+function tauriWin(){try{return TAURI.window.getCurrentWindow()}catch(e){return null}}
+function run(cmd){
+  const now=Date.now();if(cmd===lastCmd&&now-lastT<300)return;lastCmd=cmd;lastT=now;
+  closeMenus();
+  const[c,arg]=cmd.split(':');
+  switch(c){
+    case'view':ui.view=arg;if(arg==='contacts'){}break;
+    case'theme':ui.theme=arg;render();renderChrome();rebuildMenu();return;
+    case'lang':ui.lang=arg;render();renderChrome();rebuildMenu();return;
+    case'today':ui.cur=today();if(!['day','week','month','year'].includes(ui.view))ui.view='day';break;
+    case'prev':if(!nav(-1))return;break;
+    case'next':if(!nav(1))return;break;
+    case'goDate':openGoDate();return;
+    case'print':openPrint();return;
+    case'backup':openBackup(false);return;
+    case'restore':openBackup(true);return;
+    case'newNote':newNote('lined');return;
+    case'newContact':newContact();return;
+    case'find':ui.view='contacts';render();setTimeout(()=>{const q=$('#q');if(q){q.focus();q.select()}},0);return;
+    case'zoomIn':ui.zoom=Math.min(1.6,Math.round((ui.zoom+0.1)*10)/10);break;
+    case'zoomOut':ui.zoom=Math.max(0.6,Math.round((ui.zoom-0.1)*10)/10);break;
+    case'zoomReset':ui.zoom=1;break;
+    case'fullscreen':{const w=TAURI&&tauriWin();if(w){w.isFullscreen().then(f=>w.setFullscreen(!f)).catch(()=>{})}else{try{document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen()}catch(e){}}return}
+    case'quit':{save(true);const w=TAURI&&tauriWin();if(w)w.close();return}
+    case'shortcuts':openShortcuts();return;
+    case'about':openAbout();return;
+    case'undo':case'redo':case'cut':case'copy':case'selectAll':try{document.execCommand(c==='selectAll'?'selectAll':c)}catch(e){}return;
+    case'paste':try{navigator.clipboard.readText().then(x=>document.execCommand('insertText',false,x)).catch(()=>toast(t('pasteHint')))}catch(e){toast(t('pasteHint'))}return;
+    default:return;
+  }
+  render();
+}
+function newNote(tpl){const id=uid();DB.notes[id]={title:'',tpl,body:'',cues:'',summary:'',items:tpl==='check'?[{t:'',done:false}]:[],created:new Date().toISOString()};
+  ui.note=id;ui.view='notes';save();render();const el=$(`[data-k="notes.${id}.title"]`);if(el)el.focus()}
+function newContact(){const id=uid();DB.contacts[id]={first:'',last:'',company:'',title:'',emails:[{label:t('lblHome'),v:''}],phones:[{label:t('lblMobile'),v:''}],address:'',birthday:'',groups:'',notes:''};
+  ui.contact=id;ui.letter='';ui.q='';ui.view='contacts';save();render();const el=$(`[data-k="contacts.${id}.first"]`);if(el)el.focus()}
+
+/* ---------- menus ---------- */
+function MENU(native){
+  const S={sep:1},langs=[['en','English'],['hr','Hrvatski'],['de','Deutsch']];
+  const edit=(native&&IS_MAC)?[{pre:'Undo',label:t('undo')},{pre:'Redo',label:t('redo')},S,{pre:'Cut',label:t('cut')},{pre:'Copy',label:t('copyM')},{pre:'Paste',label:t('paste')},{pre:'SelectAll',label:t('selectAll')}]
+    :[{id:'undo',label:t('undo'),hint:`${MOD}+Z`},{id:'redo',label:t('redo'),hint:IS_MAC?'⇧⌘Z':'Ctrl+Y'},S,{id:'cut',label:t('cut'),hint:`${MOD}+X`},{id:'copy',label:t('copyM'),hint:`${MOD}+C`},{id:'paste',label:t('paste'),hint:`${MOD}+V`},{id:'selectAll',label:t('selectAll'),hint:`${MOD}+A`}];
+  const m=[];
+  if(native&&IS_MAC)m.push({label:'Organizer',items:[{id:'about',label:t('about')},S,{pre:'Hide'},{pre:'HideOthers'},{pre:'ShowAll'},S,{pre:'Quit'}]});
+  m.push({label:t('mFile'),items:[{id:'newNote',label:t('newNote'),acc:'CmdOrCtrl+N'},{id:'newContact',label:t('newContactM'),acc:'CmdOrCtrl+Shift+N'},S,{id:'print',label:t('print'),acc:'CmdOrCtrl+P'},S,{id:'backup',label:t('backupMenu')},{id:'restore',label:t('restoreMenu')},...((native&&!IS_MAC)?[S,{id:'quit',label:t('quit'),acc:'CmdOrCtrl+Q'}]:[])]});
+  m.push({label:t('mEdit'),items:[...edit,S,{id:'find',label:t('findContact'),acc:'CmdOrCtrl+F'}]});
+  m.push({label:t('mView'),items:[...VIEWS.map((v,i)=>({id:'view:'+v,label:t(v),acc:'CmdOrCtrl+'+(i+1)})),S,
+    {label:t('themeM'),items:Object.keys(THEMES).map(x=>({id:'theme:'+x,label:t('theme_'+x),check:true,checked:ui.theme===x}))},
+    {label:t('language'),items:langs.map(([k,n])=>({id:'lang:'+k,label:n,check:true,checked:ui.lang===k}))},S,
+    {id:'zoomIn',label:t('zoomIn'),acc:'CmdOrCtrl+='},{id:'zoomOut',label:t('zoomOut'),acc:'CmdOrCtrl+-'},{id:'zoomReset',label:t('zoomReset'),acc:'CmdOrCtrl+0'},S,
+    (native&&IS_MAC)?{pre:'Fullscreen'}:{id:'fullscreen',label:t('fullscreen'),acc:IS_MAC?'':'F11'}]});
+  m.push({label:t('mGo'),items:[{id:'today',label:t('goToday'),acc:'CmdOrCtrl+T'},{id:'prev',label:t('goPrev'),acc:'Alt+Left'},{id:'next',label:t('goNext'),acc:'Alt+Right'},S,{id:'goDate',label:t('goDate'),acc:'CmdOrCtrl+G'}]});
+  m.push({label:t('mHelp'),items:[{id:'shortcuts',label:t('shortcuts')},S,{id:'about',label:t('about')}]});
+  return m;
+}
+async function nativeItems(items){
+  const M=TAURI.menu,out=[];
+  for(const it of items){
+    try{
+      if(it.sep)out.push(await M.PredefinedMenuItem.new({item:'Separator'}));
+      else if(it.pre)out.push(await M.PredefinedMenuItem.new(it.label?{item:it.pre,text:it.label}:{item:it.pre}));
+      else if(it.items)out.push(await M.Submenu.new({text:it.label,items:await nativeItems(it.items)}));
+      else if(it.check)out.push(await M.CheckMenuItem.new({text:it.label,checked:!!it.checked,action:()=>run(it.id)}));
+      else{
+        const o={text:it.label,action:()=>run(it.id)};
+        let made=null;
+        if(it.acc){try{made=await M.MenuItem.new({...o,accelerator:it.acc})}catch(e){made=null}}
+        out.push(made||await M.MenuItem.new(o));
+      }
+    }catch(e){console.warn('menu item failed',it,e)}
+  }
+  return out;
+}
+async function buildNative(){
+  const M=TAURI.menu,subs=[];
+  for(const s of MENU(true))subs.push(await M.Submenu.new({text:s.label,items:await nativeItems(s.items)}));
+  const menu=await M.Menu.new({items:subs});
+  await menu.setAsAppMenu();
+}
+let menuBusy=Promise.resolve();
+function rebuildMenu(){if(NATIVE)menuBusy=menuBusy.then(buildNative).catch(e=>console.warn(e))}
+const accHint=a=>a?a.replace('CmdOrCtrl',MOD).replace('Alt',ALT).replace('Left','←').replace('Right','→'):'';
+function htmlItems(items){return items.map(it=>{
+  if(it.sep)return'<div class="msep"></div>';
+  if(it.items)return`<div class="msub"><button class="mi" type="button"><span>${esc(it.label)}</span><span class="k">›</span></button><div class="dd">${htmlItems(it.items)}</div></div>`;
+  if(it.pre)return'';
+  return`<button class="mi" type="button" data-act="cmd" data-c="${it.id}"><span>${it.check?(it.checked?'✓ ':'<span style="display:inline-block;width:1em"></span>'):''}${esc(it.label)}</span><span class="k">${esc(it.hint||accHint(it.acc))}</span></button>`}).join('')}
+function renderHtmlMenu(){
+  $('#menubar').innerHTML=MENU(false).map((s,i)=>`<div class="mb" data-mi="${i}"><button type="button" data-act="menu" data-i="${i}">${esc(s.label)}</button><div class="dd">${htmlItems(s.items)}</div></div>`).join('');
+}
+function closeMenus(){document.querySelectorAll('.mb.open').forEach(x=>x.classList.remove('open'))}
+
+/* ---------- events ---------- */
+document.addEventListener('mousedown',e=>{if(e.target.closest('.menubar'))e.preventDefault();else if(!e.target.closest('.mb'))closeMenus()});
+document.addEventListener('mouseover',e=>{const mb=e.target.closest('.mb');if(mb&&document.querySelector('.mb.open')&&!mb.classList.contains('open')){closeMenus();mb.classList.add('open')}});
 document.addEventListener('click',e=>{
-  const t=e.target.closest('[data-act]');if(!t)return;
-  const a=t.dataset.act;
+  const x=e.target.closest('[data-act]');if(!x)return;
+  const a=x.dataset.act;
   switch(a){
-    case'view':ui.view=t.dataset.v;break;
-    case'nav':nav(+t.dataset.d);break;
-    case'today':ui.cur=today();break;
-    case'goDay':ui.cur=t.dataset.k;ui.view='day';break;
-    case'goMonth':ui.cur=`${t.dataset.y}-${pad(+t.dataset.m+1)}-01`;ui.view='month';break;
-    case'add':{const p=t.dataset.path,arr=get(p)||[];arr.push(NEW[t.dataset.tpl]());set(p,arr);save();render();
-      const el=document.querySelector(`[data-k="${p}.${arr.length-1}.${FKEY[t.dataset.tpl]}"]`);if(el)el.focus();return}
-    case'del':{const arr=get(t.dataset.path);if(Array.isArray(arr))arr.splice(+t.dataset.i,1);save();break}
-    case'selContact':ui.contact=t.dataset.id;ui.view='contacts';break;
-    case'newContact':{const id=uid();DB.contacts[id]={first:'',last:'',company:'',title:'',emails:[{label:'Home',v:''}],phones:[{label:'Mobile',v:''}],address:'',birthday:'',groups:'',notes:''};
-      ui.contact=id;ui.letter='';ui.q='';ui.view='contacts';save();render();const el=$(`[data-k="contacts.${id}.first"]`);if(el)el.focus();return}
-    case'delContact':if(!arm(t))return;delete DB.contacts[ui.contact];ui.contact=null;save();toast('Contact deleted');break;
-    case'letter':ui.letter=ui.letter===t.dataset.l?'':t.dataset.l;break;
-    case'newNote':{const id=uid();DB.notes[id]={title:'',tpl:t.dataset.tpl,body:'',cues:'',summary:'',items:t.dataset.tpl==='check'?[{t:'',done:false}]:[],created:new Date().toISOString()};
-      ui.note=id;save();render();const el=$(`[data-k="notes.${id}.title"]`);if(el)el.focus();return}
-    case'selNote':ui.note=t.dataset.id;break;
-    case'delNote':if(!arm(t))return;delete DB.notes[ui.note];ui.note=null;save();toast('Page deleted');break;
-    case'backup':$('#bk').value=backupText();$('#bkmsg').textContent='';$('#modal').classList.remove('hidden');return;
-    case'close':$('#modal').classList.add('hidden');return;
-    case'copy':{const txt=$('#bk').value;try{navigator.clipboard.writeText(txt).then(()=>toast('Backup copied'),()=>{$('#bk').select();$('#bkmsg').textContent='Press Ctrl+C (Cmd+C on Mac) to copy.'})}catch(err){$('#bk').select();$('#bkmsg').textContent='Press Ctrl+C (Cmd+C on Mac) to copy.'}return}
-    case'download':{try{const b=new Blob([$('#bk').value],{type:'application/json'}),u=URL.createObjectURL(b),x=document.createElement('a');x.href=u;x.download=`organizer-backup-${today()}.json`;document.body.appendChild(x);x.click();x.remove();setTimeout(()=>URL.revokeObjectURL(u),2000);$('#bkmsg').textContent='If nothing downloaded, use Copy instead.'}catch(err){$('#bkmsg').textContent='Download is not available here. Use Copy instead.'}return}
-    case'restore':{try{const o=JSON.parse($('#bk').value);if(!o||typeof o!=='object'||!('days' in o||'contacts' in o))throw 0;DB=o;fix();save(true);ui.contact=null;ui.note=null;render();$('#modal').classList.add('hidden');toast('Backup restored')}catch(err){$('#bkmsg').textContent='That is not a valid organizer backup.'}return}
+    case'cmd':run(x.dataset.c);return;
+    case'menu':{const mb=x.parentElement,was=mb.classList.contains('open');closeMenus();if(!was)mb.classList.add('open');return}
+    case'goDay':ui.cur=x.dataset.k;ui.view='day';break;
+    case'goMonth':ui.cur=`${x.dataset.y}-${pad(+x.dataset.m+1)}-01`;ui.view='month';break;
+    case'add':{const p=x.dataset.path,arr=get(p)||[];arr.push(NEW[x.dataset.tpl]());set(p,arr);save();render();
+      const el=document.querySelector(`[data-k="${p}.${arr.length-1}.${FKEY[x.dataset.tpl]}"]`);if(el)el.focus();return}
+    case'del':{const arr=get(x.dataset.path);if(Array.isArray(arr))arr.splice(+x.dataset.i,1);save();break}
+    case'selContact':ui.contact=x.dataset.id;ui.view='contacts';break;
+    case'delContact':if(!arm(x))return;delete DB.contacts[ui.contact];ui.contact=null;save();toast(t('contactDeleted'));break;
+    case'letter':ui.letter=ui.letter===x.dataset.l?'':x.dataset.l;break;
+    case'newNote':newNote(x.dataset.tpl);return;
+    case'selNote':ui.note=x.dataset.id;break;
+    case'delNote':if(!arm(x))return;delete DB.notes[ui.note];ui.note=null;save();toast(t('pageDeleted'));break;
+    case'closeDlg':closeDlg();return;
+    case'doPrint':doPrint();return;
+    case'goDateOk':{const v=$('#gd').value;if(/^\d{4}-\d{2}-\d{2}$/.test(v)){ui.cur=v;if(!['day','week','month','year'].includes(ui.view))ui.view='day';closeDlg();render()}return}
+    case'copyBk':{const txt=$('#bk').value,fail=()=>{$('#bk').select();$('#bkmsg').textContent=t('pressCopy')};try{navigator.clipboard.writeText(txt).then(()=>toast(t('copied')),fail)}catch(err){fail()}return}
+    case'dlBk':{try{const b=new Blob([$('#bk').value],{type:'application/json'}),u=URL.createObjectURL(b),l=document.createElement('a');l.href=u;l.download=`organizer-backup-${today()}.json`;document.body.appendChild(l);l.click();l.remove();setTimeout(()=>URL.revokeObjectURL(u),2000);$('#bkmsg').textContent=t('dlHint')}catch(err){$('#bkmsg').textContent=t('dlNo')}return}
+    case'restoreBk':{try{const o=JSON.parse($('#bk').value);if(!o||typeof o!=='object'||!('days' in o||'contacts' in o))throw 0;DB=o;fix();save(true);ui.contact=null;ui.note=null;closeDlg();render();toast(t('restored'))}catch(err){$('#bkmsg').textContent=t('invalid')}return}
     default:return;
   }
   render();
@@ -415,24 +771,48 @@ document.addEventListener('input',e=>{
   const k=el.dataset.k;if(!k)return;
   set(k,el.type==='checkbox'?el.checked:el.value);save();
   if(el.type==='checkbox'){const row=el.closest('.todo');if(row)row.classList.toggle('done',el.checked)}
-  if(k.startsWith('contacts.')&&/\.(first|last|company|emails|phones)/.test(k)&&ui.contact){
-    const c=DB.contacts[ui.contact];$('#clist').innerHTML=contactList();$('#cname').textContent=cname(c);$('#cav').textContent=initials(c);$('#ckick').textContent=c.company||'Contact'}
+  if(k.startsWith('contacts.')&&/\.(first|last|company|emails|phones)/.test(k)&&ui.contact&&DB.contacts[ui.contact]){
+    const c=DB.contacts[ui.contact];$('#clist').innerHTML=contactList();$('#cname').textContent=cname(c);$('#cav').textContent=initials(c);$('#ckick').textContent=c.company||t('contact')}
   if(k.startsWith('notes.')&&k.endsWith('.title'))$('#nlist').innerHTML=noteList();
 });
-document.addEventListener('keydown',e=>{
-  const el=e.target;
-  if(e.key==='Enter'&&el.getAttribute&&el.getAttribute('role')==='button'){el.click();return}
-  if(e.key==='Enter'&&el.matches&&el.matches('.todo input.ln')){e.preventDefault();const b=el.closest('.list')?.querySelector(':scope > .add');if(b)b.click();return}
-  if(e.key==='Escape'){$('#modal').classList.add('hidden');return}
-  if(/^(INPUT|TEXTAREA|SELECT)$/.test(el.tagName))return;
-  if(e.key==='ArrowLeft'){nav(-1);render()}
-  else if(e.key==='ArrowRight'){nav(1);render()}
-  else if(e.key==='t'){ui.cur=today();render()}
+document.addEventListener('change',e=>{
+  if(e.target.name==='pw')printFields();
+  if(e.target.id==='bkfile'){const f=e.target.files[0];if(!f)return;f.text().then(x=>{$('#bk').value=x;$('#bkmsg').textContent=t('fileLoaded')});e.target.value=''}
 });
-$('#theme').addEventListener('change',e=>{ui.theme=e.target.value;render()});
-$('#bkfile').addEventListener('change',e=>{const f=e.target.files[0];if(!f)return;f.text().then(t=>{$('#bk').value=t;$('#bkmsg').textContent='File loaded. Click Restore to replace your current data with it.'});e.target.value=''});
+$('#theme').addEventListener('change',e=>run('theme:'+e.target.value));
+$('#lang').addEventListener('change',e=>run('lang:'+e.target.value));
+document.addEventListener('keydown',e=>{
+  const el=e.target,mod=e.ctrlKey||e.metaKey,k=e.key;
+  if(k==='Escape'){if(dlgOpen())closeDlg();closeMenus();return}
+  if(dlgOpen()){if(k==='Enter'&&el.id==='gd'){e.preventDefault();$('[data-act=goDateOk]').click()}return}
+  if(k==='Enter'&&el.getAttribute&&el.getAttribute('role')==='button'){el.click();return}
+  if(k==='Enter'&&el.matches&&el.matches('.todo input.ln')){e.preventDefault();const b=el.closest('.list')?.querySelector(':scope > .add');if(b)b.click();return}
+  let cmd=null;
+  if(mod&&!e.altKey){
+    const kk=k.toLowerCase();
+    if(/^[1-6]$/.test(k))cmd='view:'+VIEWS[+k-1];
+    else if(kk==='p')cmd='print';
+    else if(kk==='n')cmd=e.shiftKey?'newContact':'newNote';
+    else if(kk==='f')cmd='find';
+    else if(kk==='t')cmd='today';
+    else if(kk==='g')cmd='goDate';
+    else if(k==='='||k==='+')cmd='zoomIn';
+    else if(k==='-')cmd='zoomOut';
+    else if(k==='0')cmd='zoomReset';
+    else if(kk==='q'&&NATIVE&&!IS_MAC)cmd='quit';
+  }else if(e.altKey&&!mod&&(k==='ArrowLeft'||k==='ArrowRight'))cmd=k==='ArrowLeft'?'prev':'next';
+  else if(k==='F11'&&!IS_MAC)cmd='fullscreen';
+  if(cmd){e.preventDefault();run(cmd);return}
+  if(/^(INPUT|TEXTAREA|SELECT)$/.test(el.tagName)||mod||e.altKey)return;
+  if(k==='ArrowLeft')run('prev');
+  else if(k==='ArrowRight')run('next');
+  else if(k==='t')run('today');
+});
 window.addEventListener('storage',e=>{if(e.key===KEY&&e.newValue){try{DB=JSON.parse(e.newValue);fix();render()}catch(err){}}});
+
 render();
+renderChrome();
+if(TAURI&&TAURI.menu){NATIVE=true;$('#menubar').innerHTML='';menuBusy=buildNative().catch(err=>{console.warn('native menu failed',err);NATIVE=false;renderHtmlMenu()})}
 </script>
 </body>
 </html>

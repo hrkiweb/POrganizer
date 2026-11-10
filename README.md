@@ -2,6 +2,16 @@
 
 A personal organizer in a ring-binder style. It's built with [Tauri 2](https://tauri.app): a small native shell (Rust) around the HTML/CSS/JS user interface in `src/index.html`.
 
+## Features
+
+* **Sections:** Year, Month, Week and Day planner pages, an address book, and notes with page templates (lined, dot grid, graph, checklist, Cornell, blank).
+* **Languages:** English, Hrvatski (Croatian) and Deutsch (German). Choose one under **View → Language** or with the selector in the top bar. Day and month names come from the operating system's date formatting.
+* **Menus:** File, Edit, View, Go and Help in the normal desktop menu bar. On a Mac they appear in the top bar of the screen. **Help → Keyboard shortcuts** lists every shortcut.
+* **Printing (File → Print… or Ctrl/Cmd+P):** print the current pages, the address book, or blank template pages. Paper can be A4, A5 or Letter, with one page per sheet (portrait) or two pages per sheet (landscape). A5 with one page per sheet fits a standard A5 ring binder.
+* **Themes:** Sand, Nordic and Classic.
+
+To add a language, copy the `en:` block in the `I18N` table near the top of the script in `src/index.html`. Give it a new code such as `it:` and translate the text, then add the code to `LOCALES` and to the language lists.
+
 ```
 organizer-app/
 ├── src/index.html              ← the whole user interface (edit this)
