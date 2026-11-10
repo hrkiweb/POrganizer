@@ -5,6 +5,9 @@ A personal organizer in a ring-binder style. It's built with [Tauri 2](https://t
 ## Features
 
 * **Sections:** Year, Month, Week and Day planner pages, an address book, and notes with page templates (lined, dot grid, graph, checklist, Cornell, blank).
+* **Your profile:** set up on first launch, and changeable any time via **File → My profile…** or the name button in the top bar. It is stored locally for now and will become your account when web sync is added.
+* **Day time scale:** 60, 30 or 15 minutes (buttons on the Day page). Set the first and last time of day in **File → Settings…** (Ctrl/Cmd+,). Entries are kept when you switch scale.
+* **Projects:** status, start and due dates, description, people linked from the address book with their roles, and tasks with due dates and an assignee. Deadlines appear in the Day, Week, Month and Year views, and each contact lists the projects they're in.
 * **Languages:** English, Hrvatski (Croatian) and Deutsch (German). Choose one under **View → Language** or with the selector in the top bar. Day and month names come from the operating system's date formatting.
 * **Menus:** File, Edit, View, Go and Help in the normal desktop menu bar. On a Mac they appear in the top bar of the screen. **Help → Keyboard shortcuts** lists every shortcut.
 * **Printing (File → Print… or Ctrl/Cmd+P):** print the current pages, the address book, or blank template pages. Paper can be A4, A5 or Letter, with one page per sheet (portrait) or two pages per sheet (landscape). A5 with one page per sheet fits a standard A5 ring binder.

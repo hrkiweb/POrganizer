@@ -36,7 +36,47 @@ button{font:inherit;color:inherit;cursor:pointer;background:none;border:none;pad
 .tabs{display:flex;flex-direction:column;gap:4px;padding:22px 0}
 .tabs.l{align-items:flex-end}
 .tab{writing-mode:vertical-rl;font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;display:flex;align-items:center;justify-content:center;cursor:pointer;user-select:none;transition:width .12s}
-.tabs.r .tab{border-radius:0 6px 6px 0;height:100px;width:30px}
+.tabs.r .tab{border-radius:0 6px 6px 0;flex:1;max-height:100px;min-height:60px;width:30px}
+.secrow{display:flex;align-items:center;justify-content:space-between;padding-top:3px;padding-bottom:3px}
+.seg{display:flex;gap:2px}
+.seg button{font-size:10px;font-weight:800;letter-spacing:.08em;padding:3px 7px;border-radius:3px;color:var(--muted)}
+.seg button:hover{background:var(--paper)}
+.seg button.on{background:var(--accent);color:var(--paper)}
+.slot.minor .h{font-weight:500;font-size:10.5px;color:var(--line2)}
+.slot.minor{border-bottom-style:dashed}
+.slot.s30{height:28px}.slot.s15{height:25px}
+.slot.s30 input.ln,.slot.s15 input.ln{height:24px}
+.me{display:flex;align-items:center;gap:8px;padding:3px 10px 3px 3px;border:1px solid var(--line2);border-radius:20px;font-size:11px;letter-spacing:.1em;text-transform:uppercase;font-weight:700;color:var(--ink)}
+.me:hover{background:var(--paper)}
+.me .av{width:24px;height:24px;border-radius:50%;background:var(--accent);color:var(--paper);display:flex;align-items:center;justify-content:center;font-size:10px;letter-spacing:.04em}
+.chip{display:inline-block;font-size:9.5px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;padding:2px 7px;border-radius:3px;background:var(--fill);color:var(--muted)}
+.chip.active{background:var(--accent);color:var(--paper)}
+.chip.hold{border:1px dashed var(--muted);background:transparent}
+.chip.done{text-decoration:line-through}
+.pbar{height:4px;background:var(--fill);border-radius:2px;overflow:hidden;margin-top:6px}
+.pbar i{display:block;height:100%;background:var(--accent)}
+.ci .ctop{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.pfilter{display:flex;gap:4px;flex-wrap:wrap;margin:0 0 6px}
+.pfilter button{font-size:10px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;padding:5px 9px;border-radius:3px;color:var(--muted);border:1px solid var(--line2)}
+.pfilter button.on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.person{display:flex;align-items:center;gap:10px;border-bottom:1px solid var(--line);padding:4px 0}
+.person .pav{width:30px;height:30px;border-radius:50%;background:var(--fill);color:var(--muted);font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center;flex:none}
+.person .pn{width:38%;min-width:0;flex:none}
+.person .pn button{font-weight:700;color:var(--ink);text-align:left}
+.person .pn button:hover{color:var(--accent)}
+.person .pn div{font-size:11.5px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.person:hover .x{opacity:1}
+select.pick,select.asg,select.ln{font:inherit;color:inherit;background:transparent;border:1px solid var(--line2);border-radius:4px;padding:6px 8px;outline:none}
+select.pick{margin-top:6px;color:var(--muted);font-size:12.5px;max-width:100%}
+.ptask input.due{width:132px;flex:none;font-size:12.5px;color:var(--muted)}
+.ptask select.asg{width:130px;flex:none;font-size:12px;padding:3px 4px;border-color:transparent;color:var(--muted)}
+.ptask select.asg:hover{border-color:var(--line2)}
+.ev.dl,.lnk.dl{color:#a3392b;font-weight:600}
+.pgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px 16px}
+.pgrid .fld input,.pgrid .fld select{font:inherit;color:inherit;background:transparent;border:1px solid var(--line2);border-radius:4px;padding:7px 9px;width:100%}
+.pgrid .full{grid-column:1/3}
+.pgrid textarea{height:60px;font-family:inherit;font-size:13px}
+.err{color:#a3392b;font-size:12.5px;min-height:1em}
 .tabs.r .tab.on{width:38px}
 .tabs.l .tab{transform:rotate(180deg);border-radius:0 6px 6px 0;flex:1;max-height:64px;width:26px;font-size:10px}
 .tabs.l .tab.on{width:34px}
@@ -217,6 +257,7 @@ input.title::placeholder{color:var(--line2)}
   <nav class="menubar" id="menubar"></nav>
   <span id="todaylbl"></span>
   <span class="sp"></span>
+  <span id="mechip"></span>
   <select id="lang" class="bbtn" aria-label="Language"><option value="en">English</option><option value="hr">Hrvatski</option><option value="de">Deutsch</option></select>
   <select id="theme" class="bbtn" aria-label="Theme"></select>
   <button class="bbtn" data-act="cmd" data-c="print" id="bPrint"></button>
@@ -235,7 +276,7 @@ input.title::placeholder{color:var(--line2)}
 <div class="toast" id="toast"></div>
 <div id="print"></div>
 <script>
-const APP_VERSION='0.2.0';
+const APP_VERSION='0.3.0';
 const KEY='organizer.v1',UIKEY='organizer.ui';
 const IS_MAC=/Mac|iPhone|iPad/.test(navigator.platform||navigator.userAgent);
 const MOD=IS_MAC?'⌘':'Ctrl',ALT=IS_MAC?'⌥':'Alt';
@@ -275,6 +316,20 @@ en:{
   aboutText:'Version {v}. A personal organizer. Your data is stored on this computer.',
   kViews:'Switch section (Year … Notes)',kArrows:'Previous / next page (outside text fields)',kZoom:'Zoom in / out / actual size',kNextTodo:'Add the next item in a to-do list',
   dateLbl:'Date'
+  ,projects:'Projects',newProject:'+ New project',newProjectM:'New project',projectsCount:'Projects: {n}',all:'All',
+  st_planned:'Planned',st_active:'Active',st_hold:'On hold',st_done:'Done',
+  noProjects:'No projects here yet.',noProjectSel:'No project selected',noProjectHint:'Pick a project from the list, or start a new one.',
+  projectName:'Project name',status:'Status',start:'Start',due:'Due',description:'Description',people:'People',
+  addPerson:'+ Add a person from the address book…',role:'Role',rolePh:'Role in the project',tasks:'Tasks',addTask:'+ Add task',
+  assignee:'Assigned to',nobody:'Nobody',me:'Me',tasksDone:'{d} of {n} tasks done',deadlines:'Deadlines',dueProject:'Due: {name}',
+  projectDeleted:'Project deleted',
+  myProfile:'My profile…',settings:'Settings…',profileTitle:'My profile',settingsTitle:'Settings',
+  welcomeTitle:'Welcome to Organizer',
+  welcomeHint:'Create your profile: your name and contact details. It stays on this computer. Your name appears in the app and on printouts, and the profile will become your account when web sync is added.',
+  createProfile:'Create profile',saveProfile:'Save',skip:'Skip for now',profileSaved:'Profile saved',settingsSaved:'Settings saved',
+  needName:'Enter at least your first name.',website:'Website',dayStart:'Day starts at',dayEnd:'Last time slot',timeScale:'Time scale',
+  minutes:'{n} min',calSec:'Day planner',appearance:'Appearance',invalidHours:'The last time slot must be after the start of the day.',
+  profileOf:'Profile: {name}'
 },
 hr:{
   print:'Ispis…',printBtnBar:'Ispis',backup:'Sigurnosna kopija',year:'Godina',month:'Mjesec',week:'Tjedan',day:'Dan',contacts:'Kontakti',notes:'Bilješke',
@@ -310,6 +365,20 @@ hr:{
   aboutText:'Verzija {v}. Osobni rokovnik. Vaši se podaci spremaju na ovom računalu.',
   kViews:'Promjena odjeljka (Godina … Bilješke)',kArrows:'Prethodna / sljedeća stranica (izvan polja za unos)',kZoom:'Povećaj / smanji / stvarna veličina',kNextTodo:'Dodaj sljedeću stavku u popis zadataka',
   dateLbl:'Datum'
+  ,projects:'Projekti',newProject:'+ Novi projekt',newProjectM:'Novi projekt',projectsCount:'Projekata: {n}',all:'Svi',
+  st_planned:'Planirano',st_active:'Aktivno',st_hold:'Na čekanju',st_done:'Završeno',
+  noProjects:'Ovdje još nema projekata.',noProjectSel:'Nijedan projekt nije odabran',noProjectHint:'Odaberite projekt s popisa ili započnite novi.',
+  projectName:'Naziv projekta',status:'Status',start:'Početak',due:'Rok',description:'Opis',people:'Osobe',
+  addPerson:'+ Dodaj osobu iz imenika…',role:'Uloga',rolePh:'Uloga u projektu',tasks:'Zadaci',addTask:'+ Dodaj zadatak',
+  assignee:'Nositelj',nobody:'Nitko',me:'Ja',tasksDone:'Gotovo {d} od {n} zadataka',deadlines:'Rokovi',dueProject:'Rok: {name}',
+  projectDeleted:'Projekt je obrisan',
+  myProfile:'Moj profil…',settings:'Postavke…',profileTitle:'Moj profil',settingsTitle:'Postavke',
+  welcomeTitle:'Dobro došli u Organizer',
+  welcomeHint:'Izradite svoj profil: ime i kontakt podatke. Profil ostaje na ovom računalu. Vaše se ime prikazuje u aplikaciji i na ispisima, a profil će postati vaš račun kada se doda sinkronizacija s webom.',
+  createProfile:'Izradi profil',saveProfile:'Spremi',skip:'Preskoči za sada',profileSaved:'Profil je spremljen',settingsSaved:'Postavke su spremljene',
+  needName:'Upišite barem svoje ime.',website:'Web stranica',dayStart:'Dan počinje u',dayEnd:'Zadnji termin',timeScale:'Vremenska skala',
+  minutes:'{n} min',calSec:'Dnevni planer',appearance:'Izgled',invalidHours:'Zadnji termin mora biti nakon početka dana.',
+  profileOf:'Profil: {name}'
 },
 de:{
   print:'Drucken…',printBtnBar:'Drucken',backup:'Sicherung',year:'Jahr',month:'Monat',week:'Woche',day:'Tag',contacts:'Kontakte',notes:'Notizen',
@@ -345,6 +414,20 @@ de:{
   aboutText:'Version {v}. Ein persönlicher Organizer. Ihre Daten werden auf diesem Computer gespeichert.',
   kViews:'Bereich wechseln (Jahr … Notizen)',kArrows:'Vorherige / nächste Seite (außerhalb von Textfeldern)',kZoom:'Vergrößern / verkleinern / Originalgröße',kNextTodo:'Nächsten Eintrag in einer Aufgabenliste hinzufügen',
   dateLbl:'Datum'
+  ,projects:'Projekte',newProject:'+ Neues Projekt',newProjectM:'Neues Projekt',projectsCount:'Projekte: {n}',all:'Alle',
+  st_planned:'Geplant',st_active:'Aktiv',st_hold:'Pausiert',st_done:'Erledigt',
+  noProjects:'Hier gibt es noch keine Projekte.',noProjectSel:'Kein Projekt ausgewählt',noProjectHint:'Wählen Sie ein Projekt aus der Liste oder beginnen Sie ein neues.',
+  projectName:'Projektname',status:'Status',start:'Beginn',due:'Fällig',description:'Beschreibung',people:'Personen',
+  addPerson:'+ Person aus dem Adressbuch hinzufügen…',role:'Rolle',rolePh:'Rolle im Projekt',tasks:'Aufgaben',addTask:'+ Aufgabe hinzufügen',
+  assignee:'Zuständig',nobody:'Niemand',me:'Ich',tasksDone:'{d} von {n} Aufgaben erledigt',deadlines:'Fristen',dueProject:'Fällig: {name}',
+  projectDeleted:'Projekt gelöscht',
+  myProfile:'Mein Profil…',settings:'Einstellungen…',profileTitle:'Mein Profil',settingsTitle:'Einstellungen',
+  welcomeTitle:'Willkommen bei Organizer',
+  welcomeHint:'Legen Sie Ihr Profil an: Name und Kontaktdaten. Es bleibt auf diesem Computer. Ihr Name erscheint in der App und auf Ausdrucken, und das Profil wird zu Ihrem Konto, sobald die Web-Synchronisierung hinzukommt.',
+  createProfile:'Profil anlegen',saveProfile:'Speichern',skip:'Später',profileSaved:'Profil gespeichert',settingsSaved:'Einstellungen gespeichert',
+  needName:'Geben Sie mindestens Ihren Vornamen ein.',website:'Website',dayStart:'Tag beginnt um',dayEnd:'Letzter Zeitslot',timeScale:'Zeitraster',
+  minutes:'{n} Min.',calSec:'Tagesplaner',appearance:'Darstellung',invalidHours:'Der letzte Zeitslot muss nach dem Tagesbeginn liegen.',
+  profileOf:'Profil: {name}'
 }};
 const LOCALES={en:'en-GB',hr:'hr-HR',de:'de-DE'};
 const ALPHA={en:'ABCDEFGHIJKLMNOPQRSTUVWXYZ',hr:'ABCČĆDĐEFGHIJKLMNOPRSŠTUVZŽ',de:'ABCDEFGHIJKLMNOPQRSTUVWXYZ'};
@@ -361,11 +444,11 @@ const isoWeek=d=>{const x=new Date(Date.UTC(d.getFullYear(),d.getMonth(),d.getDa
 const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const uid=()=>Math.random().toString(36).slice(2,10);
 
-let ui={view:'day',contact:null,note:null,q:'',letter:'',theme:'sand',lang:'',zoom:1,print:{what:'current',paper:'A4',layout:'2',tpl:'lined',n:5}};
+let ui={view:'day',contact:null,note:null,project:null,pfilter:'all',welcomed:false,q:'',letter:'',theme:'sand',lang:'',zoom:1,print:{what:'current',paper:'A4',layout:'2',tpl:'lined',n:5}};
 try{const s=JSON.parse(localStorage.getItem(UIKEY)||'{}');Object.assign(ui,s,{print:Object.assign(ui.print,s.print||{})})}catch(e){}
 if(!I18N[ui.lang]){const n=(navigator.language||'en').slice(0,2).toLowerCase();ui.lang=I18N[n]?n:'en'}
 ui.cur=today();ui.q='';
-function saveUI(){try{localStorage.setItem(UIKEY,JSON.stringify({view:ui.view,contact:ui.contact,note:ui.note,theme:ui.theme,lang:ui.lang,zoom:ui.zoom,print:ui.print}))}catch(e){}}
+function saveUI(){try{localStorage.setItem(UIKEY,JSON.stringify({view:ui.view,contact:ui.contact,note:ui.note,project:ui.project,pfilter:ui.pfilter,welcomed:ui.welcomed,theme:ui.theme,lang:ui.lang,zoom:ui.zoom,print:ui.print}))}catch(e){}}
 
 const t=(k,v)=>{let s=I18N[ui.lang]?.[k]??I18N.en[k]??k;if(v)for(const x in v)s=s.split('{'+x+'}').join(v[x]);return s};
 const loc=()=>LOCALES[ui.lang]||'en-GB';
@@ -382,19 +465,28 @@ const shortDate=iso=>iso?fmt(new Date(iso),{day:'numeric',month:'short',year:'nu
 function seed(){
   const d=new Date(),td=today(),tm=ymd(addDays(d,1)),m=pad(d.getMonth()+1);
   return{v:1,
-    days:{[td]:{slots:{'09':'Stand-up meeting','11':'Call with Ana','13':'Lunch with Ivan','17':'Gym'},focus:'Finish the quarterly report',prios:['Quarterly report','Reply to Tomislav',''],todos:[{t:'Renew domain',done:false},{t:'Pick up parcel',done:true},{t:'Book dentist',done:false}],notes:''},
-          [tm]:{slots:{'10':'Dentist','15':'Project review'},focus:'',prios:['','',''],todos:[],notes:''}},
+    days:{[td]:{slots:{'09:00':'Stand-up meeting','11:00':'Call with Ana','13:00':'Lunch with Ivan','17:00':'Gym'},focus:'Finish the quarterly report',prios:['Quarterly report','Reply to Tomislav',''],todos:[{t:'Renew domain',done:false},{t:'Pick up parcel',done:true},{t:'Book dentist',done:false}],notes:''},
+          [tm]:{slots:{'10:00':'Dentist','15:00':'Project review'},focus:'',prios:['','',''],todos:[],notes:''}},
     weeks:{},months:{},
     contacts:{
       c1:{first:'Ana',last:'Horvat',company:'Studio Lumen',title:'Designer',emails:[{label:'Work',v:'ana.horvat@example.com'}],phones:[{label:'Mobile',v:'+385 91 234 5678'}],address:'Ilica 12\n10000 Zagreb',birthday:'1990-03-14',groups:'Work, Friends',notes:''},
       c2:{first:'Marko',last:'Babić',company:'',title:'',emails:[{label:'Home',v:'marko.babic@example.com'}],phones:[{label:'Mobile',v:'+385 95 111 2222'},{label:'Home',v:'+385 51 333 444'}],address:'Korzo 8\n51000 Rijeka',birthday:`1988-${m}-${pad(Math.min(28,d.getDate()+4))}`,groups:'Family',notes:'Brother'},
       c3:{first:'Ivan',last:'Kovač',company:'Kovač Accounting',title:'Accountant',emails:[{label:'Work',v:'ivan.kovac@example.com'}],phones:[{label:'Office',v:'+385 21 456 789'}],address:'Riva 5\n21000 Split',birthday:'1979-07-02',groups:'Finance',notes:''},
       c4:{first:'Tomislav',last:'Jurić',company:'Jurić d.o.o.',title:'Client',emails:[{label:'Work',v:'tomislav.juric@example.com'}],phones:[{label:'Mobile',v:'+385 99 444 5555'}],address:'Osijek',birthday:'',groups:'Work',notes:''}},
+    projects:{p1:{name:'Website redesign',status:'active',start:td,due:ymd(addDays(d,9)),desc:'New company website with booking form.',
+      people:[{id:'c1',role:'Designer'},{id:'c4',role:'Client'}],
+      tasks:[{t:'Collect content from client',done:true,due:td,who:'c4'},{t:'First design draft',done:false,due:ymd(addDays(d,3)),who:'c1'},{t:'Review with client',done:false,due:ymd(addDays(d,6)),who:''}],notes:'',created:new Date().toISOString()}},
+    settings:{dayStart:6,dayEnd:22,slot:60},
     notes:{n1:{title:'Project ideas',tpl:'lined',body:'Organizer app\n- binder look, vertical tabs\n- sync with server later\n- print to A5',cues:'',summary:'',items:[],created:new Date().toISOString()}}};
 }
 function load(){try{const s=localStorage.getItem(KEY);if(s)return JSON.parse(s)}catch(e){}return seed()}
 let DB=load();
-function fix(){['days','weeks','months','contacts','notes'].forEach(k=>{if(!DB[k]||typeof DB[k]!=='object')DB[k]={}})}
+function fix(){
+  ['days','weeks','months','contacts','notes','projects'].forEach(k=>{if(!DB[k]||typeof DB[k]!=='object')DB[k]={}});
+  DB.settings=Object.assign({dayStart:6,dayEnd:22,slot:60},DB.settings||{});
+  for(const d of Object.values(DB.days)){if(!d.slots)continue;for(const k of Object.keys(d.slots)){if(/^\d\d$/.test(k)){const nk=k+':00';if(!d.slots[nk])d.slots[nk]=d.slots[k];delete d.slots[k]}}}
+  if(DB.profile===undefined)DB.profile=null;
+}
 fix();
 let saveT;
 function save(now){clearTimeout(saveT);const w=()=>{try{localStorage.setItem(KEY,JSON.stringify(DB))}catch(e){}};now?w():saveT=setTimeout(w,250)}
@@ -408,9 +500,11 @@ const monthP=k=>{if(!DB.months[k])DB.months[k]={focus:'',goals:'',prios:['','','
 const cname=c=>[c.first,c.last].filter(Boolean).join(' ')||t('unnamed');
 const initials=c=>(((c.first||'')[0]||'')+((c.last||'')[0]||'')).toUpperCase()||'?';
 const letterOf=c=>((c.last||c.first||'#').trim().charAt(0)||'#').toLocaleUpperCase(loc());
-const bdays=md=>Object.entries(DB.contacts).filter(([,c])=>c.birthday&&c.birthday.slice(5)===md);
+const bdays=md=>{const r=Object.entries(DB.contacts).filter(([,c])=>c.birthday&&c.birthday.slice(5)===md);if(DB.profile&&DB.profile.birthday&&DB.profile.birthday.slice(5)===md)r.unshift(['me',DB.profile]);return r};
+const person=id=>id==='me'?(DB.profile?{...DB.profile,first:DB.profile.first,last:DB.profile.last}:null):DB.contacts[id];
+const deadlines=k=>{const r=[];for(const[id,p]of Object.entries(DB.projects)){if(p.due===k&&p.status!=='done')r.push({pid:id,label:t('dueProject',{name:p.name||t('untitled')})});(p.tasks||[]).forEach(x=>{if(x.due===k&&!x.done&&x.t)r.push({pid:id,label:`${x.t} · ${p.name||t('untitled')}`})})}return r};
 const dayEntries=k=>{const d=DB.days[k];if(!d)return[];return Object.entries(d.slots||{}).filter(([,v])=>v&&v.trim()).sort((a,b)=>a[0].localeCompare(b[0]))};
-const hasData=k=>{const d=DB.days[k];return!!d&&(dayEntries(k).length>0||(d.todos||[]).some(x=>x.t))};
+const hasData=k=>{const d=DB.days[k];return(!!d&&(dayEntries(k).length>0||(d.todos||[]).some(x=>x.t)))||deadlines(k).length>0};
 const sortedContacts=()=>Object.entries(DB.contacts).sort((a,b)=>((a[1].last||a[1].first||'')+' '+(a[1].first||'')).localeCompare((b[1].last||b[1].first||'')+' '+(b[1].first||''),loc()));
 
 const inp=(p,ph='',cls='ln')=>`<input class="${cls}" data-k="${p}" value="${esc(get(p))}" placeholder="${esc(ph)}">`;
@@ -421,12 +515,21 @@ const todos=p=>{const a=get(p)||[];return`<div class="list">${a.map((x,i)=>`<div
 const navBtns=()=>`<div class="pnav"><button class="nb" data-act="cmd" data-c="prev" aria-label="${t('prev')}">‹</button><button class="nb t" data-act="cmd" data-c="today">${t('today')}</button><button class="nb" data-act="cmd" data-c="next" aria-label="${t('next')}">›</button></div>`;
 const head=(kicker,title,right='')=>`<div class="ph"><div><div class="kicker">${kicker}</div><h1>${title}</h1></div>${right}</div>`;
 
+function slotTimes(k){
+  const S=DB.settings,step=[15,30,60].includes(+S.slot)?+S.slot:60,a=Math.max(0,Math.min(23,+S.dayStart||0)),b=Math.max(a,Math.min(23,+S.dayEnd||23));
+  const set=new Set();for(let m=a*60;m<=b*60;m+=step)set.add(`${pad(Math.floor(m/60))}:${pad(m%60)}`);
+  const d=DB.days[k];if(d&&d.slots)for(const[x,v]of Object.entries(d.slots))if(v&&v.trim()&&/^\d\d:\d\d$/.test(x))set.add(x);
+  return{step,times:[...set].sort()};
+}
 function vDay(){
-  const d=parse(ui.cur),k=ui.cur,p=dayP(k),[,wn]=isoWeek(d),nowH=k===today()?new Date().getHours():-1;
-  let slots='';for(let h=6;h<=22;h++){const hh=pad(h);slots+=`<div class="slot ${h===nowH?'now':''}"><div class="h">${hh}:00</div>${inp(p+'.slots.'+hh)}</div>`}
-  const bd=bdays(k.slice(5));
-  const L=head(`${dayName(dow(d))} · ${t('weekN',{n:wn})}`,dayTitle(d),navBtns())+sec(t('schedule'))+slots;
+  const d=parse(ui.cur),k=ui.cur,p=dayP(k),[,wn]=isoWeek(d),{step,times}=slotTimes(k);
+  let nowKey='';if(k===today()){const n=new Date(),m=n.getHours()*60+n.getMinutes();for(const x of times){const[h,mm]=x.split(':').map(Number);if(h*60+mm<=m)nowKey=x}}
+  const slots=times.map(x=>{const minor=!x.endsWith(':00');return`<div class="slot s${step} ${minor?'minor':''} ${x===nowKey?'now':''}"><div class="h">${x}</div>${inp(p+'.slots.'+x)}</div>`}).join('');
+  const seg=`<span class="seg">${[60,30,15].map(v=>`<button class="${step===v?'on':''}" data-act="slot" data-v="${v}" title="${t('timeScale')}">${t('minutes',{n:v})}</button>`).join('')}</span>`;
+  const bd=bdays(k.slice(5)),dl=deadlines(k);
+  const L=head(`${dayName(dow(d))} · ${t('weekN',{n:wn})}`,dayTitle(d),navBtns())+`<div class="sec secrow"><span>${t('schedule')}</span>${seg}</div>`+slots;
   const R=head(t('dailyPlanner'),dayName(dow(d)))
+    +(dl.length?sec(t('deadlines'))+dl.map(x=>`<button class="lnk dl" data-act="selProject" data-id="${x.pid}" style="text-align:left">${esc(x.label)}</button>`).join(''):'')
     +(bd.length?sec(t('birthdays'))+bd.map(([id,c])=>`<button class="lnk" data-act="selContact" data-id="${id}" style="text-align:left">${esc(cname(c))}</button>`).join(''):'')
     +sec(t('todaysFocus'))+ta(p+'.focus',2,t('focusPh'))
     +sec(t('priorities'))+prios(p)+sec(t('todo'))+todos(p+'.todos')+sec(t('notesSec'))+ta(p+'.notes',5);
@@ -440,7 +543,7 @@ function vWeek(){
     +sec(t('habitTracker'))+`<div class="hhead">${[0,1,2,3,4,5,6].map(j=>`<span>${dayNarrow(j)}</span>`).join('')}</div>${habits}<button class="add" data-act="add" data-path="${p}.habits" data-tpl="habit">${t('addHabit')}</button>`;
   let rows='';
   for(let i=0;i<7;i++){const x=addDays(m,i),xk=ymd(x),en=dayEntries(xk),bd=bdays(xk.slice(5)),dd=DB.days[xk],open=dd?(dd.todos||[]).filter(q=>q.t&&!q.done).length:0;
-    rows+=`<div class="wk ${xk===today()?'today':''}" data-act="goDay" data-k="${xk}"><div class="dl"><b>${dayShort(i)}</b><span>${x.getDate()}</span></div><div class="de">${bd.map(([,c])=>`<div class="ev b">${esc(t('birthdayOf',{name:cname(c)}))}</div>`).join('')}${en.map(([h,v])=>`<div class="ev"><span class="tm">${h}:00</span>${esc(v)}</div>`).join('')}${open?`<div class="ev mu">${t('openTodos',{n:open})}</div>`:''}</div></div>`}
+    rows+=`<div class="wk ${xk===today()?'today':''}" data-act="goDay" data-k="${xk}"><div class="dl"><b>${dayShort(i)}</b><span>${x.getDate()}</span></div><div class="de">${bd.map(([,c])=>`<div class="ev b">${esc(t('birthdayOf',{name:cname(c)}))}</div>`).join('')}${deadlines(xk).map(x=>`<div class="ev dl">${esc(x.label)}</div>`).join('')}${en.map(([h,v])=>`<div class="ev"><span class="tm">${h}</span>${esc(v)}</div>`).join('')}${open?`<div class="ev mu">${t('openTodos',{n:open})}</div>`:''}</div></div>`}
   const R=head(t('clickDay'),monthName(m.getMonth())+(e.getMonth()!==m.getMonth()?' / '+monthName(e.getMonth()):''))+`<div class="wks">${rows}</div>`+sec(t('notesSec'))+ta(p+'.notes',3);
   return[L,R];
 }
@@ -449,7 +552,7 @@ function vMonth(){
   const first=new Date(y,mo,1),start=monday(first),n=new Date(y,mo+1,0).getDate(),weeks=Math.ceil((dow(first)+n)/7);
   let g=[0,1,2,3,4,5,6].map(i=>`<div class="dh">${dayShort(i)}</div>`).join('');
   for(let i=0;i<weeks*7;i++){const x=addDays(start,i),xk=ymd(x),out=x.getMonth()!==mo,en=out?[]:dayEntries(xk),bd=out?[]:bdays(xk.slice(5));
-    g+=`<div class="mc ${out?'out':''} ${xk===today()?'today':''}" data-act="goDay" data-k="${xk}"><span class="d">${x.getDate()}</span>${bd.map(([,c])=>`<div class="ev b">${esc(cname(c))}</div>`).join('')}${en.slice(0,3).map(([h,v])=>`<div class="ev"><span class="tm">${h}</span>${esc(v)}</div>`).join('')}${en.length>3?`<div class="ev mu">${t('more',{n:en.length-3})}</div>`:''}</div>`}
+    g+=`<div class="mc ${out?'out':''} ${xk===today()?'today':''}" data-act="goDay" data-k="${xk}"><span class="d">${x.getDate()}</span>${bd.map(([,c])=>`<div class="ev b">${esc(cname(c))}</div>`).join('')}${(out?[]:deadlines(xk)).map(x=>`<div class="ev dl">${esc(x.label)}</div>`).join('')}${en.slice(0,3).map(([h,v])=>`<div class="ev"><span class="tm">${h}</span>${esc(v)}</div>`).join('')}${en.length>3?`<div class="ev mu">${t('more',{n:en.length-3})}</div>`:''}</div>`}
   const L=head(t('monthLbl',{y}),monthName(mo),navBtns())+`<div class="mg" style="grid-template-rows:auto repeat(${weeks},minmax(70px,1fr))">${g}</div>`;
   const imp=Object.entries(DB.contacts).filter(([,c])=>c.birthday&&+c.birthday.slice(5,7)===mo+1).sort((a,b)=>a[1].birthday.slice(8).localeCompare(b[1].birthday.slice(8)));
   const R=head(t('monthlyOverview'),fmt(d,{month:'long',year:'numeric'}))+sec(t('monthlyFocus'))+ta(p+'.focus',2)+sec(t('goals'))+ta(p+'.goals',4)+sec(t('priorities'))+prios(p)
@@ -495,6 +598,43 @@ function vContacts(){
     +sec(t('email'))+multi(p+'.emails','email')+sec(t('phone'))+multi(p+'.phones','phone')
     +sec(t('address'))+ta(p+'.address',3)
     +sec(t('personal'))+fr(t('birthday'),`<input class="ln" type="date" data-k="${p}.birthday" value="${esc(c.birthday)}">`)+fr(t('groups'),inp(p+'.groups',t('groupsPh')))
+    +(()=>{const pr=Object.entries(DB.projects).map(([pid,P])=>[pid,P,(P.people||[]).find(x=>x.id===id)]).filter(x=>x[2]);return pr.length?sec(t('projects'))+pr.map(([pid,P,x])=>`<div class="todo" style="justify-content:space-between"><button class="lnk" data-act="selProject" data-id="${pid}">${esc(P.name||t('untitled'))}${x.role?` <span class="mu">· ${esc(x.role)}</span>`:''}</button><span class="chip ${P.status}">${t('st_'+P.status)}</span></div>`).join(''):''})()
+    +sec(t('notesSec'))+ta(p+'.notes',4);
+  return[L,R];
+}
+const PSTAT=['active','planned','hold','done'];
+function projectList(){
+  const f=ui.pfilter||'all';
+  const all=Object.entries(DB.projects).filter(([,p])=>f==='all'||p.status===f)
+    .sort((a,b)=>PSTAT.indexOf(a[1].status)-PSTAT.indexOf(b[1].status)||(a[1].due||'9999').localeCompare(b[1].due||'9999')||(a[1].name||'').localeCompare(b[1].name||'',loc()));
+  if(!all.length)return`<div class="mu" style="padding:14px 2px">${t('noProjects')}</div>`;
+  return all.map(([id,p])=>{const tk=(p.tasks||[]).filter(x=>x.t),dn=tk.filter(x=>x.done).length,pc=tk.length?Math.round(dn/tk.length*100):0;
+    return`<div class="ci ${id===ui.project?'on':''}" data-act="selProject" data-id="${id}"><div class="ctop"><div class="n">${esc(p.name||t('untitled'))}</div><span class="chip ${p.status}">${t('st_'+p.status)}</span></div>
+    <div class="s">${p.due?`${t('due')}: ${esc(fmt(parse(p.due),{day:'numeric',month:'short',year:'numeric'}))} · `:''}${tk.length?t('tasksDone',{d:dn,n:tk.length}):''}</div>${tk.length?`<div class="pbar"><i style="width:${pc}%"></i></div>`:''}</div>`}).join('');
+}
+function vProjects(){
+  const n=Object.keys(DB.projects).length,f=ui.pfilter||'all';
+  const L=head(t('projectsCount',{n}),t('projects'),`<div class="pnav"><button class="nb t" data-act="cmd" data-c="newProject">${t('newProject')}</button></div>`)
+    +`<div class="pfilter">${['all',...PSTAT].map(x=>`<button class="${f===x?'on':''}" data-act="pfilter" data-v="${x}">${x==='all'?t('all'):t('st_'+x)}</button>`).join('')}</div>`
+    +`<div id="plist">${projectList()}</div>`;
+  const id=ui.project,P=DB.projects[id];
+  if(!P)return[L,`<div class="empty"><h1>${t('noProjectSel')}</h1><div>${t('noProjectHint')}</div><button class="nb t" data-act="cmd" data-c="newProject">${t('newProject')}</button></div>`];
+  const p='projects.'+id,fr=(l,h)=>`<div class="fr"><span class="lbl">${l}</span>${h}</div>`;
+  const ppl=(P.people||[]).map((x,i)=>({...x,i,c:person(x.id)})).filter(x=>x.c);
+  const people=ppl.map(x=>{const em=(x.c.emails||[]).find(e=>e.v)?.v||x.c.email||'',ph=(x.c.phones||[]).find(e=>e.v)?.v||x.c.phone||'';
+    return`<div class="person"><div class="pav">${esc(initials(x.c))}</div><div class="pn"><button data-act="selContact" data-id="${x.id}">${esc(cname(x.c))}${x.id==='me'?` (${t('me')})`:''}</button><div>${esc([em,ph].filter(Boolean).join(' · '))}</div></div>${inp(`${p}.people.${x.i}.role`,t('rolePh'))}<button class="x" data-act="del" data-path="${p}.people" data-i="${x.i}" aria-label="Remove">×</button></div>`}).join('');
+  const inIds=new Set((P.people||[]).map(x=>x.id));
+  const cand=[...(DB.profile&&!inIds.has('me')?[['me',DB.profile]]:[]),...sortedContacts().filter(([cid])=>!inIds.has(cid))];
+  const picker=cand.length?`<select class="pick" data-act-change="addPerson"><option value="">${t('addPerson')}</option>${cand.map(([cid,c])=>`<option value="${cid}">${esc(cname(c))}${cid==='me'?` (${t('me')})`:''}${c.company?' · '+esc(c.company):''}</option>`).join('')}</select>`:'';
+  const opts=w=>`<option value="">${t('nobody')}</option>`+ppl.map(x=>`<option value="${x.id}" ${w===x.id?'selected':''}>${esc(cname(x.c))}</option>`).join('');
+  const tasks=`<div class="list">${(P.tasks||[]).map((x,i)=>`<div class="todo ptask ${x.done?'done':''}"><input type="checkbox" data-k="${p}.tasks.${i}.done" ${x.done?'checked':''} aria-label="Done">${inp(`${p}.tasks.${i}.t`)}<input class="ln due" type="date" data-k="${p}.tasks.${i}.due" value="${esc(x.due||'')}" title="${t('due')}"><select class="asg" data-k="${p}.tasks.${i}.who" title="${t('assignee')}">${opts(x.who||'')}</select><button class="x" data-act="del" data-path="${p}.tasks" data-i="${i}" aria-label="Remove">×</button></div>`).join('')}<button class="add" data-act="add" data-path="${p}.tasks" data-tpl="task">${t('addTask')}</button></div>`;
+  const R=`<div class="ph"><div style="flex:1"><div class="kicker">${t('projects')}</div><input class="title" data-k="${p}.name" value="${esc(P.name)}" placeholder="${esc(t('projectName'))}"></div><div class="pnav"><button class="nb t danger" data-act="delProject">${t('del')}</button></div></div>`
+    +fr(t('status'),`<select class="ln" data-k="${p}.status" data-rerender="1" style="border:none;padding-left:0">${PSTAT.map(x=>`<option value="${x}" ${P.status===x?'selected':''}>${t('st_'+x)}</option>`).join('')}</select>`)
+    +fr(t('start'),`<input class="ln" type="date" data-k="${p}.start" value="${esc(P.start||'')}">`)
+    +fr(t('due'),`<input class="ln" type="date" data-k="${p}.due" value="${esc(P.due||'')}" data-rerender="1">`)
+    +sec(t('description'))+ta(p+'.desc',3)
+    +sec(t('people'))+people+picker
+    +sec(t('tasks'))+tasks
     +sec(t('notesSec'))+ta(p+'.notes',4);
   return[L,R];
 }
@@ -517,18 +657,19 @@ function vNotes(){
   return[L,R];
 }
 
-const VIEWS=['year','month','week','day','contacts','notes'];
+const VIEWS=['year','month','week','day','projects','contacts','notes'];
 const THEMES={
-  sand:{r:[['#5f4d42','#f6eee6'],['#8c7464','#f6eee6'],['#b79e8a','#2f2620'],['#d6c0ad','#3a2f29'],['#e8d6c9','#3a2f29'],['#f3e8de','#3a2f29']],l:[['#f1e7dd','#5a4a3f'],['#e3d3c3','#5a4a3f'],['#d3bda8','#4a3c33']]},
-  nordic:{r:[['#f2f4f6','#1f2328'],['#e2e6ea','#1f2328'],['#d2d8dd','#1f2328'],['#c2c9cf','#1f2328'],['#b1b9c1','#1f2328'],['#a0aab3','#14181c']],l:[['#eef1f3','#3a4249'],['#dce1e5','#3a4249'],['#c7ced4','#2a3036']]},
-  classic:{r:[['#F5C4B3','#712B13'],['#FAC775','#633806'],['#C0DD97','#27500A'],['#B5D4F4','#0C447C'],['#CECBF6','#3C3489'],['#F4C0D1','#72243E']],l:[['#F5C4B3','#712B13'],['#FAC775','#633806'],['#C0DD97','#27500A'],['#B5D4F4','#0C447C'],['#CECBF6','#3C3489'],['#F4C0D1','#72243E']]}};
-const VIEWFN={year:vYear,month:vMonth,week:vWeek,day:vDay,contacts:vContacts,notes:vNotes};
+  sand:{r:[['#5f4d42','#f6eee6'],['#7d6658','#f6eee6'],['#9c8371','#f6eee6'],['#b9a08c','#2f2620'],['#d4bfac','#3a2f29'],['#e6d5c8','#3a2f29'],['#f3e8de','#3a2f29']],l:[['#f1e7dd','#5a4a3f'],['#e3d3c3','#5a4a3f'],['#d3bda8','#4a3c33']]},
+  nordic:{r:[['#f2f4f6','#1f2328'],['#e4e8eb','#1f2328'],['#d6dce0','#1f2328'],['#c8cfd5','#1f2328'],['#b9c1c8','#1f2328'],['#aab3bb','#14181c'],['#9aa4ad','#14181c']],l:[['#eef1f3','#3a4249'],['#dce1e5','#3a4249'],['#c7ced4','#2a3036']]},
+  classic:{r:[['#F5C4B3','#712B13'],['#FAC775','#633806'],['#C0DD97','#27500A'],['#B5D4F4','#0C447C'],['#9FE1CB','#085041'],['#CECBF6','#3C3489'],['#F4C0D1','#72243E']],l:[['#F5C4B3','#712B13'],['#FAC775','#633806'],['#C0DD97','#27500A'],['#B5D4F4','#0C447C'],['#CECBF6','#3C3489'],['#F4C0D1','#72243E']]}};
+const VIEWFN={year:vYear,month:vMonth,week:vWeek,day:vDay,projects:vProjects,contacts:vContacts,notes:vNotes};
 
 function renderChrome(){
   document.documentElement.lang=ui.lang;
   $('#lang').value=ui.lang;
   $('#theme').innerHTML=Object.keys(THEMES).map(k=>`<option value="${k}">${t('theme_'+k)}</option>`).join('');
   $('#theme').value=ui.theme;
+  const P=DB.profile;$('#mechip').innerHTML=P?`<button class="me" data-act="cmd" data-c="profile" title="${esc(t('profileTitle'))}"><span class="av">${esc(initials(P))}</span><span>${esc(cname(P))}</span></button>`:`<button class="bbtn" data-act="cmd" data-c="profile">${t('createProfile')}</button>`;
   $('#bPrint').textContent=t('printBtnBar');$('#bBackup').textContent=t('backup');
   const d=new Date();$('#todaylbl').textContent=fullDate(d);
   if(!NATIVE)renderHtmlMenu();
@@ -553,8 +694,8 @@ function nav(n){const d=parse(ui.cur);
   else return false;
   ui.cur=ymd(d);return true;
 }
-const NEW={todo:()=>({t:'',done:false}),habit:()=>({name:'',d:[false,false,false,false,false,false,false]}),email:()=>({label:t('lblHome'),v:''}),phone:()=>({label:t('lblMobile'),v:''})};
-const FKEY={todo:'t',habit:'name',email:'v',phone:'v'};
+const NEW={task:()=>({t:'',done:false,due:'',who:''}),todo:()=>({t:'',done:false}),habit:()=>({name:'',d:[false,false,false,false,false,false,false]}),email:()=>({label:t('lblHome'),v:''}),phone:()=>({label:t('lblMobile'),v:''})};
+const FKEY={task:'t',todo:'t',habit:'name',email:'v',phone:'v'};
 function toast(m){const x=$('#toast');x.textContent=m;x.classList.add('show');clearTimeout(x._h);x._h=setTimeout(()=>x.classList.remove('show'),2000)}
 function arm(b){if(b.dataset.armed)return true;b.dataset.armed='1';b.textContent=t('confirmDel');setTimeout(()=>{if(b.isConnected){delete b.dataset.armed;b.textContent=t('del')}},3000);return false}
 
@@ -591,10 +732,49 @@ function openPrint(){
 function printFields(){const w=document.querySelector('input[name=pw]:checked')?.value;if(!w)return;$('#pLayoutF').style.display=w==='contacts'?'none':'';$('#pTplF').style.display=w==='blank'?'':'none'}
 function openGoDate(){openDlg(`<h2>${t('goDateTitle')}</h2><input type="date" id="gd" value="${ui.cur}" autofocus><div class="btns"><button class="bbtn" data-act="closeDlg">${t('cancel')}</button><button class="bbtn pri" data-act="goDateOk">${t('go')}</button></div>`)}
 function openShortcuts(){
-  const rows=[[`${MOD}+1 … 6`,t('kViews')],[`${ALT}+← / →`,`${t('goPrev')} / ${t('goNext')}`],['← / →',t('kArrows')],[`${MOD}+T`,t('goToday')],[`${MOD}+G`,t('goDate').replace('…','')],[`${MOD}+P`,t('print').replace('…','')],[`${MOD}+N`,t('newNote')],[`${MOD}+Shift+N`,t('newContactM')],[`${MOD}+F`,t('findContact')],[`${MOD}+ =  /  −  /  0`,t('kZoom')],[IS_MAC?'Ctrl+⌘+F':'F11',t('fullscreen')],['Enter',t('kNextTodo')]];
+  const rows=[[`${MOD}+1 … 7`,t('kViews')],[`${MOD}+,`,t('settings').replace('…','')],[`${MOD}+Shift+P`,t('newProjectM')],[`${ALT}+← / →`,`${t('goPrev')} / ${t('goNext')}`],['← / →',t('kArrows')],[`${MOD}+T`,t('goToday')],[`${MOD}+G`,t('goDate').replace('…','')],[`${MOD}+P`,t('print').replace('…','')],[`${MOD}+N`,t('newNote')],[`${MOD}+Shift+N`,t('newContactM')],[`${MOD}+F`,t('findContact')],[`${MOD}+ =  /  −  /  0`,t('kZoom')],[IS_MAC?'Ctrl+⌘+F':'F11',t('fullscreen')],['Enter',t('kNextTodo')]];
   openDlg(`<h2>${t('shortcuts')}</h2><table class="sct">${rows.map(([k,d])=>`<tr><td>${esc(k)}</td><td>${esc(d)}</td></tr>`).join('')}</table><div class="btns"><button class="bbtn" data-act="closeDlg" autofocus>${t('close')}</button></div>`);
 }
-function openAbout(){openDlg(`<h2>Organizer</h2><div>${t('aboutText',{v:APP_VERSION})}</div><div class="btns"><button class="bbtn" data-act="closeDlg" autofocus>${t('close')}</button></div>`)}
+function openAbout(){openDlg(`<h2>Organizer</h2><div>${t('aboutText',{v:APP_VERSION})}</div>${DB.profile?`<div class="mu">${esc(t('profileOf',{name:cname(DB.profile)}))}</div>`:''}<div class="btns"><button class="bbtn" data-act="closeDlg" autofocus>${t('close')}</button></div>`)}
+
+const LANGS=[['en','English'],['hr','Hrvatski'],['de','Deutsch']];
+const langOpts=()=>LANGS.map(([k,n])=>`<option value="${k}" ${ui.lang===k?'selected':''}>${n}</option>`).join('');
+const PF=['first','last','email','phone','company','title','website','birthday','address'];
+function collectProfile(){const o={};PF.forEach(k=>{const el=$('#pf_'+k);o[k]=el?el.value.trim():''});return o}
+function openProfile(welcome,vals){
+  const P=vals||DB.profile||{};
+  const f=(k,l,type='text',full=false)=>`<div class="fld ${full?'full':''}"><label for="pf_${k}">${l}</label>${k==='address'?`<textarea id="pf_${k}">${esc(P[k]||'')}</textarea>`:`<input id="pf_${k}" type="${type}" value="${esc(P[k]||'')}">`}</div>`;
+  openDlg(`<h2>${welcome?t('welcomeTitle'):t('profileTitle')}</h2>`
+    +(welcome?`<div class="mu">${t('welcomeHint')}</div><div class="fld"><label for="wLang">${t('language')}</label><select id="wLang">${langOpts()}</select></div>`:'')
+    +`<div class="pgrid">${f('first',t('first'))}${f('last',t('last'))}${f('email',t('email'),'email')}${f('phone',t('phone'),'tel')}${f('company',t('company'))}${f('title',t('jobTitle'))}${f('website',t('website'),'url')}${f('birthday',t('birthday'),'date')}${f('address',t('address'),'text',true)}</div>
+    <div class="err" id="pferr"></div>
+    <div class="btns">${welcome?`<button class="bbtn" data-act="closeDlg">${t('skip')}</button>`:`<button class="bbtn" data-act="closeDlg">${t('cancel')}</button>`}<button class="bbtn pri" data-act="saveProfile">${welcome?t('createProfile'):t('saveProfile')}</button></div>`);
+  setTimeout(()=>{const el=$('#pf_first');if(el)el.focus()},0);
+}
+function saveProfile(){
+  const v=collectProfile();if(!v.first){$('#pferr').textContent=t('needName');$('#pf_first').focus();return}
+  const old=DB.profile||{};DB.profile={...v,id:old.id||('u_'+uid()+uid()),created:old.created||new Date().toISOString(),updated:new Date().toISOString()};
+  save(true);closeDlg();renderChrome();render();toast(t('profileSaved'));
+}
+function openSettings(){
+  const S=DB.settings,hrs=cur=>Array.from({length:24},(_,h)=>`<option value="${h}" ${h==cur?'selected':''}>${pad(h)}:00</option>`).join('');
+  openDlg(`<h2>${t('settingsTitle')}</h2>
+  <div class="sec" style="margin:0">${t('appearance')}</div>
+  <div class="pgrid"><div class="fld"><label for="sLang">${t('language')}</label><select id="sLang">${langOpts()}</select></div><div class="fld"><label for="sTheme">${t('themeM')}</label><select id="sTheme">${Object.keys(THEMES).map(k=>`<option value="${k}" ${ui.theme===k?'selected':''}>${t('theme_'+k)}</option>`).join('')}</select></div></div>
+  <div class="sec" style="margin:4px 0 0">${t('calSec')}</div>
+  <div class="pgrid"><div class="fld"><label for="sStart">${t('dayStart')}</label><select id="sStart">${hrs(S.dayStart)}</select></div><div class="fld"><label for="sEnd">${t('dayEnd')}</label><select id="sEnd">${hrs(S.dayEnd)}</select></div>
+  <div class="fld"><label for="sSlot">${t('timeScale')}</label><select id="sSlot">${[60,30,15].map(v=>`<option value="${v}" ${+S.slot===v?'selected':''}>${t('minutes',{n:v})}</option>`).join('')}</select></div></div>
+  <div class="err" id="serr"></div>
+  <div class="btns"><button class="bbtn" data-act="closeDlg">${t('cancel')}</button><button class="bbtn pri" data-act="saveSettings">${t('saveProfile')}</button></div>`);
+}
+function saveSettings(){
+  const a=+$('#sStart').value,b=+$('#sEnd').value;if(b<=a){$('#serr').textContent=t('invalidHours');return}
+  DB.settings={...DB.settings,dayStart:a,dayEnd:b,slot:+$('#sSlot').value};save(true);
+  const nl=$('#sLang').value,nt=$('#sTheme').value,chg=nl!==ui.lang||nt!==ui.theme;ui.lang=nl;ui.theme=nt;
+  closeDlg();render();renderChrome();if(chg)rebuildMenu();toast(t('settingsSaved'));
+}
+function newProject(){const id=uid();DB.projects[id]={name:'',status:'active',start:today(),due:'',desc:'',people:DB.profile?[{id:'me',role:''}]:[],tasks:[],notes:'',created:new Date().toISOString()};
+  ui.project=id;ui.view='projects';ui.pfilter='all';save();render();const el=$(`[data-k="projects.${id}.name"]`);if(el)el.focus()}
 
 /* ---------- printing ---------- */
 const PAPER={A4:[210,297],A5:[148,210],Letter:[215.9,279.4]};
@@ -661,6 +841,9 @@ function run(cmd){
     case'restore':openBackup(true);return;
     case'newNote':newNote('lined');return;
     case'newContact':newContact();return;
+    case'newProject':newProject();return;
+    case'profile':openProfile(!DB.profile);return;
+    case'settings':openSettings();return;
     case'find':ui.view='contacts';render();setTimeout(()=>{const q=$('#q');if(q){q.focus();q.select()}},0);return;
     case'zoomIn':ui.zoom=Math.min(1.6,Math.round((ui.zoom+0.1)*10)/10);break;
     case'zoomOut':ui.zoom=Math.max(0.6,Math.round((ui.zoom-0.1)*10)/10);break;
@@ -687,7 +870,7 @@ function MENU(native){
     :[{id:'undo',label:t('undo'),hint:`${MOD}+Z`},{id:'redo',label:t('redo'),hint:IS_MAC?'⇧⌘Z':'Ctrl+Y'},S,{id:'cut',label:t('cut'),hint:`${MOD}+X`},{id:'copy',label:t('copyM'),hint:`${MOD}+C`},{id:'paste',label:t('paste'),hint:`${MOD}+V`},{id:'selectAll',label:t('selectAll'),hint:`${MOD}+A`}];
   const m=[];
   if(native&&IS_MAC)m.push({label:'Organizer',items:[{id:'about',label:t('about')},S,{pre:'Hide'},{pre:'HideOthers'},{pre:'ShowAll'},S,{pre:'Quit'}]});
-  m.push({label:t('mFile'),items:[{id:'newNote',label:t('newNote'),acc:'CmdOrCtrl+N'},{id:'newContact',label:t('newContactM'),acc:'CmdOrCtrl+Shift+N'},S,{id:'print',label:t('print'),acc:'CmdOrCtrl+P'},S,{id:'backup',label:t('backupMenu')},{id:'restore',label:t('restoreMenu')},...((native&&!IS_MAC)?[S,{id:'quit',label:t('quit'),acc:'CmdOrCtrl+Q'}]:[])]});
+  m.push({label:t('mFile'),items:[{id:'newNote',label:t('newNote'),acc:'CmdOrCtrl+N'},{id:'newContact',label:t('newContactM'),acc:'CmdOrCtrl+Shift+N'},{id:'newProject',label:t('newProjectM'),acc:'CmdOrCtrl+Shift+P'},S,{id:'profile',label:t('myProfile')},{id:'settings',label:t('settings'),acc:'CmdOrCtrl+,'},S,{id:'print',label:t('print'),acc:'CmdOrCtrl+P'},S,{id:'backup',label:t('backupMenu')},{id:'restore',label:t('restoreMenu')},...((native&&!IS_MAC)?[S,{id:'quit',label:t('quit'),acc:'CmdOrCtrl+Q'}]:[])]});
   m.push({label:t('mEdit'),items:[...edit,S,{id:'find',label:t('findContact'),acc:'CmdOrCtrl+F'}]});
   m.push({label:t('mView'),items:[...VIEWS.map((v,i)=>({id:'view:'+v,label:t(v),acc:'CmdOrCtrl+'+(i+1)})),S,
     {label:t('themeM'),items:Object.keys(THEMES).map(x=>({id:'theme:'+x,label:t('theme_'+x),check:true,checked:ui.theme===x}))},
@@ -749,8 +932,14 @@ document.addEventListener('click',e=>{
     case'add':{const p=x.dataset.path,arr=get(p)||[];arr.push(NEW[x.dataset.tpl]());set(p,arr);save();render();
       const el=document.querySelector(`[data-k="${p}.${arr.length-1}.${FKEY[x.dataset.tpl]}"]`);if(el)el.focus();return}
     case'del':{const arr=get(x.dataset.path);if(Array.isArray(arr))arr.splice(+x.dataset.i,1);save();break}
-    case'selContact':ui.contact=x.dataset.id;ui.view='contacts';break;
-    case'delContact':if(!arm(x))return;delete DB.contacts[ui.contact];ui.contact=null;save();toast(t('contactDeleted'));break;
+    case'selContact':if(x.dataset.id==='me'){run('profile');return}ui.contact=x.dataset.id;ui.view='contacts';break;
+    case'selProject':ui.project=x.dataset.id;ui.view='projects';break;
+    case'pfilter':ui.pfilter=x.dataset.v;break;
+    case'delProject':if(!arm(x))return;delete DB.projects[ui.project];ui.project=null;save();toast(t('projectDeleted'));break;
+    case'slot':DB.settings.slot=+x.dataset.v;save();break;
+    case'saveProfile':saveProfile();return;
+    case'saveSettings':saveSettings();return;
+    case'delContact':if(!arm(x))return;for(const P of Object.values(DB.projects)){P.people=(P.people||[]).filter(q=>q.id!==ui.contact);(P.tasks||[]).forEach(q=>{if(q.who===ui.contact)q.who=''})}delete DB.contacts[ui.contact];ui.contact=null;save();toast(t('contactDeleted'));break;
     case'letter':ui.letter=ui.letter===x.dataset.l?'':x.dataset.l;break;
     case'newNote':newNote(x.dataset.tpl);return;
     case'selNote':ui.note=x.dataset.id;break;
@@ -774,9 +963,12 @@ document.addEventListener('input',e=>{
   if(k.startsWith('contacts.')&&/\.(first|last|company|emails|phones)/.test(k)&&ui.contact&&DB.contacts[ui.contact]){
     const c=DB.contacts[ui.contact];$('#clist').innerHTML=contactList();$('#cname').textContent=cname(c);$('#cav').textContent=initials(c);$('#ckick').textContent=c.company||t('contact')}
   if(k.startsWith('notes.')&&k.endsWith('.title'))$('#nlist').innerHTML=noteList();
+  if(k.startsWith('projects.')&&$('#plist'))$('#plist').innerHTML=projectList();
 });
 document.addEventListener('change',e=>{
   if(e.target.name==='pw')printFields();
+  if(e.target.matches('select.pick')&&e.target.value&&ui.project&&DB.projects[ui.project]){const P=DB.projects[ui.project];(P.people=P.people||[]).push({id:e.target.value,role:''});save();render();return}
+  if(e.target.id==='wLang'){const v=collectProfile();ui.lang=e.target.value;render();renderChrome();rebuildMenu();openProfile(true,v);return}
   if(e.target.id==='bkfile'){const f=e.target.files[0];if(!f)return;f.text().then(x=>{$('#bk').value=x;$('#bkmsg').textContent=t('fileLoaded')});e.target.value=''}
 });
 $('#theme').addEventListener('change',e=>run('theme:'+e.target.value));
@@ -790,8 +982,9 @@ document.addEventListener('keydown',e=>{
   let cmd=null;
   if(mod&&!e.altKey){
     const kk=k.toLowerCase();
-    if(/^[1-6]$/.test(k))cmd='view:'+VIEWS[+k-1];
-    else if(kk==='p')cmd='print';
+    if(/^[1-7]$/.test(k))cmd='view:'+VIEWS[+k-1];
+    else if(kk==='p')cmd=e.shiftKey?'newProject':'print';
+    else if(k===',')cmd='settings';
     else if(kk==='n')cmd=e.shiftKey?'newContact':'newNote';
     else if(kk==='f')cmd='find';
     else if(kk==='t')cmd='today';
@@ -812,6 +1005,7 @@ window.addEventListener('storage',e=>{if(e.key===KEY&&e.newValue){try{DB=JSON.pa
 
 render();
 renderChrome();
+if(!DB.profile&&!ui.welcomed){ui.welcomed=true;saveUI();openProfile(true)}
 if(TAURI&&TAURI.menu){NATIVE=true;$('#menubar').innerHTML='';menuBusy=buildNative().catch(err=>{console.warn('native menu failed',err);NATIVE=false;renderHtmlMenu()})}
 </script>
 </body>
