@@ -13,7 +13,8 @@ A personal organizer in a ring-binder style. It's built with [Tauri 2](https://t
 * **Printing (File → Print… or Ctrl/Cmd+P):** print the current pages, the address book, or blank template pages. Paper can be A4, A5 or Letter, with one page per sheet (portrait) or two pages per sheet (landscape). A5 with one page per sheet fits a standard A5 ring binder.
 * **Links:** calendar events, projects, notes and people can be linked to each other, and a link shows up on both sides. Hover over an entry on the Day page and click the chain icon to link it. Projects, notes and contacts have a **Links** section, where you can also create a new event.
 * **Attachments:** files, images and web links on projects, notes and contacts. Add them with the buttons, by dragging files onto the page, or by pasting an image (Ctrl/Cmd+V). Files open in their normal program. The desktop app copies each file into its own `attachments` folder (see the data folders below), so moving or deleting the original doesn't break the attachment.
-* **Themes:** Sand, Nordic and Classic.
+* **Layout inspired by Organizer 6.1:** section tabs flip from the right edge to the left as you move through the binder. Page-edge tabs show months in the calendar sections and A–Z in Contacts. Each page has a status bar at the bottom, the Week section offers a "Work week" two-page spread, and a toolbar sits at the top. A sidebar (F9) has a mini calendar, today's date and clock, and upcoming items.
+* **Themes:** Sand, Nordic, Classic and Marble (a teal marble desk, in the spirit of Organizer 6.1).
 
 To add a language, copy the `en:` block in the `I18N` table near the top of the script in `src/index.html`. Give it a new code such as `it:` and translate the text, then add the code to `LOCALES` and to the language lists.
 

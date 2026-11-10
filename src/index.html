@@ -103,10 +103,78 @@ select.pick{margin-top:6px;color:var(--muted);font-size:12.5px;max-width:100%}
 #dp .dpf button{font-size:10.5px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);padding:4px 6px;border-radius:3px}
 #dp .dpf button:hover{background:var(--hi)}
 .tabs.r .tab.on{width:38px}
-.tabs.l .tab{transform:rotate(180deg);border-radius:0 6px 6px 0;flex:1;max-height:64px;width:26px;font-size:10px}
-.tabs.l .tab.on{width:34px}
+.tabs.l .tab{transform:rotate(180deg);border-radius:0 6px 6px 0;flex:1;max-height:100px;min-height:60px;width:30px}
+.tabs.l .tab.on{width:38px}
+.tabs:empty{display:none}
+.etabs{display:flex;flex-direction:column;gap:2px;padding:30px 0 40px;z-index:2}
+.etabs:empty{display:none}
+.etabs.l{align-items:flex-end;margin-right:-1px}
+.etabs.r{align-items:flex-start;margin-left:-1px}
+.etab{writing-mode:vertical-rl;flex:1;max-height:58px;min-height:18px;width:22px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;background:var(--paper);color:var(--muted);border:1px solid var(--line2);cursor:pointer;user-select:none}
+.etabs.r .etab{border-left:none;border-radius:0 4px 4px 0}
+.etabs.l .etab{transform:rotate(180deg);border-left:none;border-radius:0 4px 4px 0}
+.etab:hover{color:var(--ink)}
+.etab.on{width:27px;color:var(--accent);background:var(--hi)}
+.etab.dim{color:var(--line2)}
+.etab.ch{writing-mode:horizontal-tb;transform:none!important;font-size:10.5px;letter-spacing:0}
+@media (max-width:1180px){.side{display:none!important}}
+.tools{display:flex;align-items:center;gap:1px;margin-left:6px}
+.tb{width:32px;height:30px;display:flex;align-items:center;justify-content:center;border-radius:4px;color:var(--ink);border:1px solid transparent}
+.tb:hover{background:var(--paper);border-color:var(--line2)}
+.tb:active{transform:translateY(1px)}
+.tsep{width:1px;height:20px;background:var(--line2);margin:0 6px}
+#todaylbl{margin-right:6px}
+.side{width:212px;flex:none;margin-right:14px;display:flex;flex-direction:column;gap:12px;overflow:auto}
+.sbox{background:var(--paper);border:1px solid var(--line2);border-radius:6px;padding:10px}
+.snav{display:flex;align-items:center;justify-content:space-between;font-size:11px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;margin-bottom:4px}
+.snav button{width:24px;height:22px;border-radius:3px;font-size:14px;color:var(--muted)}
+.snav button:hover{background:var(--hi);color:var(--ink)}
+.sgrid{display:grid;grid-template-columns:repeat(7,1fr);text-align:center;font-size:11px;row-gap:1px;margin-top:6px}
+.sgrid .w{font-size:9.5px;font-weight:800;color:var(--muted);text-transform:uppercase;padding-bottom:2px}
+.sgrid button{padding:3px 0;border-radius:3px;position:relative;font-size:11px}
+.sgrid button:hover{background:var(--hi)}
+.sgrid button.out{color:var(--line2)}
+.sgrid button.we{color:var(--muted)}
+.sgrid button.sel{box-shadow:inset 0 0 0 1px var(--accent)}
+.sgrid button.td{background:var(--accent);color:var(--paper);font-weight:800}
+.sgrid button.has::after{content:'';position:absolute;bottom:0;left:50%;width:3px;height:3px;margin-left:-1.5px;border-radius:50%;background:var(--accent)}
+.sgrid button.td.has::after{background:var(--paper)}
+.stoday{display:flex;gap:12px;align-items:center;cursor:pointer}
+.stoday:hover{background:var(--hi)}
+.sbig{font-size:44px;font-weight:800;color:var(--accent);line-height:1;letter-spacing:-.02em}
+.stoday .sd{font-size:12px;line-height:1.45}
+.stoday .sd b{display:block;text-transform:uppercase;letter-spacing:.1em;font-size:11px}
+#sclock{font-size:18px;font-weight:300;letter-spacing:.04em}
+.sh{font-size:10px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+.sup{display:block;width:100%;text-align:left;padding:5px 4px;border-bottom:1px solid var(--line);font-size:12px;border-radius:3px}
+.sup:hover{background:var(--hi)}
+.sup .mu{display:block;font-size:10.5px}
+.sup.dl{color:#a3392b}
+.wspread{flex:1;display:flex;flex-direction:column;border:1px solid var(--line2);min-height:560px}
+.wsd{flex:2 1 0;display:flex;flex-direction:column;border-top:1px solid var(--line2);cursor:pointer;min-height:0;overflow:hidden}
+.wsd:first-child{border-top:none}
+.wsd.small{flex:1 1 0}
+.wsd:hover{background:var(--hi)}
+.wsh{background:var(--fill);padding:3px 8px;font-size:12px;display:flex;gap:6px;align-items:baseline}
+.wsh b{font-size:13px}
+.page.right .wsh{justify-content:flex-end;flex-direction:row-reverse}
+.wsd.today .wsh{background:var(--accent);color:var(--paper)}
+.wsb{padding:4px 10px;font-size:12.5px;overflow:hidden}
+body.marble{--marble:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='420' height='420'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.012 .03' numOctaves='5' seed='7'/%3E%3CfeColorMatrix values='0 0 0 0 .55  0 0 0 0 .78  0 0 0 0 .76  0 0 0 .55 -.08'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' fill='%2321454b'/%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");--desk:#21454b;--cover:#2b555b;--cover-edge:#173337;--paper:#ffffff;--line:#e4e4e4;--line2:#c4c4c4;--fill:#e2e2e2;--ink:#151515;--muted:#666;--accent:#a30000;--hi:#fffbdc;--dot:#b5b5b5;background-image:var(--marble)}
+body.marble .cover{background-image:var(--marble);border:3px solid #13292c;box-shadow:inset 0 0 0 1px #4f7a80}
+body.marble .bar{background:#ececec;border-bottom:1px solid #b9b9b9;color:#444}
+body.marble .side .sbox{background:#fffdf0}
+body.marble .slot{background:#fffbd8}
+body.marble .slot .h{background:#f2f2f2}
+body.marble .sec{background:#d9d9d9;color:#333}
+body.marble .pfoot{background:#d4d4d4;color:#333}
 .tab:focus-visible{outline:2px solid var(--ink)}
-.page{flex:1;min-width:0;background:var(--paper);padding:26px 32px;overflow:auto;display:flex;flex-direction:column;position:relative;z-index:1}
+.page{flex:1;min-width:0;background:var(--paper);display:flex;flex-direction:column;position:relative;z-index:1;overflow:hidden}
+.pbody{flex:1;min-height:0;padding:26px 32px 18px;overflow:auto;display:flex;flex-direction:column}
+.pfoot{flex:none;height:30px;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:0 14px;border-top:1px solid var(--line2);background:var(--fill);font-size:10.5px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);white-space:nowrap;overflow:hidden}
+.pfoot .fv{display:flex;align-items:center;gap:8px;min-width:0}
+.pfoot select{font:inherit;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;font-weight:800;color:var(--ink);background:var(--paper);border:1px solid var(--line2);border-radius:3px;padding:2px 4px}
+.page.right .pfoot{flex-direction:row-reverse}
 .page.left{border-radius:6px 0 0 6px}
 .page.right{border-radius:0 6px 6px 0}
 .spine{width:26px;background:var(--cover-edge);display:flex;flex-direction:column;justify-content:space-evenly;align-items:center;position:relative;z-index:2}
@@ -324,21 +392,21 @@ input.title::placeholder{color:var(--line2)}
 <div class="bar">
   <span class="brand">Organizer</span>
   <nav class="menubar" id="menubar"></nav>
-  <span id="todaylbl"></span>
+  <div class="tools" id="tools" role="toolbar"></div>
   <span class="sp"></span>
+  <span id="todaylbl"></span>
   <span id="mechip"></span>
-  <select id="lang" class="bbtn" aria-label="Language"><option value="en">English</option><option value="hr">Hrvatski</option><option value="de">Deutsch</option></select>
-  <select id="theme" class="bbtn" aria-label="Theme"></select>
-  <button class="bbtn" data-act="cmd" data-c="print" id="bPrint"></button>
-  <button class="bbtn" data-act="cmd" data-c="backup" id="bBackup"></button>
 </div>
 <div class="wrap">
+  <aside class="side" id="side"></aside>
   <div class="cover">
-    <div class="tabs l" id="ltabs"></div>
-    <div class="page left" id="lp"></div>
+    <div class="tabs l" id="stabsL"></div>
+    <div class="etabs l" id="etabsL"></div>
+    <div class="page left"><div class="pbody" id="lp"></div><div class="pfoot" id="lf"></div></div>
     <div class="spine"><div class="ring"></div><div class="ring"></div><div class="ring"></div><div class="ring"></div><div class="ring"></div><div class="ring"></div></div>
-    <div class="page right" id="rp"></div>
-    <div class="tabs r" id="rtabs"></div>
+    <div class="page right"><div class="pbody" id="rp"></div><div class="pfoot" id="rf"></div></div>
+    <div class="etabs r" id="etabsR"></div>
+    <div class="tabs r" id="stabsR"></div>
   </div>
 </div>
 <div id="dlg" class="modal hidden"><div class="mbox" id="dlgbox"></div></div>
@@ -346,7 +414,7 @@ input.title::placeholder{color:var(--line2)}
 <div id="dp"></div>
 <div id="print"></div>
 <script>
-const APP_VERSION='0.4.0';
+const APP_VERSION='0.5.0';
 const KEY='organizer.v1',UIKEY='organizer.ui';
 const IS_MAC=/Mac|iPhone|iPad/.test(navigator.platform||navigator.userAgent);
 const MOD=IS_MAC?'⌘':'Ctrl',ALT=IS_MAC?'⌥':'Alt';
@@ -399,7 +467,7 @@ en:{
   createProfile:'Create profile',saveProfile:'Save',skip:'Skip for now',profileSaved:'Profile saved',settingsSaved:'Settings saved',
   needName:'Enter at least your first name.',website:'Website',dayStart:'Day starts at',dayEnd:'Last time slot',timeScale:'Time scale',
   minutes:'{n} min',calSec:'Day planner',appearance:'Appearance',invalidHours:'The last time slot must be after the start of the day.',
-  profileOf:'Profile: {name}',dateFormat:'Date format',dfAuto:'Automatic (by language)',badDate:'That is not a valid date.',clearDate:'Clear',subject:'Subject',subjectPh:'Customer or other subject',group:'Group',groupPh:'e.g. Web, Internal',groupBy:'Group by',gbNone:'Nothing',noGroup:'No group',noSubject:'No subject',searchProjects:'Search projects, subjects, people, tasks…',searchNotes:'Search notes…',links:'Links',linkTo:'+ Link…',linkTitle:'Link to…',linkEvent:'Link this event to…',eventsL:'Calendar events',peopleL:'People',newEvent:'New event',createLink:'Create and link',eventText:'What is happening?',searchAll:'Search…',noResults:'Nothing found.',linkedOk:'Linked',attachments:'Attachments',addFile:'+ Add file…',addImage:'+ Add image…',addWebLink:'+ Add web link',open:'Open',showInFolder:'Show in folder',linkTitlePh:'Title',dropHint:'You can also drop files here or paste an image (Ctrl+V).',attachedN:'Attached: {n}',fileErr:'The file could not be opened.',needText:'Describe the event first.',slotTaken:'There is already an entry at that time, so it was linked.',noTarget:'Open a project, note or contact first.'
+  profileOf:'Profile: {name}',dateFormat:'Date format',dfAuto:'Automatic (by language)',badDate:'That is not a valid date.',clearDate:'Clear',subject:'Subject',subjectPh:'Customer or other subject',group:'Group',groupPh:'e.g. Web, Internal',groupBy:'Group by',gbNone:'Nothing',noGroup:'No group',noSubject:'No subject',searchProjects:'Search projects, subjects, people, tasks…',searchNotes:'Search notes…',links:'Links',linkTo:'+ Link…',linkTitle:'Link to…',linkEvent:'Link this event to…',eventsL:'Calendar events',peopleL:'People',newEvent:'New event',createLink:'Create and link',eventText:'What is happening?',searchAll:'Search…',noResults:'Nothing found.',linkedOk:'Linked',attachments:'Attachments',addFile:'+ Add file…',addImage:'+ Add image…',addWebLink:'+ Add web link',open:'Open',showInFolder:'Show in folder',linkTitlePh:'Title',dropHint:'You can also drop files here or paste an image (Ctrl+V).',attachedN:'Attached: {n}',fileErr:'The file could not be opened.',needText:'Describe the event first.',slotTaken:'There is already an entry at that time, so it was linked.',noTarget:'Open a project, note or contact first.',newEventM:'New event…',sidebar:'Sidebar',upcoming:'Coming up',nothingSoon:'Nothing planned.',dayOfYear:'Day {n}',daysLeft:'{n} days left',weeksLeft:'{n} weeks left',contactNofM:'Contact {i} of {n}',pageNofM:'Page {i} of {n}',layoutPlanner:'Week planner',layoutSpread:'Work week',theme_marble:'Marble',save:'Save',help:'Help'
 },
 hr:{
   print:'Ispis…',printBtnBar:'Ispis',backup:'Sigurnosna kopija',year:'Godina',month:'Mjesec',week:'Tjedan',day:'Dan',contacts:'Kontakti',notes:'Bilješke',
@@ -448,7 +516,7 @@ hr:{
   createProfile:'Izradi profil',saveProfile:'Spremi',skip:'Preskoči za sada',profileSaved:'Profil je spremljen',settingsSaved:'Postavke su spremljene',
   needName:'Upišite barem svoje ime.',website:'Web stranica',dayStart:'Dan počinje u',dayEnd:'Zadnji termin',timeScale:'Vremenska skala',
   minutes:'{n} min',calSec:'Dnevni planer',appearance:'Izgled',invalidHours:'Zadnji termin mora biti nakon početka dana.',
-  profileOf:'Profil: {name}',dateFormat:'Format datuma',dfAuto:'Automatski (prema jeziku)',badDate:'To nije ispravan datum.',clearDate:'Očisti',subject:'Subjekt',subjectPh:'Klijent ili drugi subjekt',group:'Grupa',groupPh:'npr. Web, Interno',groupBy:'Grupiraj po',gbNone:'Ništa',noGroup:'Bez grupe',noSubject:'Bez subjekta',searchProjects:'Traži projekte, subjekte, osobe, zadatke…',searchNotes:'Traži bilješke…',links:'Poveznice',linkTo:'+ Poveži…',linkTitle:'Poveži s…',linkEvent:'Poveži ovaj događaj s…',eventsL:'Događaji u kalendaru',peopleL:'Osobe',newEvent:'Novi događaj',createLink:'Izradi i poveži',eventText:'Što se događa?',searchAll:'Traži…',noResults:'Ništa nije pronađeno.',linkedOk:'Povezano',attachments:'Privici',addFile:'+ Dodaj datoteku…',addImage:'+ Dodaj sliku…',addWebLink:'+ Dodaj web poveznicu',open:'Otvori',showInFolder:'Prikaži u mapi',linkTitlePh:'Naslov',dropHint:'Datoteke možete i ispustiti ovdje ili zalijepiti sliku (Ctrl+V).',attachedN:'Priloženo: {n}',fileErr:'Datoteku nije moguće otvoriti.',needText:'Najprije opišite događaj.',slotTaken:'U to vrijeme već postoji unos pa je on povezan.',noTarget:'Najprije otvorite projekt, bilješku ili kontakt.'
+  profileOf:'Profil: {name}',dateFormat:'Format datuma',dfAuto:'Automatski (prema jeziku)',badDate:'To nije ispravan datum.',clearDate:'Očisti',subject:'Subjekt',subjectPh:'Klijent ili drugi subjekt',group:'Grupa',groupPh:'npr. Web, Interno',groupBy:'Grupiraj po',gbNone:'Ništa',noGroup:'Bez grupe',noSubject:'Bez subjekta',searchProjects:'Traži projekte, subjekte, osobe, zadatke…',searchNotes:'Traži bilješke…',links:'Poveznice',linkTo:'+ Poveži…',linkTitle:'Poveži s…',linkEvent:'Poveži ovaj događaj s…',eventsL:'Događaji u kalendaru',peopleL:'Osobe',newEvent:'Novi događaj',createLink:'Izradi i poveži',eventText:'Što se događa?',searchAll:'Traži…',noResults:'Ništa nije pronađeno.',linkedOk:'Povezano',attachments:'Privici',addFile:'+ Dodaj datoteku…',addImage:'+ Dodaj sliku…',addWebLink:'+ Dodaj web poveznicu',open:'Otvori',showInFolder:'Prikaži u mapi',linkTitlePh:'Naslov',dropHint:'Datoteke možete i ispustiti ovdje ili zalijepiti sliku (Ctrl+V).',attachedN:'Priloženo: {n}',fileErr:'Datoteku nije moguće otvoriti.',needText:'Najprije opišite događaj.',slotTaken:'U to vrijeme već postoji unos pa je on povezan.',noTarget:'Najprije otvorite projekt, bilješku ili kontakt.',newEventM:'Novi događaj…',sidebar:'Bočna traka',upcoming:'Uskoro',nothingSoon:'Ništa nije planirano.',dayOfYear:'{n}. dan',daysLeft:'Još {n} dana',weeksLeft:'Još {n} tjedana',contactNofM:'Kontakt {i} od {n}',pageNofM:'Stranica {i} od {n}',layoutPlanner:'Tjedni planer',layoutSpread:'Radni tjedan',theme_marble:'Mramor',save:'Spremi',help:'Pomoć'
 },
 de:{
   print:'Drucken…',printBtnBar:'Drucken',backup:'Sicherung',year:'Jahr',month:'Monat',week:'Woche',day:'Tag',contacts:'Kontakte',notes:'Notizen',
@@ -497,7 +565,7 @@ de:{
   createProfile:'Profil anlegen',saveProfile:'Speichern',skip:'Später',profileSaved:'Profil gespeichert',settingsSaved:'Einstellungen gespeichert',
   needName:'Geben Sie mindestens Ihren Vornamen ein.',website:'Website',dayStart:'Tag beginnt um',dayEnd:'Letzter Zeitslot',timeScale:'Zeitraster',
   minutes:'{n} Min.',calSec:'Tagesplaner',appearance:'Darstellung',invalidHours:'Der letzte Zeitslot muss nach dem Tagesbeginn liegen.',
-  profileOf:'Profil: {name}',dateFormat:'Datumsformat',dfAuto:'Automatisch (nach Sprache)',badDate:'Das ist kein gültiges Datum.',clearDate:'Leeren',subject:'Auftraggeber',subjectPh:'Kunde oder anderer Auftraggeber',group:'Gruppe',groupPh:'z. B. Web, Intern',groupBy:'Gruppieren nach',gbNone:'Nichts',noGroup:'Ohne Gruppe',noSubject:'Ohne Auftraggeber',searchProjects:'Projekte, Auftraggeber, Personen, Aufgaben suchen…',searchNotes:'Notizen durchsuchen…',links:'Verknüpfungen',linkTo:'+ Verknüpfen…',linkTitle:'Verknüpfen mit…',linkEvent:'Diesen Termin verknüpfen mit…',eventsL:'Kalendertermine',peopleL:'Personen',newEvent:'Neuer Termin',createLink:'Erstellen und verknüpfen',eventText:'Was steht an?',searchAll:'Suchen…',noResults:'Nichts gefunden.',linkedOk:'Verknüpft',attachments:'Anhänge',addFile:'+ Datei hinzufügen…',addImage:'+ Bild hinzufügen…',addWebLink:'+ Weblink hinzufügen',open:'Öffnen',showInFolder:'Im Ordner zeigen',linkTitlePh:'Titel',dropHint:'Sie können Dateien auch hier ablegen oder ein Bild einfügen (Strg+V).',attachedN:'Angehängt: {n}',fileErr:'Die Datei konnte nicht geöffnet werden.',needText:'Beschreiben Sie zuerst den Termin.',slotTaken:'Zu dieser Zeit gibt es bereits einen Eintrag, er wurde verknüpft.',noTarget:'Öffnen Sie zuerst ein Projekt, eine Notiz oder einen Kontakt.'
+  profileOf:'Profil: {name}',dateFormat:'Datumsformat',dfAuto:'Automatisch (nach Sprache)',badDate:'Das ist kein gültiges Datum.',clearDate:'Leeren',subject:'Auftraggeber',subjectPh:'Kunde oder anderer Auftraggeber',group:'Gruppe',groupPh:'z. B. Web, Intern',groupBy:'Gruppieren nach',gbNone:'Nichts',noGroup:'Ohne Gruppe',noSubject:'Ohne Auftraggeber',searchProjects:'Projekte, Auftraggeber, Personen, Aufgaben suchen…',searchNotes:'Notizen durchsuchen…',links:'Verknüpfungen',linkTo:'+ Verknüpfen…',linkTitle:'Verknüpfen mit…',linkEvent:'Diesen Termin verknüpfen mit…',eventsL:'Kalendertermine',peopleL:'Personen',newEvent:'Neuer Termin',createLink:'Erstellen und verknüpfen',eventText:'Was steht an?',searchAll:'Suchen…',noResults:'Nichts gefunden.',linkedOk:'Verknüpft',attachments:'Anhänge',addFile:'+ Datei hinzufügen…',addImage:'+ Bild hinzufügen…',addWebLink:'+ Weblink hinzufügen',open:'Öffnen',showInFolder:'Im Ordner zeigen',linkTitlePh:'Titel',dropHint:'Sie können Dateien auch hier ablegen oder ein Bild einfügen (Strg+V).',attachedN:'Angehängt: {n}',fileErr:'Die Datei konnte nicht geöffnet werden.',needText:'Beschreiben Sie zuerst den Termin.',slotTaken:'Zu dieser Zeit gibt es bereits einen Eintrag, er wurde verknüpft.',noTarget:'Öffnen Sie zuerst ein Projekt, eine Notiz oder einen Kontakt.',newEventM:'Neuer Termin…',sidebar:'Seitenleiste',upcoming:'Demnächst',nothingSoon:'Nichts geplant.',dayOfYear:'Tag {n}',daysLeft:'Noch {n} Tage',weeksLeft:'Noch {n} Wochen',contactNofM:'Kontakt {i} von {n}',pageNofM:'Seite {i} von {n}',layoutPlanner:'Wochenplaner',layoutSpread:'Arbeitswoche',theme_marble:'Marmor',save:'Speichern',help:'Hilfe'
 }};
 const LOCALES={en:'en-GB',hr:'hr-HR',de:'de-DE'};
 const ALPHA={en:'ABCDEFGHIJKLMNOPQRSTUVWXYZ',hr:'ABCČĆDĐEFGHIJKLMNOPRSŠTUVZŽ',de:'ABCDEFGHIJKLMNOPQRSTUVWXYZ'};
@@ -514,11 +582,11 @@ const isoWeek=d=>{const x=new Date(Date.UTC(d.getFullYear(),d.getMonth(),d.getDa
 const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const uid=()=>Math.random().toString(36).slice(2,10);
 
-let ui={view:'day',contact:null,note:null,project:null,pfilter:'all',welcomed:false,q:'',letter:'',theme:'sand',lang:'',zoom:1,print:{what:'current',paper:'A4',layout:'2',tpl:'lined',n:5}};
+let ui={side:true,wlay:'planner',view:'day',contact:null,note:null,project:null,pfilter:'all',welcomed:false,q:'',letter:'',theme:'sand',lang:'',zoom:1,print:{what:'current',paper:'A4',layout:'2',tpl:'lined',n:5}};
 try{const s=JSON.parse(localStorage.getItem(UIKEY)||'{}');Object.assign(ui,s,{print:Object.assign(ui.print,s.print||{})})}catch(e){}
 if(!I18N[ui.lang]){const n=(navigator.language||'en').slice(0,2).toLowerCase();ui.lang=I18N[n]?n:'en'}
 ui.cur=today();ui.q='';
-function saveUI(){try{localStorage.setItem(UIKEY,JSON.stringify({view:ui.view,contact:ui.contact,note:ui.note,project:ui.project,pfilter:ui.pfilter,pgb:ui.pgb,welcomed:ui.welcomed,theme:ui.theme,lang:ui.lang,zoom:ui.zoom,print:ui.print}))}catch(e){}}
+function saveUI(){try{localStorage.setItem(UIKEY,JSON.stringify({side:ui.side,wlay:ui.wlay,view:ui.view,contact:ui.contact,note:ui.note,project:ui.project,pfilter:ui.pfilter,pgb:ui.pgb,welcomed:ui.welcomed,theme:ui.theme,lang:ui.lang,zoom:ui.zoom,print:ui.print}))}catch(e){}}
 
 const t=(k,v)=>{let s=I18N[ui.lang]?.[k]??I18N.en[k]??k;if(v)for(const x in v)s=s.split('{'+x+'}').join(v[x]);return s};
 const loc=()=>LOCALES[ui.lang]||'en-GB';
@@ -624,6 +692,7 @@ function vDay(){
   return[L,R];
 }
 function vWeek(){
+  if(ui.wlay==='spread')return vWeekSpread();
   const d=parse(ui.cur),m=monday(d),[wy,wn]=isoWeek(d),k=`${wy}-W${pad(wn)}`,p=weekP(k),e=addDays(m,6);
   const range=`${fmt(m,{day:'numeric',month:'short'})} – ${fmt(e,{day:'numeric',month:'short',year:'numeric'})}`;
   const habits=(get(p+'.habits')||[]).map((h,i)=>`<div class="hab">${inp(`${p}.habits.${i}.name`,t('habit'))}<div class="hd">${h.d.map((v,j)=>`<input type="checkbox" data-k="${p}.habits.${i}.d.${j}" ${v?'checked':''} aria-label="${dayName(j)}">`).join('')}</div><button class="x" data-act="del" data-path="${p}.habits" data-i="${i}" aria-label="Remove">×</button></div>`).join('');
@@ -675,7 +744,7 @@ function vContacts(){
   const AZ=Array.from(new Set([...(ALPHA[ui.lang]||ALPHA.en),...have])).sort((a,b)=>a.localeCompare(b,loc()));
   const L=head(t('contactsCount',{n}),t('addressBook'),`<div class="pnav"><button class="nb t" data-act="cmd" data-c="newContact">${t('newContact')}</button></div>`)
     +`<input class="search" id="q" placeholder="${esc(t('searchPh'))}" value="${esc(ui.q)}">`
-    +`<div class="az">${AZ.map(l=>`<button class="${ui.letter===l?'on':''} ${have.has(l)?'':'dim'}" data-act="letter" data-l="${esc(l)}">${esc(l)}</button>`).join('')}</div>`
+    +(ui.letter?`<div class="az" style="align-items:center;gap:8px"><button class="on" data-act="letter" data-l="${esc(ui.letter)}">${esc(ui.letter)}</button><span class="mu">×</span></div>`:'')
     +`<div id="clist">${contactList()}</div>`;
   const id=ui.contact,c=DB.contacts[id];
   if(!c)return[L,`<div class="empty"><h1>${t('noContactSel')}</h1><div>${t('noContactHint')}</div><button class="nb t" data-act="cmd" data-c="newContact">${t('newContact')}</button></div>`];
@@ -767,16 +836,105 @@ const VIEWS=['year','month','week','day','projects','contacts','notes'];
 const THEMES={
   sand:{r:[['#5f4d42','#f6eee6'],['#7d6658','#f6eee6'],['#9c8371','#f6eee6'],['#b9a08c','#2f2620'],['#d4bfac','#3a2f29'],['#e6d5c8','#3a2f29'],['#f3e8de','#3a2f29']],l:[['#f1e7dd','#5a4a3f'],['#e3d3c3','#5a4a3f'],['#d3bda8','#4a3c33']]},
   nordic:{r:[['#f2f4f6','#1f2328'],['#e4e8eb','#1f2328'],['#d6dce0','#1f2328'],['#c8cfd5','#1f2328'],['#b9c1c8','#1f2328'],['#aab3bb','#14181c'],['#9aa4ad','#14181c']],l:[['#eef1f3','#3a4249'],['#dce1e5','#3a4249'],['#c7ced4','#2a3036']]},
+  marble:{r:[['#2f6d72','#ffffff'],['#2e7a69','#ffffff'],['#3b7f4b','#ffffff'],['#7b872c','#ffffff'],['#a9852a','#ffffff'],['#a8634a','#ffffff'],['#8c4a70','#ffffff']],l:[['#fff','#333']]},
   classic:{r:[['#F5C4B3','#712B13'],['#FAC775','#633806'],['#C0DD97','#27500A'],['#B5D4F4','#0C447C'],['#9FE1CB','#085041'],['#CECBF6','#3C3489'],['#F4C0D1','#72243E']],l:[['#F5C4B3','#712B13'],['#FAC775','#633806'],['#C0DD97','#27500A'],['#B5D4F4','#0C447C'],['#CECBF6','#3C3489'],['#F4C0D1','#72243E']]}};
 const VIEWFN={year:vYear,month:vMonth,week:vWeek,day:vDay,projects:vProjects,contacts:vContacts,notes:vNotes};
 
+function edgeTabs(){
+  const d=parse(ui.cur);
+  if(['year','month','week','day'].includes(ui.view)){
+    const on=ui.view==='year'?-1:d.getMonth(),mk=i=>`<div class="etab ${i===on?'on':''}" role="button" tabindex="0" data-act="goMonth" data-y="${d.getFullYear()}" data-m="${i}">${monthShort(i)}</div>`;
+    return[[0,1,2,3,4,5].map(mk).join(''),[6,7,8,9,10,11].map(mk).join('')];
+  }
+  if(ui.view==='contacts'){
+    const have=new Set(Object.values(DB.contacts).map(letterOf));
+    const AZ=Array.from(new Set([...(ALPHA[ui.lang]||ALPHA.en),...have])).sort((a,b)=>a.localeCompare(b,loc()));
+    const h=Math.ceil(AZ.length/2),mk=l=>`<div class="etab ch ${ui.letter===l?'on':''} ${have.has(l)?'':'dim'}" role="button" tabindex="0" data-act="letter" data-l="${esc(l)}">${esc(l)}</div>`;
+    return[AZ.slice(0,h).map(mk).join(''),AZ.slice(h).map(mk).join('')];
+  }
+  return['',''];
+}
+function footers(){
+  const d=parse(ui.cur),y=d.getFullYear(),doy=Math.round((d-new Date(y,0,1))/864e5)+1,diy=Math.round((new Date(y+1,0,1)-new Date(y,0,1))/864e5);
+  const[,wn]=isoWeek(d),[,wmax]=isoWeek(new Date(y,11,28));
+  const sel=(id,opts,cur)=>`<select id="${id}">${opts.map(([v,l])=>`<option value="${v}" ${cur===v?'selected':''}>${l}</option>`).join('')}</select>`;
+  switch(ui.view){
+    case'day':return[`<span class="fv">${t('dailyPlanner')}</span><span>${t('dayOfYear',{n:doy})}</span>`,`<span>${t('daysLeft',{n:diy-doy})}</span>`];
+    case'week':return[`<span class="fv">${sel('wlay',[['planner',t('layoutPlanner')],['spread',t('layoutSpread')]],ui.wlay||'planner')}</span><span>${t('weekN',{n:wn})}</span>`,`<span>${t('weeksLeft',{n:Math.max(0,wmax-wn)})}</span>`];
+    case'month':return[`<span class="fv">${monthName(d.getMonth())} ${y}</span><span>${t('weekN',{n:isoWeek(new Date(y,d.getMonth(),1))[1]})} – ${t('weekN',{n:isoWeek(new Date(y,d.getMonth()+1,0))[1]})}</span>`,`<span>${t('daysLeft',{n:diy-doy})}</span>`];
+    case'year':return[`<span class="fv">${y}</span><span>${monthName(0)} – ${monthName(5)}</span>`,`<span>${monthName(6)} – ${monthName(11)}</span>`];
+    case'projects':{const n=Object.keys(DB.projects).length,act=Object.values(DB.projects).filter(p=>p.status==='active').length;return[`<span class="fv">${t('projectsCount',{n})}</span><span>${t('st_active')}: ${act}</span>`,ui.project&&DB.projects[ui.project]?`<span>${t('st_'+DB.projects[ui.project].status)}</span>`:'']}
+    case'contacts':{const list=sortedContacts(),i=list.findIndex(([id])=>id===ui.contact);return[`<span class="fv">${t('addressBook')}</span><span>${t('contactsCount',{n:list.length})}</span>`,i>=0?`<span>${t('contactNofM',{i:i+1,n:list.length})}</span>`:'']}
+    case'notes':{const list=Object.entries(DB.notes).sort((a,b)=>(b[1].created||'').localeCompare(a[1].created||'')),i=list.findIndex(([id])=>id===ui.note);return[`<span class="fv">${t('notebook')}</span><span>${t('pages')}: ${list.length}</span>`,i>=0?`<span>${t('pageNofM',{i:i+1,n:list.length})}</span>`:'']}
+  }
+  return['',''];
+}
+const TI={
+  newEvent:SVGT('<rect x="2" y="3.5" width="16" height="14" rx="1.5"/><path d="M2 7.5h16M6 1.5v4M14 1.5v4M10 10v5M7.5 12.5h5"/>'),
+  newNote:SVGT('<path d="M4 2h9l3 3v13H4z"/><path d="M13 2v3h3M10 8v6M7 11h6"/>'),
+  newContact:SVGT('<circle cx="8" cy="6.5" r="3.2"/><path d="M2.5 17c.6-3.4 2.8-5 5.5-5s4.9 1.6 5.5 5M16 6v6M13 9h6"/>'),
+  newProject:SVGT('<path d="M2 5a1 1 0 0 1 1-1h4.5l1.8 2H17a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1z"/><path d="M10 9v5M7.5 11.5h5"/>'),
+  print:SVGT('<path d="M5.5 7V2.5h9V7"/><rect x="2" y="7" width="16" height="7" rx="1.5"/><path d="M5.5 11.5h9v6h-9z"/><circle cx="15" cy="9.5" r=".6" fill="currentColor"/>'),
+  backup:SVGT('<path d="M3 3h11l3 3v11H3z"/><path d="M6 3v4.5h7V3M6 17v-5h8v5"/>'),
+  today:SVGT('<rect x="2" y="3.5" width="16" height="14" rx="1.5"/><path d="M2 7.5h16M6 1.5v4M14 1.5v4"/><rect x="8" y="10" width="4" height="4" fill="currentColor"/>'),
+  goDate:SVGT('<rect x="2" y="3.5" width="16" height="14" rx="1.5"/><path d="M2 7.5h16M6 1.5v4M14 1.5v4M7 12.5h6M11 10.5l2 2-2 2"/>'),
+  find:SVGT('<circle cx="8.5" cy="8.5" r="5.5"/><path d="M12.5 12.5 18 18"/>'),
+  sidebar:SVGT('<rect x="2" y="3" width="16" height="14" rx="1.5"/><path d="M7.5 3v14M4 6.5h1.5M4 9h1.5M4 11.5h1.5"/>'),
+  settings:SVGT('<circle cx="10" cy="10" r="2.6"/><path d="M10 1.8v2.4M10 15.8v2.4M1.8 10h2.4M15.8 10h2.4M4.2 4.2l1.7 1.7M14.1 14.1l1.7 1.7M4.2 15.8l1.7-1.7M14.1 5.9l1.7-1.7"/>'),
+  shortcuts:SVGT('<circle cx="10" cy="10" r="8"/><path d="M7.6 7.6a2.5 2.5 0 1 1 3.6 2.2c-.8.4-1.2.9-1.2 1.7v.6"/><circle cx="10" cy="14.6" r=".7" fill="currentColor"/>')
+};
+function SVGT(p){return`<svg width="19" height="19" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${p}</svg>`}
+function renderTools(){
+  const K={newEvent:`${MOD}+E`,newNote:`${MOD}+N`,newContact:`${MOD}+Shift+N`,newProject:`${MOD}+Shift+P`,print:`${MOD}+P`,today:`${MOD}+T`,goDate:`${MOD}+G`,find:`${MOD}+F`,sidebar:'F9',settings:`${MOD}+,`,shortcuts:'F1'};
+  const L={newEvent:t('newEventM'),newNote:t('newNote'),newContact:t('newContactM'),newProject:t('newProjectM'),print:t('print'),backup:t('backupMenu'),today:t('goToday'),goDate:t('goDate'),find:t('findContact'),sidebar:t('sidebar'),settings:t('settings'),shortcuts:t('shortcuts')};
+  const groups=[['newEvent','newNote','newContact','newProject'],['print','backup'],['today','goDate','find'],['sidebar','settings','shortcuts']];
+  $('#tools').innerHTML=groups.map(g=>g.map(id=>{const tip=L[id].replace('…','')+(K[id]?`  (${K[id]})`:'');return`<button class="tb" data-act="cmd" data-c="${id}" title="${esc(tip)}" aria-label="${esc(tip)}">${TI[id]}</button>`}).join('')).join('<span class="tsep"></span>');
+}
+function upcoming(){
+  const now=new Date(),td=today(),nowT=`${pad(now.getHours())}:${pad(now.getMinutes())}`,out=[];
+  const keys=Object.keys(DB.days).filter(k=>k>=td).sort();
+  for(const k of keys){for(const[tm,v]of dayEntries(k)){if(k===td&&tm<nowT)continue;out.push({ref:`event:${k}T${tm}`,label:v,sub:`${k===td?t('today'):dayShort(dow(parse(k)))+' '+fmtD(k)} · ${tm}`});if(out.length>=6)break}if(out.length>=6)break}
+  const lim=ymd(addDays(now,14));
+  for(const[id,p]of Object.entries(DB.projects)){if(p.due&&p.due>=td&&p.due<=lim&&p.status!=='done')out.push({ref:'project:'+id,label:p.name||t('untitled'),sub:`${t('due')}: ${fmtD(p.due)}`,dl:1})}
+  return out.slice(0,8);
+}
+function renderSide(){
+  const el=$('#side');if(!ui.side){el.style.display='none';return}el.style.display='';
+  const[y,m]=(ui.sideM||ui.cur.slice(0,7)).split('-').map(Number),first=new Date(y,m-1,1),start=monday(first),td=today(),now=new Date();
+  let g=[0,1,2,3,4,5,6].map(i=>`<span class="w">${dayNarrow(i)}</span>`).join('');
+  for(let i=0;i<42;i++){const x=addDays(start,i),k=ymd(x);g+=`<button class="${x.getMonth()!==m-1?'out':''} ${dow(x)>4?'we':''} ${k===td?'td':''} ${k===ui.cur?'sel':''} ${hasData(k)||bdays(k.slice(5)).length?'has':''}" data-act="goDay" data-k="${k}">${x.getDate()}</button>`}
+  const up=upcoming();
+  el.innerHTML=`<div class="sbox"><div class="snav"><button data-act="sideNav" data-d="-12" aria-label="${t('prev')}">‹</button><span>${y}</span><button data-act="sideNav" data-d="12" aria-label="${t('next')}">›</button></div>
+    <div class="snav"><button data-act="sideNav" data-d="-1" aria-label="${t('prev')}">‹</button><span>${monthName(m-1)}</span><button data-act="sideNav" data-d="1" aria-label="${t('next')}">›</button></div><div class="sgrid">${g}</div></div>
+    <div class="sbox stoday" data-act="cmd" data-c="today" title="${esc(t('goToday'))}"><div class="sbig">${now.getDate()}</div><div class="sd"><b>${dayName(dow(now))}</b>${fmtD(td)}<div id="sclock">${pad(now.getHours())}:${pad(now.getMinutes())}</div></div></div>
+    <div class="sbox"><div class="sh">${t('upcoming')}</div>${up.length?up.map(u=>`<button class="sup ${u.dl?'dl':''}" data-act="goRef" data-ref="${esc(u.ref)}">${esc(u.label)}<span class="mu">${esc(u.sub)}</span></button>`).join(''):`<div class="mu">${t('nothingSoon')}</div>`}</div>`;
+}
+function vWeekSpread(){
+  const d=parse(ui.cur),m=monday(d),[,wn]=isoWeek(d),e=addDays(m,6);
+  const block=i=>{const x=addDays(m,i),xk=ymd(x),en=dayEntries(xk),bd=bdays(xk.slice(5)),dl=deadlines(xk),dd=DB.days[xk],tds=((dd&&dd.todos)||[]).filter(q=>q.t);
+    return`<div class="wsd ${i>4?'small':''} ${xk===today()?'today':''}" data-act="goDay" data-k="${xk}"><div class="wsh"><b>${x.getDate()}</b><span>${dayName(i)}</span></div><div class="wsb">${bd.map(([,c])=>`<div class="ev b">${esc(t('birthdayOf',{name:cname(c)}))}</div>`).join('')}${dl.map(q=>`<div class="ev dl">${esc(q.label)}</div>`).join('')}${en.map(([h,v])=>`<div class="ev"><span class="tm">${h}</span>${esc(v)}</div>`).join('')}${tds.map(q=>`<div class="ev ${q.done?'mu':''}" style="${q.done?'text-decoration:line-through':''}">${q.done?'☑':'☐'} ${esc(q.t)}</div>`).join('')}</div></div>`};
+  const L=head(`${t('weekN',{n:wn})}`,monthName(m.getMonth())+' '+m.getFullYear(),navBtns())+`<div class="wspread">${block(0)}${block(1)}${block(2)}</div>`;
+  const R=`<div class="ph" style="justify-content:flex-end;text-align:right"><div><div class="kicker">${t('layoutSpread')}</div><h1>${monthName(e.getMonth())} ${e.getFullYear()}</h1></div></div><div class="wspread">${block(3)}${block(4)}${block(5)}${block(6)}</div>`;
+  return[L,R];
+}
+function openNewEvent(){
+  const times=[];for(let m=0;m<24*60;m+=15)times.push(`${pad(Math.floor(m/60))}:${pad(m%60)}`);
+  const nh=`${pad(Math.min(23,new Date().getHours()+1))}:00`;
+  openDlg(`<h2>${t('newEvent')}</h2><div class="lpnew">${dateField({id:'ned',value:ui.cur})}<select id="netime" class="ln" style="border:1px solid var(--line2);border-radius:4px;padding:7px">${times.map(x=>`<option ${x===nh?'selected':''}>${x}</option>`).join('')}</select><input class="txt" id="netext" placeholder="${esc(t('eventText'))}"></div>
+  <div class="btns"><button class="bbtn" data-act="closeDlg">${t('cancel')}</button><button class="bbtn pri" data-act="neOk">${t('save')}</button></div>`);
+  setTimeout(()=>{const x=$('#netext');if(x)x.focus()},0);
+}
+function newEventOk(){
+  const de=$('#ned');if(!commitTyped(de))return;const d=de.dataset.iso,tx=$('#netext').value.trim();let tm=$('#netime').value;
+  if(!d){de.focus();return}if(!tx){toast(t('needText'));$('#netext').focus();return}
+  const p=dayP(d);let cur=(get(p+'.slots.'+tm)||'').trim();
+  if(cur)set(p+'.slots.'+tm,cur+' · '+tx);else set(p+'.slots.'+tm,tx);
+  save(true);closeDlg();ui.cur=d;ui.view='day';ui.flash=tm;render();
+}
 function renderChrome(){
   document.documentElement.lang=ui.lang;
-  $('#lang').value=ui.lang;
-  $('#theme').innerHTML=Object.keys(THEMES).map(k=>`<option value="${k}">${t('theme_'+k)}</option>`).join('');
-  $('#theme').value=ui.theme;
+  renderTools();
   const P=DB.profile;$('#mechip').innerHTML=P?`<button class="me" data-act="cmd" data-c="profile" title="${esc(t('profileTitle'))}"><span class="av">${esc(initials(P))}</span><span>${esc(cname(P))}</span></button>`:`<button class="bbtn" data-act="cmd" data-c="profile">${t('createProfile')}</button>`;
-  $('#bPrint').textContent=t('printBtnBar');$('#bBackup').textContent=t('backup');
   const d=new Date();$('#todaylbl').textContent=fullDate(d);
   if(!NATIVE)renderHtmlMenu();
 }
@@ -786,11 +944,15 @@ function render(){
   if(!VIEWFN[ui.view])ui.view='day';
   document.body.className=ui.theme;
   document.documentElement.style.zoom=ui.zoom;
-  const th=THEMES[ui.theme],d=parse(ui.cur),cal=['month','week','day'].includes(ui.view);
-  $('#ltabs').innerHTML=[...Array(12).keys()].map(i=>{const[bg,fg]=th.l[i%th.l.length];return`<div class="tab ${cal&&d.getMonth()===i?'on':''}" role="button" tabindex="0" style="background:${bg};color:${fg}" data-act="goMonth" data-y="${d.getFullYear()}" data-m="${i}">${monthShort(i)}</div>`}).join('');
-  $('#rtabs').innerHTML=VIEWS.map((v,i)=>{const[bg,fg]=th.r[i];return`<div class="tab ${ui.view===v?'on':''}" role="button" tabindex="0" style="background:${bg};color:${fg}" data-act="cmd" data-c="view:${v}">${t(v)}</div>`}).join('');
+  const th=THEMES[ui.theme],d=parse(ui.cur),vi=VIEWS.indexOf(ui.view);
+  const stab=(v,i)=>{const[bg,fg]=th.r[i];return`<div class="tab ${ui.view===v?'on':''}" role="button" tabindex="0" style="background:${bg};color:${fg}" data-act="cmd" data-c="view:${v}">${t(v)}</div>`};
+  $('#stabsL').innerHTML=VIEWS.slice(0,vi+1).map((v,i)=>stab(v,i)).join('');
+  $('#stabsR').innerHTML=VIEWS.slice(vi+1).map((v,i)=>stab(v,i+vi+1)).join('');
+  const[EL,ER]=edgeTabs();$('#etabsL').innerHTML=EL;$('#etabsR').innerHTML=ER;
   const[L,R]=VIEWFN[ui.view]();
   $('#lp').innerHTML=L;$('#rp').innerHTML=R;
+  const[FL,FR]=footers();$('#lf').innerHTML=FL;$('#rf').innerHTML=FR;
+  ui.sideM=ui.cur.slice(0,7);renderSide();
   hydrateImages(document.querySelector('.cover'));
   if(ui.flash){const el=document.querySelector(`.slot[data-time="${ui.flash}"]`);ui.flash=null;if(el){el.scrollIntoView({block:'center'});el.classList.add('flash')}}
   saveUI();
@@ -841,7 +1003,7 @@ function openPrint(){
 function printFields(){const w=document.querySelector('input[name=pw]:checked')?.value;if(!w)return;$('#pLayoutF').style.display=w==='contacts'?'none':'';$('#pTplF').style.display=w==='blank'?'':'none'}
 function openGoDate(){setTimeout(()=>{const g=$('#gd');if(g){g.focus();g.select();openPicker(g)}},0);openDlg(`<h2>${t('goDateTitle')}</h2>${dateField({id:'gd',value:ui.cur})}<div class="btns"><button class="bbtn" data-act="closeDlg">${t('cancel')}</button><button class="bbtn pri" data-act="goDateOk">${t('go')}</button></div>`)}
 function openShortcuts(){
-  const rows=[[`${MOD}+1 … 7`,t('kViews')],[`${MOD}+,`,t('settings').replace('…','')],[`${MOD}+Shift+P`,t('newProjectM')],[`${ALT}+← / →`,`${t('goPrev')} / ${t('goNext')}`],['← / →',t('kArrows')],[`${MOD}+T`,t('goToday')],[`${MOD}+G`,t('goDate').replace('…','')],[`${MOD}+P`,t('print').replace('…','')],[`${MOD}+N`,t('newNote')],[`${MOD}+Shift+N`,t('newContactM')],[`${MOD}+F`,t('findContact')],[`${MOD}+ =  /  −  /  0`,t('kZoom')],[IS_MAC?'Ctrl+⌘+F':'F11',t('fullscreen')],['Enter',t('kNextTodo')]];
+  const rows=[[`${MOD}+1 … 7`,t('kViews')],[`${MOD}+E`,t('newEventM').replace('…','')],['F9',t('sidebar')],['F1',t('shortcuts')],[`${MOD}+,`,t('settings').replace('…','')],[`${MOD}+Shift+P`,t('newProjectM')],[`${ALT}+← / →`,`${t('goPrev')} / ${t('goNext')}`],['← / →',t('kArrows')],[`${MOD}+T`,t('goToday')],[`${MOD}+G`,t('goDate').replace('…','')],[`${MOD}+P`,t('print').replace('…','')],[`${MOD}+N`,t('newNote')],[`${MOD}+Shift+N`,t('newContactM')],[`${MOD}+F`,t('findContact')],[`${MOD}+ =  /  −  /  0`,t('kZoom')],[IS_MAC?'Ctrl+⌘+F':'F11',t('fullscreen')],['Enter',t('kNextTodo')]];
   openDlg(`<h2>${t('shortcuts')}</h2><table class="sct">${rows.map(([k,d])=>`<tr><td>${esc(k)}</td><td>${esc(d)}</td></tr>`).join('')}</table><div class="btns"><button class="bbtn" data-act="closeDlg" autofocus>${t('close')}</button></div>`);
 }
 function openAbout(){openDlg(`<h2>Organizer</h2><div>${t('aboutText',{v:APP_VERSION})}</div>${DB.profile?`<div class="mu">${esc(t('profileOf',{name:cname(DB.profile)}))}</div>`:''}<div class="btns"><button class="bbtn" data-act="closeDlg" autofocus>${t('close')}</button></div>`)}
@@ -1111,6 +1273,8 @@ function run(cmd){
     case'newNote':newNote('lined');return;
     case'newContact':newContact();return;
     case'newProject':newProject();return;
+    case'newEvent':openNewEvent();return;
+    case'sidebar':ui.side=!ui.side;saveUI();renderSide();rebuildMenu();return;
     case'profile':openProfile(!DB.profile);return;
     case'settings':openSettings();return;
     case'find':ui.view='contacts';render();setTimeout(()=>{const q=$('#q');if(q){q.focus();q.select()}},0);return;
@@ -1139,15 +1303,15 @@ function MENU(native){
     :[{id:'undo',label:t('undo'),hint:`${MOD}+Z`},{id:'redo',label:t('redo'),hint:IS_MAC?'⇧⌘Z':'Ctrl+Y'},S,{id:'cut',label:t('cut'),hint:`${MOD}+X`},{id:'copy',label:t('copyM'),hint:`${MOD}+C`},{id:'paste',label:t('paste'),hint:`${MOD}+V`},{id:'selectAll',label:t('selectAll'),hint:`${MOD}+A`}];
   const m=[];
   if(native&&IS_MAC)m.push({label:'Organizer',items:[{id:'about',label:t('about')},S,{pre:'Hide'},{pre:'HideOthers'},{pre:'ShowAll'},S,{pre:'Quit'}]});
-  m.push({label:t('mFile'),items:[{id:'newNote',label:t('newNote'),acc:'CmdOrCtrl+N'},{id:'newContact',label:t('newContactM'),acc:'CmdOrCtrl+Shift+N'},{id:'newProject',label:t('newProjectM'),acc:'CmdOrCtrl+Shift+P'},S,{id:'profile',label:t('myProfile')},{id:'settings',label:t('settings'),acc:'CmdOrCtrl+,'},S,{id:'print',label:t('print'),acc:'CmdOrCtrl+P'},S,{id:'backup',label:t('backupMenu')},{id:'restore',label:t('restoreMenu')},...((native&&!IS_MAC)?[S,{id:'quit',label:t('quit'),acc:'CmdOrCtrl+Q'}]:[])]});
+  m.push({label:t('mFile'),items:[{id:'newEvent',label:t('newEventM'),acc:'CmdOrCtrl+E'},{id:'newNote',label:t('newNote'),acc:'CmdOrCtrl+N'},{id:'newContact',label:t('newContactM'),acc:'CmdOrCtrl+Shift+N'},{id:'newProject',label:t('newProjectM'),acc:'CmdOrCtrl+Shift+P'},S,{id:'profile',label:t('myProfile')},{id:'settings',label:t('settings'),acc:'CmdOrCtrl+,'},S,{id:'print',label:t('print'),acc:'CmdOrCtrl+P'},S,{id:'backup',label:t('backupMenu')},{id:'restore',label:t('restoreMenu')},...((native&&!IS_MAC)?[S,{id:'quit',label:t('quit'),acc:'CmdOrCtrl+Q'}]:[])]});
   m.push({label:t('mEdit'),items:[...edit,S,{id:'find',label:t('findContact'),acc:'CmdOrCtrl+F'}]});
   m.push({label:t('mView'),items:[...VIEWS.map((v,i)=>({id:'view:'+v,label:t(v),acc:'CmdOrCtrl+'+(i+1)})),S,
     {label:t('themeM'),items:Object.keys(THEMES).map(x=>({id:'theme:'+x,label:t('theme_'+x),check:true,checked:ui.theme===x}))},
-    {label:t('language'),items:langs.map(([k,n])=>({id:'lang:'+k,label:n,check:true,checked:ui.lang===k}))},S,
+    {label:t('language'),items:langs.map(([k,n])=>({id:'lang:'+k,label:n,check:true,checked:ui.lang===k}))},{id:'sidebar',label:t('sidebar'),acc:'F9',check:true,checked:!!ui.side},S,
     {id:'zoomIn',label:t('zoomIn'),acc:'CmdOrCtrl+='},{id:'zoomOut',label:t('zoomOut'),acc:'CmdOrCtrl+-'},{id:'zoomReset',label:t('zoomReset'),acc:'CmdOrCtrl+0'},S,
     (native&&IS_MAC)?{pre:'Fullscreen'}:{id:'fullscreen',label:t('fullscreen'),acc:IS_MAC?'':'F11'}]});
   m.push({label:t('mGo'),items:[{id:'today',label:t('goToday'),acc:'CmdOrCtrl+T'},{id:'prev',label:t('goPrev'),acc:'Alt+Left'},{id:'next',label:t('goNext'),acc:'Alt+Right'},S,{id:'goDate',label:t('goDate'),acc:'CmdOrCtrl+G'}]});
-  m.push({label:t('mHelp'),items:[{id:'shortcuts',label:t('shortcuts')},S,{id:'about',label:t('about')}]});
+  m.push({label:t('mHelp'),items:[{id:'shortcuts',label:t('shortcuts'),acc:'F1'},S,{id:'about',label:t('about')}]});
   return m;
 }
 async function nativeItems(items){
@@ -1220,6 +1384,8 @@ document.addEventListener('click',e=>{
     case'selNote':ui.note=x.dataset.id;break;
     case'delNote':if(!arm(x))return;dropLinks('note:'+ui.note);removeEntityFiles(DB.notes[ui.note]);delete DB.notes[ui.note];ui.note=null;save();toast(t('pageDeleted'));break;
     case'closeDlg':closeDlg();return;
+    case'neOk':newEventOk();return;
+    case'sideNav':{let[y,m]=(ui.sideM||ui.cur.slice(0,7)).split('-').map(Number);m+=+x.dataset.d;while(m<1){m+=12;y--}while(m>12){m-=12;y++}ui.sideM=`${y}-${pad(m)}`;renderSide();return}
     case'goRef':goRef(x.dataset.ref);return;
     case'unlink':delLink(x.dataset.a,x.dataset.b);save();break;
     case'linkPick':openLinkPicker(x.dataset.ref);return;
@@ -1269,13 +1435,13 @@ document.addEventListener('input',e=>{
 });
 document.addEventListener('change',e=>{
   if(e.target.name==='pw')printFields();
+  if(e.target.id==='wlay'){ui.wlay=e.target.value;render();return}
   if(e.target.id==='pgb'){ui.pgb=e.target.value;saveUI();$('#plist').innerHTML=projectList();return}
   if(e.target.matches('select.pick')&&e.target.value&&ui.project&&DB.projects[ui.project]){const P=DB.projects[ui.project];(P.people=P.people||[]).push({id:e.target.value,role:''});save();render();return}
   if(e.target.id==='wLang'){const v=collectProfile();ui.lang=e.target.value;render();renderChrome();rebuildMenu();openProfile(true,v);return}
   if(e.target.id==='bkfile'){const f=e.target.files[0];if(!f)return;f.text().then(x=>{$('#bk').value=x;$('#bkmsg').textContent=t('fileLoaded')});e.target.value=''}
 });
-$('#theme').addEventListener('change',e=>run('theme:'+e.target.value));
-$('#lang').addEventListener('change',e=>run('lang:'+e.target.value));
+
 document.addEventListener('keydown',e=>{
   const el=e.target,mod=e.ctrlKey||e.metaKey,k=e.key;
   if(k==='Escape'&&DP){closePicker();return}
@@ -1285,7 +1451,7 @@ document.addEventListener('keydown',e=>{
     if(k==='Tab')closePicker();
   }
   if(k==='Escape'){if(dlgOpen())closeDlg();closeMenus();return}
-  if(dlgOpen()){if(k==='Enter'&&el.id==='gd'){e.preventDefault();$('[data-act=goDateOk]').click()}return}
+  if(dlgOpen()){if(k==='Enter'&&el.id==='netext'){e.preventDefault();newEventOk();return}if(k==='Enter'&&el.id==='gd'){e.preventDefault();$('[data-act=goDateOk]').click()}return}
   if(k==='Enter'&&el.getAttribute&&el.getAttribute('role')==='button'){el.click();return}
   if(k==='Enter'&&el.matches&&el.matches('.todo input.ln')){e.preventDefault();const b=el.closest('.list')?.querySelector(':scope > .add');if(b)b.click();return}
   let cmd=null;
@@ -1294,6 +1460,7 @@ document.addEventListener('keydown',e=>{
     if(/^[1-7]$/.test(k))cmd='view:'+VIEWS[+k-1];
     else if(kk==='p')cmd=e.shiftKey?'newProject':'print';
     else if(k===',')cmd='settings';
+    else if(kk==='e')cmd='newEvent';
     else if(kk==='n')cmd=e.shiftKey?'newContact':'newNote';
     else if(kk==='f')cmd='find';
     else if(kk==='t')cmd='today';
@@ -1304,6 +1471,8 @@ document.addEventListener('keydown',e=>{
     else if(kk==='q'&&NATIVE&&!IS_MAC)cmd='quit';
   }else if(e.altKey&&!mod&&(k==='ArrowLeft'||k==='ArrowRight'))cmd=k==='ArrowLeft'?'prev':'next';
   else if(k==='F11'&&!IS_MAC)cmd='fullscreen';
+  else if(k==='F9')cmd='sidebar';
+  else if(k==='F1')cmd='shortcuts';
   if(cmd){e.preventDefault();run(cmd);return}
   if(/^(INPUT|TEXTAREA|SELECT)$/.test(el.tagName)||mod||e.altKey)return;
   if(k==='ArrowLeft')run('prev');
@@ -1323,6 +1492,7 @@ if(IS_TAURI_FS&&TAURI.webview){try{TAURI.webview.getCurrentWebview().onDragDropE
   if(pl.type==='drop'&&pl.paths&&pl.paths.length){const ep=currentEP();if(!ep){toast(t('noTarget'));return}Promise.all(pl.paths.map(p=>ATT.importPath(p).catch(()=>null))).then(items=>attachTo(ep,items))}})}catch(err){}}
 document.addEventListener('click',e=>{const a=e.target.closest('a[href]');if(!a)return;const h=a.getAttribute('href');if(/^(https?:|mailto:|tel:)/i.test(h)&&IS_TAURI_FS){e.preventDefault();openUrl(h)}},true);
 
+setInterval(()=>{const n=new Date(),c=$('#sclock');if(c)c.textContent=`${pad(n.getHours())}:${pad(n.getMinutes())}`;if($('#todaylbl').textContent!==fullDate(n)){renderChrome();renderSide()}},15000);
 render();
 renderChrome();
 if(!DB.profile&&!ui.welcomed){ui.welcomed=true;saveUI();openProfile(true)}
