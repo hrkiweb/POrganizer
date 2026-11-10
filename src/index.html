@@ -77,6 +77,31 @@ select.pick{margin-top:6px;color:var(--muted);font-size:12.5px;max-width:100%}
 .pgrid .full{grid-column:1/3}
 .pgrid textarea{height:60px;font-family:inherit;font-size:13px}
 .err{color:#a3392b;font-size:12.5px;min-height:1em}
+.dtw{display:flex;align-items:center;flex:1;min-width:0}
+.dtw input.dt{flex:1;min-width:0}
+.dtb{color:var(--muted);padding:0 6px;display:flex;align-items:center;height:28px;border-radius:3px}
+.dtb:hover{color:var(--accent);background:var(--hi)}
+.ptask .dtw.due{flex:none;width:136px}
+.ptask .dtw.due input{font-size:12.5px;color:var(--muted)}
+.pgrid .fld .dtw{border:1px solid var(--line2);border-radius:4px}
+.pgrid .fld .dtw input.dt{border:none;padding:7px 9px;height:auto}
+.mbox>.dtw{border:1px solid var(--line2);border-radius:4px}
+.mbox>.dtw input.dt{border:none;padding:8px 10px;height:auto}
+#dp{position:fixed;z-index:60;background:var(--paper);border:1px solid var(--line2);border-radius:8px;box-shadow:0 10px 30px rgba(0,0,0,.16);padding:10px;width:256px;display:none;color:var(--ink)}
+#dp.open{display:block}
+#dp .dph{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;font-weight:800;font-size:12px;letter-spacing:.12em;text-transform:uppercase}
+#dp .dph button{width:28px;height:28px;border-radius:4px;font-size:16px}
+#dp .dph button:hover{background:var(--hi)}
+#dp .dpg{display:grid;grid-template-columns:repeat(7,1fr);gap:2px;text-align:center;font-size:12.5px}
+#dp .dpg .w{font-size:10px;color:var(--muted);font-weight:800;text-transform:uppercase;padding:3px 0}
+#dp .dpg button{padding:6px 0;border-radius:4px}
+#dp .dpg button:hover{background:var(--hi)}
+#dp .dpg button.out{color:var(--line2)}
+#dp .dpg button.td{box-shadow:inset 0 0 0 1px var(--accent)}
+#dp .dpg button.sel{background:var(--accent);color:var(--paper)}
+#dp .dpf{display:flex;justify-content:space-between;margin-top:8px;border-top:1px solid var(--line);padding-top:6px}
+#dp .dpf button{font-size:10.5px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);padding:4px 6px;border-radius:3px}
+#dp .dpf button:hover{background:var(--hi)}
 .tabs.r .tab.on{width:38px}
 .tabs.l .tab{transform:rotate(180deg);border-radius:0 6px 6px 0;flex:1;max-height:64px;width:26px;font-size:10px}
 .tabs.l .tab.on{width:34px}
@@ -274,9 +299,10 @@ input.title::placeholder{color:var(--line2)}
 </div>
 <div id="dlg" class="modal hidden"><div class="mbox" id="dlgbox"></div></div>
 <div class="toast" id="toast"></div>
+<div id="dp"></div>
 <div id="print"></div>
 <script>
-const APP_VERSION='0.3.0';
+const APP_VERSION='0.3.1';
 const KEY='organizer.v1',UIKEY='organizer.ui';
 const IS_MAC=/Mac|iPhone|iPad/.test(navigator.platform||navigator.userAgent);
 const MOD=IS_MAC?'⌘':'Ctrl',ALT=IS_MAC?'⌥':'Alt';
@@ -329,7 +355,7 @@ en:{
   createProfile:'Create profile',saveProfile:'Save',skip:'Skip for now',profileSaved:'Profile saved',settingsSaved:'Settings saved',
   needName:'Enter at least your first name.',website:'Website',dayStart:'Day starts at',dayEnd:'Last time slot',timeScale:'Time scale',
   minutes:'{n} min',calSec:'Day planner',appearance:'Appearance',invalidHours:'The last time slot must be after the start of the day.',
-  profileOf:'Profile: {name}'
+  profileOf:'Profile: {name}',dateFormat:'Date format',dfAuto:'Automatic (by language)',badDate:'That is not a valid date.',clearDate:'Clear'
 },
 hr:{
   print:'Ispis…',printBtnBar:'Ispis',backup:'Sigurnosna kopija',year:'Godina',month:'Mjesec',week:'Tjedan',day:'Dan',contacts:'Kontakti',notes:'Bilješke',
@@ -378,7 +404,7 @@ hr:{
   createProfile:'Izradi profil',saveProfile:'Spremi',skip:'Preskoči za sada',profileSaved:'Profil je spremljen',settingsSaved:'Postavke su spremljene',
   needName:'Upišite barem svoje ime.',website:'Web stranica',dayStart:'Dan počinje u',dayEnd:'Zadnji termin',timeScale:'Vremenska skala',
   minutes:'{n} min',calSec:'Dnevni planer',appearance:'Izgled',invalidHours:'Zadnji termin mora biti nakon početka dana.',
-  profileOf:'Profil: {name}'
+  profileOf:'Profil: {name}',dateFormat:'Format datuma',dfAuto:'Automatski (prema jeziku)',badDate:'To nije ispravan datum.',clearDate:'Očisti'
 },
 de:{
   print:'Drucken…',printBtnBar:'Drucken',backup:'Sicherung',year:'Jahr',month:'Monat',week:'Woche',day:'Tag',contacts:'Kontakte',notes:'Notizen',
@@ -427,7 +453,7 @@ de:{
   createProfile:'Profil anlegen',saveProfile:'Speichern',skip:'Später',profileSaved:'Profil gespeichert',settingsSaved:'Einstellungen gespeichert',
   needName:'Geben Sie mindestens Ihren Vornamen ein.',website:'Website',dayStart:'Tag beginnt um',dayEnd:'Letzter Zeitslot',timeScale:'Zeitraster',
   minutes:'{n} Min.',calSec:'Tagesplaner',appearance:'Darstellung',invalidHours:'Der letzte Zeitslot muss nach dem Tagesbeginn liegen.',
-  profileOf:'Profil: {name}'
+  profileOf:'Profil: {name}',dateFormat:'Datumsformat',dfAuto:'Automatisch (nach Sprache)',badDate:'Das ist kein gültiges Datum.',clearDate:'Leeren'
 }};
 const LOCALES={en:'en-GB',hr:'hr-HR',de:'de-DE'};
 const ALPHA={en:'ABCDEFGHIJKLMNOPQRSTUVWXYZ',hr:'ABCČĆDĐEFGHIJKLMNOPRSŠTUVZŽ',de:'ABCDEFGHIJKLMNOPQRSTUVWXYZ'};
@@ -460,6 +486,20 @@ const dayShort=i=>fmt(new Date(2001,0,1+i),{weekday:'short'}).replace('.','');
 const dayNarrow=i=>fmt(new Date(2001,0,1+i),{weekday:'narrow'});
 const dayTitle=d=>fmt(d,{day:'numeric',month:'long'});
 const fullDate=d=>fmt(d,{weekday:'long',day:'numeric',month:'long',year:'numeric'});
+const DFMTS=['dmy.','dmy','dmy/','mdy/','ymd-'];
+const dfmt=()=>{const f=(typeof DB!=='undefined'&&DB.settings&&DB.settings.dateFmt)||'auto';return DFMTS.includes(f)?f:({hr:'dmy.',de:'dmy',en:'dmy/'}[ui.lang]||'dmy/')};
+function fmtD(iso,f){if(!iso||!/^\d{4}-\d{2}-\d{2}$/.test(iso))return'';const[y,m,d]=iso.split('-');f=f||dfmt();
+  return f==='dmy.'?`${d}.${m}.${y}.`:f==='dmy'?`${d}.${m}.${y}`:f==='dmy/'?`${d}/${m}/${y}`:f==='mdy/'?`${m}/${d}/${y}`:iso}
+function datePh(){const L={hr:['dd','mm','gggg'],de:['TT','MM','JJJJ'],en:['dd','mm','yyyy']}[ui.lang]||['dd','mm','yyyy'],f=dfmt();
+  return f==='dmy.'?`${L[0]}.${L[1]}.${L[2]}.`:f==='dmy'?`${L[0]}.${L[1]}.${L[2]}`:f==='dmy/'?`${L[0]}/${L[1]}/${L[2]}`:f==='mdy/'?`${L[1]}/${L[0]}/${L[2]}`:`${L[2]}-${L[1]}-${L[0]}`}
+function parseD(s){s=String(s||'').trim();if(!s)return'';let m=s.match(/^(\d{4})-(\d{1,2})-(\d{1,2})$/),y,mo,d;
+  if(m){y=+m[1];mo=+m[2];d=+m[3]}else{const p=s.split(/[.\/\-\s]+/).filter(Boolean);if(p.length<2||p.length>3||p.some(x=>!/^\d+$/.test(x)))return null;const n=p.map(Number),f=dfmt();
+    if(f==='ymd-'&&p[0].length===4){[y,mo,d]=n}else if(f==='mdy/'){[mo,d,y]=n}else{[d,mo,y]=n}
+    if(y===undefined)y=new Date().getFullYear();if(y<100)y+=2000}
+  const dt=new Date(y,mo-1,d);if(dt.getFullYear()!==y||dt.getMonth()!==mo-1||dt.getDate()!==d)return null;return ymd(dt)}
+const CAL_SVG='<svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><rect x="1.5" y="2.5" width="13" height="12" rx="1.5"/><path d="M1.5 6h13M5 1v3M11 1v3"/></svg>';
+function dateField({k,id,value,cls=''}){const v=value!==undefined?value:(k?get(k):'');
+  return`<span class="dtw ${cls}"><input class="ln dt" type="text" ${k?`data-dk="${k}"`:''} ${id?`id="${id}"`:''} data-iso="${esc(v||'')}" value="${esc(fmtD(v))}" placeholder="${esc(datePh())}" autocomplete="off" spellcheck="false"><button class="dtb" type="button" data-act="dpick" tabindex="-1" aria-label="${esc(t('dateLbl'))}">${CAL_SVG}</button></span>`}
 const shortDate=iso=>iso?fmt(new Date(iso),{day:'numeric',month:'short',year:'numeric'}):'';
 
 function seed(){
@@ -597,7 +637,7 @@ function vContacts(){
     +sec(t('name'))+fr(t('first'),inp(p+'.first'))+fr(t('last'),inp(p+'.last'))+fr(t('company'),inp(p+'.company'))+fr(t('jobTitle'),inp(p+'.title'))
     +sec(t('email'))+multi(p+'.emails','email')+sec(t('phone'))+multi(p+'.phones','phone')
     +sec(t('address'))+ta(p+'.address',3)
-    +sec(t('personal'))+fr(t('birthday'),`<input class="ln" type="date" data-k="${p}.birthday" value="${esc(c.birthday)}">`)+fr(t('groups'),inp(p+'.groups',t('groupsPh')))
+    +sec(t('personal'))+fr(t('birthday'),dateField({k:p+'.birthday'}))+fr(t('groups'),inp(p+'.groups',t('groupsPh')))
     +(()=>{const pr=Object.entries(DB.projects).map(([pid,P])=>[pid,P,(P.people||[]).find(x=>x.id===id)]).filter(x=>x[2]);return pr.length?sec(t('projects'))+pr.map(([pid,P,x])=>`<div class="todo" style="justify-content:space-between"><button class="lnk" data-act="selProject" data-id="${pid}">${esc(P.name||t('untitled'))}${x.role?` <span class="mu">· ${esc(x.role)}</span>`:''}</button><span class="chip ${P.status}">${t('st_'+P.status)}</span></div>`).join(''):''})()
     +sec(t('notesSec'))+ta(p+'.notes',4);
   return[L,R];
@@ -627,11 +667,11 @@ function vProjects(){
   const cand=[...(DB.profile&&!inIds.has('me')?[['me',DB.profile]]:[]),...sortedContacts().filter(([cid])=>!inIds.has(cid))];
   const picker=cand.length?`<select class="pick" data-act-change="addPerson"><option value="">${t('addPerson')}</option>${cand.map(([cid,c])=>`<option value="${cid}">${esc(cname(c))}${cid==='me'?` (${t('me')})`:''}${c.company?' · '+esc(c.company):''}</option>`).join('')}</select>`:'';
   const opts=w=>`<option value="">${t('nobody')}</option>`+ppl.map(x=>`<option value="${x.id}" ${w===x.id?'selected':''}>${esc(cname(x.c))}</option>`).join('');
-  const tasks=`<div class="list">${(P.tasks||[]).map((x,i)=>`<div class="todo ptask ${x.done?'done':''}"><input type="checkbox" data-k="${p}.tasks.${i}.done" ${x.done?'checked':''} aria-label="Done">${inp(`${p}.tasks.${i}.t`)}<input class="ln due" type="date" data-k="${p}.tasks.${i}.due" value="${esc(x.due||'')}" title="${t('due')}"><select class="asg" data-k="${p}.tasks.${i}.who" title="${t('assignee')}">${opts(x.who||'')}</select><button class="x" data-act="del" data-path="${p}.tasks" data-i="${i}" aria-label="Remove">×</button></div>`).join('')}<button class="add" data-act="add" data-path="${p}.tasks" data-tpl="task">${t('addTask')}</button></div>`;
+  const tasks=`<div class="list">${(P.tasks||[]).map((x,i)=>`<div class="todo ptask ${x.done?'done':''}"><input type="checkbox" data-k="${p}.tasks.${i}.done" ${x.done?'checked':''} aria-label="Done">${inp(`${p}.tasks.${i}.t`)}${dateField({k:`${p}.tasks.${i}.due`,cls:'due'})}<select class="asg" data-k="${p}.tasks.${i}.who" title="${t('assignee')}">${opts(x.who||'')}</select><button class="x" data-act="del" data-path="${p}.tasks" data-i="${i}" aria-label="Remove">×</button></div>`).join('')}<button class="add" data-act="add" data-path="${p}.tasks" data-tpl="task">${t('addTask')}</button></div>`;
   const R=`<div class="ph"><div style="flex:1"><div class="kicker">${t('projects')}</div><input class="title" data-k="${p}.name" value="${esc(P.name)}" placeholder="${esc(t('projectName'))}"></div><div class="pnav"><button class="nb t danger" data-act="delProject">${t('del')}</button></div></div>`
     +fr(t('status'),`<select class="ln" data-k="${p}.status" data-rerender="1" style="border:none;padding-left:0">${PSTAT.map(x=>`<option value="${x}" ${P.status===x?'selected':''}>${t('st_'+x)}</option>`).join('')}</select>`)
-    +fr(t('start'),`<input class="ln" type="date" data-k="${p}.start" value="${esc(P.start||'')}">`)
-    +fr(t('due'),`<input class="ln" type="date" data-k="${p}.due" value="${esc(P.due||'')}" data-rerender="1">`)
+    +fr(t('start'),dateField({k:p+'.start'}))
+    +fr(t('due'),dateField({k:p+'.due'}))
     +sec(t('description'))+ta(p+'.desc',3)
     +sec(t('people'))+people+picker
     +sec(t('tasks'))+tasks
@@ -675,6 +715,7 @@ function renderChrome(){
   if(!NATIVE)renderHtmlMenu();
 }
 function render(){
+  if(DP)closePicker();
   if(!THEMES[ui.theme])ui.theme='sand';
   if(!VIEWFN[ui.view])ui.view='day';
   document.body.className=ui.theme;
@@ -701,7 +742,7 @@ function arm(b){if(b.dataset.armed)return true;b.dataset.armed='1';b.textContent
 
 /* ---------- dialogs ---------- */
 function openDlg(html){$('#dlgbox').innerHTML=html;$('#dlg').classList.remove('hidden');const f=$('#dlgbox').querySelector('[autofocus]');if(f)f.focus()}
-function closeDlg(){$('#dlg').classList.add('hidden');$('#dlgbox').innerHTML=''}
+function closeDlg(){closePicker();$('#dlg').classList.add('hidden');$('#dlgbox').innerHTML=''}
 const dlgOpen=()=>!$('#dlg').classList.contains('hidden');
 function openBackup(restoreMode){
   openDlg(`<h2>${t('backupTitle')}</h2><div class="mu">${restoreMode?t('restoreHint'):t('backupHint')}</div>
@@ -730,7 +771,7 @@ function openPrint(){
   printFields();
 }
 function printFields(){const w=document.querySelector('input[name=pw]:checked')?.value;if(!w)return;$('#pLayoutF').style.display=w==='contacts'?'none':'';$('#pTplF').style.display=w==='blank'?'':'none'}
-function openGoDate(){openDlg(`<h2>${t('goDateTitle')}</h2><input type="date" id="gd" value="${ui.cur}" autofocus><div class="btns"><button class="bbtn" data-act="closeDlg">${t('cancel')}</button><button class="bbtn pri" data-act="goDateOk">${t('go')}</button></div>`)}
+function openGoDate(){setTimeout(()=>{const g=$('#gd');if(g){g.focus();g.select();openPicker(g)}},0);openDlg(`<h2>${t('goDateTitle')}</h2>${dateField({id:'gd',value:ui.cur})}<div class="btns"><button class="bbtn" data-act="closeDlg">${t('cancel')}</button><button class="bbtn pri" data-act="goDateOk">${t('go')}</button></div>`)}
 function openShortcuts(){
   const rows=[[`${MOD}+1 … 7`,t('kViews')],[`${MOD}+,`,t('settings').replace('…','')],[`${MOD}+Shift+P`,t('newProjectM')],[`${ALT}+← / →`,`${t('goPrev')} / ${t('goNext')}`],['← / →',t('kArrows')],[`${MOD}+T`,t('goToday')],[`${MOD}+G`,t('goDate').replace('…','')],[`${MOD}+P`,t('print').replace('…','')],[`${MOD}+N`,t('newNote')],[`${MOD}+Shift+N`,t('newContactM')],[`${MOD}+F`,t('findContact')],[`${MOD}+ =  /  −  /  0`,t('kZoom')],[IS_MAC?'Ctrl+⌘+F':'F11',t('fullscreen')],['Enter',t('kNextTodo')]];
   openDlg(`<h2>${t('shortcuts')}</h2><table class="sct">${rows.map(([k,d])=>`<tr><td>${esc(k)}</td><td>${esc(d)}</td></tr>`).join('')}</table><div class="btns"><button class="bbtn" data-act="closeDlg" autofocus>${t('close')}</button></div>`);
@@ -740,10 +781,10 @@ function openAbout(){openDlg(`<h2>Organizer</h2><div>${t('aboutText',{v:APP_VERS
 const LANGS=[['en','English'],['hr','Hrvatski'],['de','Deutsch']];
 const langOpts=()=>LANGS.map(([k,n])=>`<option value="${k}" ${ui.lang===k?'selected':''}>${n}</option>`).join('');
 const PF=['first','last','email','phone','company','title','website','birthday','address'];
-function collectProfile(){const o={};PF.forEach(k=>{const el=$('#pf_'+k);o[k]=el?el.value.trim():''});return o}
+function collectProfile(){const o={};PF.forEach(k=>{const el=$('#pf_'+k);o[k]=el?(el.classList.contains('dt')?(el.dataset.iso||''):el.value.trim()):''});return o}
 function openProfile(welcome,vals){
   const P=vals||DB.profile||{};
-  const f=(k,l,type='text',full=false)=>`<div class="fld ${full?'full':''}"><label for="pf_${k}">${l}</label>${k==='address'?`<textarea id="pf_${k}">${esc(P[k]||'')}</textarea>`:`<input id="pf_${k}" type="${type}" value="${esc(P[k]||'')}">`}</div>`;
+  const f=(k,l,type='text',full=false)=>`<div class="fld ${full?'full':''}"><label for="pf_${k}">${l}</label>${type==='date'?dateField({id:'pf_'+k,value:P[k]||''}):k==='address'?`<textarea id="pf_${k}">${esc(P[k]||'')}</textarea>`:`<input id="pf_${k}" type="${type}" value="${esc(P[k]||'')}">`}</div>`;
   openDlg(`<h2>${welcome?t('welcomeTitle'):t('profileTitle')}</h2>`
     +(welcome?`<div class="mu">${t('welcomeHint')}</div><div class="fld"><label for="wLang">${t('language')}</label><select id="wLang">${langOpts()}</select></div>`:'')
     +`<div class="pgrid">${f('first',t('first'))}${f('last',t('last'))}${f('email',t('email'),'email')}${f('phone',t('phone'),'tel')}${f('company',t('company'))}${f('title',t('jobTitle'))}${f('website',t('website'),'url')}${f('birthday',t('birthday'),'date')}${f('address',t('address'),'text',true)}</div>
@@ -760,7 +801,7 @@ function openSettings(){
   const S=DB.settings,hrs=cur=>Array.from({length:24},(_,h)=>`<option value="${h}" ${h==cur?'selected':''}>${pad(h)}:00</option>`).join('');
   openDlg(`<h2>${t('settingsTitle')}</h2>
   <div class="sec" style="margin:0">${t('appearance')}</div>
-  <div class="pgrid"><div class="fld"><label for="sLang">${t('language')}</label><select id="sLang">${langOpts()}</select></div><div class="fld"><label for="sTheme">${t('themeM')}</label><select id="sTheme">${Object.keys(THEMES).map(k=>`<option value="${k}" ${ui.theme===k?'selected':''}>${t('theme_'+k)}</option>`).join('')}</select></div></div>
+  <div class="pgrid"><div class="fld"><label for="sLang">${t('language')}</label><select id="sLang">${langOpts()}</select></div><div class="fld full"><label for="sDf">${t('dateFormat')}</label><select id="sDf"><option value="auto">${t('dfAuto')}</option>${DFMTS.map(f=>`<option value="${f}" ${DB.settings.dateFmt===f?'selected':''}>${fmtD(today(),f)}</option>`).join('')}</select></div><div class="fld"><label for="sTheme">${t('themeM')}</label><select id="sTheme">${Object.keys(THEMES).map(k=>`<option value="${k}" ${ui.theme===k?'selected':''}>${t('theme_'+k)}</option>`).join('')}</select></div></div>
   <div class="sec" style="margin:4px 0 0">${t('calSec')}</div>
   <div class="pgrid"><div class="fld"><label for="sStart">${t('dayStart')}</label><select id="sStart">${hrs(S.dayStart)}</select></div><div class="fld"><label for="sEnd">${t('dayEnd')}</label><select id="sEnd">${hrs(S.dayEnd)}</select></div>
   <div class="fld"><label for="sSlot">${t('timeScale')}</label><select id="sSlot">${[60,30,15].map(v=>`<option value="${v}" ${+S.slot===v?'selected':''}>${t('minutes',{n:v})}</option>`).join('')}</select></div></div>
@@ -769,12 +810,31 @@ function openSettings(){
 }
 function saveSettings(){
   const a=+$('#sStart').value,b=+$('#sEnd').value;if(b<=a){$('#serr').textContent=t('invalidHours');return}
-  DB.settings={...DB.settings,dayStart:a,dayEnd:b,slot:+$('#sSlot').value};save(true);
+  DB.settings={...DB.settings,dayStart:a,dayEnd:b,slot:+$('#sSlot').value,dateFmt:$('#sDf').value};save(true);
   const nl=$('#sLang').value,nt=$('#sTheme').value,chg=nl!==ui.lang||nt!==ui.theme;ui.lang=nl;ui.theme=nt;
   closeDlg();render();renderChrome();if(chg)rebuildMenu();toast(t('settingsSaved'));
 }
 function newProject(){const id=uid();DB.projects[id]={name:'',status:'active',start:today(),due:'',desc:'',people:DB.profile?[{id:'me',role:''}]:[],tasks:[],notes:'',created:new Date().toISOString()};
   ui.project=id;ui.view='projects';ui.pfilter='all';save();render();const el=$(`[data-k="projects.${id}.name"]`);if(el)el.focus()}
+
+/* ---------- date picker ---------- */
+let DP=null;
+function commitTyped(el){if(!el)return true;const r=parseD(el.value);if(r===null){el.value=fmtD(el.dataset.iso);toast(t('badDate'));return false}setDate(el,r);return true}
+function setDate(el,iso){el.dataset.iso=iso;el.value=fmtD(iso);
+  if(el.dataset.dk){set(el.dataset.dk,iso);save();const k=el.dataset.dk;
+    if(k.startsWith('projects.')&&$('#plist'))$('#plist').innerHTML=projectList();
+    if(k.startsWith('contacts.')&&/\.birthday$/.test(k)&&$('#clist'))$('#clist').innerHTML=contactList()}}
+function openPicker(el){const iso=el.dataset.iso||'',base=iso?parse(iso):parse(ui.cur);DP={el,y:base.getFullYear(),m:base.getMonth()};drawPicker();placePicker()}
+function closePicker(){DP=null;$('#dp').classList.remove('open')}
+function drawPicker(){if(!DP)return;const{y,m,el}=DP,sel=el.dataset.iso,first=new Date(y,m,1),start=monday(first);
+  let g=[0,1,2,3,4,5,6].map(i=>`<span class="w">${dayNarrow(i)}</span>`).join('');
+  for(let i=0;i<42;i++){const x=addDays(start,i),k=ymd(x);g+=`<button type="button" class="${x.getMonth()!==m?'out':''} ${k===today()?'td':''} ${k===sel?'sel':''}" data-act="dpDay" data-iso="${k}">${x.getDate()}</button>`}
+  $('#dp').innerHTML=`<div class="dph"><button type="button" data-act="dpNav" data-d="-1" aria-label="${t('prev')}">‹</button><span>${fmt(first,{month:'long',year:'numeric'})}</span><button type="button" data-act="dpNav" data-d="1" aria-label="${t('next')}">›</button></div><div class="dpg">${g}</div><div class="dpf"><button type="button" data-act="dpToday">${t('today')}</button><button type="button" data-act="dpClear">${t('clearDate')}</button></div>`;
+  $('#dp').classList.add('open')}
+function placePicker(){if(!DP)return;const z=ui.zoom||1,box=DP.el.closest('.dtw')||DP.el,r=box.getBoundingClientRect(),dp=$('#dp'),h=dp.offsetHeight,w=dp.offsetWidth;
+  const sx=r.left/ (ZOOMED_RECT?z:1),sy=r.bottom/(ZOOMED_RECT?z:1),top0=r.top/(ZOOMED_RECT?z:1),vh=innerHeight/(ZOOMED_RECT?1:z),vw=innerWidth/(ZOOMED_RECT?1:z);
+  let top=sy+4;if(top+h>vh-8)top=Math.max(8,top0-h-4);let left=Math.min(sx,vw-w-8);dp.style.top=top+'px';dp.style.left=Math.max(8,left)+'px'}
+let ZOOMED_RECT=true;
 
 /* ---------- printing ---------- */
 const PAPER={A4:[210,297],A5:[148,210],Letter:[215.9,279.4]};
@@ -919,7 +979,13 @@ function renderHtmlMenu(){
 function closeMenus(){document.querySelectorAll('.mb.open').forEach(x=>x.classList.remove('open'))}
 
 /* ---------- events ---------- */
-document.addEventListener('mousedown',e=>{if(e.target.closest('.menubar'))e.preventDefault();else if(!e.target.closest('.mb'))closeMenus()});
+document.addEventListener('mousedown',e=>{if(e.target.closest('.menubar'))e.preventDefault();else if(!e.target.closest('.mb'))closeMenus();
+  if(DP&&!e.target.closest('#dp')&&!e.target.closest('.dtw'))closePicker();
+  if(e.target.closest('#dp'))e.preventDefault();
+  const dt=e.target.closest('input.dt');if(dt&&(!DP||DP.el!==dt))setTimeout(()=>openPicker(dt),0)});
+document.addEventListener('focusout',e=>{const el=e.target;if(el.matches&&el.matches('input.dt')){const iso=parseD(el.value);if(iso!==el.dataset.iso){commitTyped(el);if(DP&&DP.el===el)drawPicker()}}});
+window.addEventListener('resize',()=>{if(DP)placePicker()});
+document.addEventListener('scroll',()=>{if(DP)placePicker()},true);
 document.addEventListener('mouseover',e=>{const mb=e.target.closest('.mb');if(mb&&document.querySelector('.mb.open')&&!mb.classList.contains('open')){closeMenus();mb.classList.add('open')}});
 document.addEventListener('click',e=>{
   const x=e.target.closest('[data-act]');if(!x)return;
@@ -945,8 +1011,13 @@ document.addEventListener('click',e=>{
     case'selNote':ui.note=x.dataset.id;break;
     case'delNote':if(!arm(x))return;delete DB.notes[ui.note];ui.note=null;save();toast(t('pageDeleted'));break;
     case'closeDlg':closeDlg();return;
+    case'dpick':{const el=x.parentElement.querySelector('input.dt');if(DP&&DP.el===el){closePicker();return}el.focus();openPicker(el);return}
+    case'dpNav':if(DP){DP.m+=+x.dataset.d;if(DP.m<0){DP.m=11;DP.y--}if(DP.m>11){DP.m=0;DP.y++}drawPicker()}return;
+    case'dpDay':if(DP){const el=DP.el;setDate(el,x.dataset.iso);closePicker();if(el.id==='gd')$('[data-act=goDateOk]').click()}return;
+    case'dpToday':if(DP){const el=DP.el;setDate(el,today());closePicker();if(el.id==='gd')$('[data-act=goDateOk]').click()}return;
+    case'dpClear':if(DP){setDate(DP.el,'');closePicker()}return;
     case'doPrint':doPrint();return;
-    case'goDateOk':{const v=$('#gd').value;if(/^\d{4}-\d{2}-\d{2}$/.test(v)){ui.cur=v;if(!['day','week','month','year'].includes(ui.view))ui.view='day';closeDlg();render()}return}
+    case'goDateOk':{const g=$('#gd');commitTyped(g);const v=g.dataset.iso;if(/^\d{4}-\d{2}-\d{2}$/.test(v)){ui.cur=v;if(!['day','week','month','year'].includes(ui.view))ui.view='day';closeDlg();render()}return}
     case'copyBk':{const txt=$('#bk').value,fail=()=>{$('#bk').select();$('#bkmsg').textContent=t('pressCopy')};try{navigator.clipboard.writeText(txt).then(()=>toast(t('copied')),fail)}catch(err){fail()}return}
     case'dlBk':{try{const b=new Blob([$('#bk').value],{type:'application/json'}),u=URL.createObjectURL(b),l=document.createElement('a');l.href=u;l.download=`organizer-backup-${today()}.json`;document.body.appendChild(l);l.click();l.remove();setTimeout(()=>URL.revokeObjectURL(u),2000);$('#bkmsg').textContent=t('dlHint')}catch(err){$('#bkmsg').textContent=t('dlNo')}return}
     case'restoreBk':{try{const o=JSON.parse($('#bk').value);if(!o||typeof o!=='object'||!('days' in o||'contacts' in o))throw 0;DB=o;fix();save(true);ui.contact=null;ui.note=null;closeDlg();render();toast(t('restored'))}catch(err){$('#bkmsg').textContent=t('invalid')}return}
@@ -956,6 +1027,7 @@ document.addEventListener('click',e=>{
 });
 document.addEventListener('input',e=>{
   const el=e.target;
+  if(el.matches('input.dt')){if(DP&&DP.el===el)closePicker();return}
   if(el.id==='q'){ui.q=el.value;$('#clist').innerHTML=contactList();return}
   const k=el.dataset.k;if(!k)return;
   set(k,el.type==='checkbox'?el.checked:el.value);save();
@@ -975,6 +1047,12 @@ $('#theme').addEventListener('change',e=>run('theme:'+e.target.value));
 $('#lang').addEventListener('change',e=>run('lang:'+e.target.value));
 document.addEventListener('keydown',e=>{
   const el=e.target,mod=e.ctrlKey||e.metaKey,k=e.key;
+  if(k==='Escape'&&DP){closePicker();return}
+  if(el.matches&&el.matches('input.dt')){
+    if(k==='Enter'){e.preventDefault();const ok=commitTyped(el);closePicker();if(ok&&el.id==='gd')$('[data-act=goDateOk]').click();return}
+    if(k==='ArrowDown'&&!DP){e.preventDefault();openPicker(el);return}
+    if(k==='Tab')closePicker();
+  }
   if(k==='Escape'){if(dlgOpen())closeDlg();closeMenus();return}
   if(dlgOpen()){if(k==='Enter'&&el.id==='gd'){e.preventDefault();$('[data-act=goDateOk]').click()}return}
   if(k==='Enter'&&el.getAttribute&&el.getAttribute('role')==='button'){el.click();return}
