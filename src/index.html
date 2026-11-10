@@ -562,7 +562,7 @@ body.d-tight .ph{margin-bottom:7px}
 <div id="dp"></div>
 <div id="print"></div>
 <script>
-const APP_VERSION='0.6.1';
+const APP_VERSION='0.6.2';
 const KEY='organizer.v1',UIKEY='organizer.ui';
 const IS_MAC=/Mac|iPhone|iPad/.test(navigator.platform||navigator.userAgent);
 const MOD=IS_MAC?'⌘':'Ctrl',ALT=IS_MAC?'⌥':'Alt';
@@ -1274,11 +1274,11 @@ function notesOrdered(){return Object.entries(DB.notes).sort((a,b)=>(a[1].order|
 function pageNumbers(){const m={};let ch=0;notesOrdered().forEach(([id,n],i)=>{if(n.chapter)ch++;m[id]={page:i+1,chapter:n.chapter?ch:0}});return m}
 
 const VIEWS=['year','month','week','day','todo','planner','projects','contacts','calls','notes','anniv'];
-const TABS=['calendar','day','todo','planner','projects','contacts','calls','notes','anniv'];
-const TAB_COLOR={calendar:0,day:3,todo:4,planner:5,projects:6,contacts:7,calls:8,notes:9,anniv:10};
-const CAL_VIEWS=['year','month','week'];
+const TABS=['calendar','todo','planner','projects','contacts','calls','notes','anniv'];
+const TAB_COLOR={calendar:0,todo:4,planner:5,projects:6,contacts:7,calls:8,notes:9,anniv:10};
+const CAL_VIEWS=['year','month','week','day'];
 const tabOf=v=>CAL_VIEWS.includes(v)?'calendar':v;
-const calSel=()=>`<select id="calsel" title="${esc(t('calView'))}">${[['week:planner',t('layoutPlanner')],['week:spread',t('layoutSpread')],['month',t('month')],['year',t('year')]].map(([v,l])=>`<option value="${v}" ${(ui.view==='week'?'week:'+(ui.wlay||'planner'):ui.view)===v?'selected':''}>${l}</option>`).join('')}</select>`;
+const calSel=()=>`<select id="calsel" title="${esc(t('calView'))}">${[['day',t('dailyPlanner')],['week:planner',t('layoutPlanner')],['week:spread',t('layoutSpread')],['month',t('month')],['year',t('year')]].map(([v,l])=>`<option value="${v}" ${(ui.view==='week'?'week:'+(ui.wlay||'planner'):ui.view)===v?'selected':''}>${l}</option>`).join('')}</select>`;
 const THEMES={
   sand:{r:[['#56453b','#f6eee6'],['#665246','#f6eee6'],['#776152','#f6eee6'],['#88705f','#f6eee6'],['#99806d','#f6eee6'],['#aa907c','#2f2620'],['#bba08c','#2f2620'],['#cab09d','#3a2f29'],['#d8c1af','#3a2f29'],['#e5d3c4','#3a2f29'],['#f1e5da','#3a2f29']]},
   nordic:{r:[['#f2f4f6','#1f2328'],['#e7eaed','#1f2328'],['#dce0e4','#1f2328'],['#d1d6db','#1f2328'],['#c6ccd2','#1f2328'],['#bbc2c9','#1f2328'],['#b0b8c0','#14181c'],['#a5aeb7','#14181c'],['#9aa4ae','#14181c'],['#8f9aa5','#14181c'],['#84909c','#ffffff']]},
@@ -1306,7 +1306,7 @@ function footers(){
   const[,wn]=isoWeek(d),[,wmax]=isoWeek(new Date(y,11,28));
   const sel=(id,opts,cur)=>`<select id="${id}">${opts.map(([v,l])=>`<option value="${v}" ${cur===v?'selected':''}>${l}</option>`).join('')}</select>`;
   switch(ui.view){
-    case'day':return[`<span class="fv">${t('dailyPlanner')}</span><span>${t('dayOfYear',{n:doy})}</span>`,`<span>${t('daysLeft',{n:diy-doy})}</span>`];
+    case'day':return[`<span class="fv">${calSel()}</span><span>${t('dayOfYear',{n:doy})}</span>`,`<span>${t('daysLeft',{n:diy-doy})}</span>`];
     case'week':return[`<span class="fv">${calSel()}</span><span>${t('weekN',{n:wn})}</span>`,`<span>${t('weeksLeft',{n:Math.max(0,wmax-wn)})}</span>`];
     case'month':return[`<span class="fv">${calSel()}</span><span>${t('weekN',{n:isoWeek(new Date(y,d.getMonth(),1))[1]})} – ${t('weekN',{n:isoWeek(new Date(y,d.getMonth()+1,0))[1]})}</span>`,`<span>${t('daysLeft',{n:diy-doy})}</span>`];
     case'todo':{const all=allTasks(),od=all.filter(x=>x.st==='overdue').length,op=all.filter(x=>!x.o.done).length;
@@ -1462,7 +1462,7 @@ function openPrint(){
 function printFields(){const w=document.querySelector('input[name=pw]:checked')?.value;if(!w)return;$('#pLayoutF').style.display=w==='contacts'?'none':'';$('#pTplF').style.display=w==='blank'?'':'none'}
 function openGoDate(){setTimeout(()=>{const g=$('#gd');if(g){g.focus();g.select();openPicker(g)}},0);openDlg(`<h2>${t('goDateTitle')}</h2>${dateField({id:'gd',value:ui.cur})}<div class="btns"><button class="bbtn" data-act="closeDlg">${t('cancel')}</button><button class="bbtn pri" data-act="goDateOk">${t('go')}</button></div>`)}
 function openShortcuts(){
-  const rows=[[`${MOD}+1 … 9`,t('kViews')],[`${MOD}+Shift+T`,t('addTask').replace('+ ','')],[`${MOD}+L`,t('newCallM')],[`${MOD}+E`,t('newEventM').replace('…','')],['F9',t('sidebar')],['F1',t('shortcuts')],[`${MOD}+,`,t('settings').replace('…','')],[`${MOD}+Shift+P`,t('newProjectM')],[`${ALT}+← / →`,`${t('goPrev')} / ${t('goNext')}`],['← / →',t('kArrows')],[`${MOD}+T`,t('goToday')],[`${MOD}+G`,t('goDate').replace('…','')],[`${MOD}+P`,t('print').replace('…','')],[`${MOD}+N`,t('newNote')],[`${MOD}+Shift+N`,t('newContactM')],[`${MOD}+F`,t('findContact')],[`${MOD}+ =  /  −  /  0`,t('kZoom')],[IS_MAC?'Ctrl+⌘+F':'F11',t('fullscreen')],['Enter',t('kNextTodo')]];
+  const rows=[[`${MOD}+1 … 8`,t('kViews')],[`${MOD}+Shift+T`,t('addTask').replace('+ ','')],[`${MOD}+L`,t('newCallM')],[`${MOD}+E`,t('newEventM').replace('…','')],['F9',t('sidebar')],['F1',t('shortcuts')],[`${MOD}+,`,t('settings').replace('…','')],[`${MOD}+Shift+P`,t('newProjectM')],[`${ALT}+← / →`,`${t('goPrev')} / ${t('goNext')}`],['← / →',t('kArrows')],[`${MOD}+T`,t('goToday')],[`${MOD}+G`,t('goDate').replace('…','')],[`${MOD}+P`,t('print').replace('…','')],[`${MOD}+N`,t('newNote')],[`${MOD}+Shift+N`,t('newContactM')],[`${MOD}+F`,t('findContact')],[`${MOD}+ =  /  −  /  0`,t('kZoom')],[IS_MAC?'Ctrl+⌘+F':'F11',t('fullscreen')],['Enter',t('kNextTodo')]];
   openDlg(`<h2>${t('shortcuts')}</h2><table class="sct">${rows.map(([k,d])=>`<tr><td>${esc(k)}</td><td>${esc(d)}</td></tr>`).join('')}</table><div class="btns"><button class="bbtn" data-act="closeDlg" autofocus>${t('close')}</button></div>`);
 }
 function openAbout(){openDlg(`<h2>Organizer</h2><div>${t('aboutText',{v:APP_VERSION})}</div>${DB.profile?`<div class="mu">${esc(t('profileOf',{name:cname(DB.profile)}))}</div>`:''}<div class="btns"><button class="bbtn" data-act="closeDlg" autofocus>${t('close')}</button></div>`)}
@@ -1771,7 +1771,7 @@ function MENU(native){
   if(native&&IS_MAC)m.push({label:'Organizer',items:[{id:'about',label:t('about')},S,{pre:'Hide'},{pre:'HideOthers'},{pre:'ShowAll'},S,{pre:'Quit'}]});
   m.push({label:t('mFile'),items:[{id:'newEvent',label:t('newEventM'),acc:'CmdOrCtrl+E'},{id:'newTask',label:t('addTask').replace('+ ',''),acc:'CmdOrCtrl+Shift+T'},{id:'newCall',label:t('newCallM'),acc:'CmdOrCtrl+L'},{id:'newNote',label:t('newNote'),acc:'CmdOrCtrl+N'},{id:'newContact',label:t('newContactM'),acc:'CmdOrCtrl+Shift+N'},{id:'newProject',label:t('newProjectM'),acc:'CmdOrCtrl+Shift+P'},S,{id:'profile',label:t('myProfile')},{id:'settings',label:t('settings'),acc:'CmdOrCtrl+,'},{id:'categories',label:t('editCats')},S,{id:'print',label:t('print'),acc:'CmdOrCtrl+P'},S,{id:'backup',label:t('backupMenu')},{id:'restore',label:t('restoreMenu')},...((native&&!IS_MAC)?[S,{id:'quit',label:t('quit'),acc:'CmdOrCtrl+Q'}]:[])]});
   m.push({label:t('mEdit'),items:[...edit,S,{id:'find',label:t('findContact'),acc:'CmdOrCtrl+F'}]});
-  m.push({label:t('mView'),items:[...TABS.map((v,i)=>({id:'view:'+v,label:t(v),acc:'CmdOrCtrl+'+(i+1)})),{label:t('calView'),items:[['week:planner',t('layoutPlanner')],['week:spread',t('layoutSpread')],['month',t('month')],['year',t('year')]].map(([v,l])=>({id:'calv:'+v.replace(':','-'),label:l}))},S,
+  m.push({label:t('mView'),items:[...TABS.map((v,i)=>({id:'view:'+v,label:t(v),acc:'CmdOrCtrl+'+(i+1)})),{label:t('calView'),items:[['day',t('dailyPlanner')],['week:planner',t('layoutPlanner')],['week:spread',t('layoutSpread')],['month',t('month')],['year',t('year')]].map(([v,l])=>({id:'calv:'+v.replace(':','-'),label:l}))},S,
     {label:t('themeM'),items:Object.keys(THEMES).map(x=>({id:'theme:'+x,label:t('theme_'+x),check:true,checked:ui.theme===x}))},
     {label:t('language'),items:langs.map(([k,n])=>({id:'lang:'+k,label:n,check:true,checked:ui.lang===k}))},{id:'sidebar',label:t('sidebar'),acc:'F9',check:true,checked:!!ui.side},{label:t('density'),items:[['comfort',t('dComfort')],['compact',t('dCompact')],['tight',t('dTight')]].map(([k,n])=>({id:'density:'+k,label:n,check:true,checked:(ui.density||'compact')===k}))},S,
     {id:'zoomIn',label:t('zoomIn'),acc:'CmdOrCtrl+='},{id:'zoomOut',label:t('zoomOut'),acc:'CmdOrCtrl+-'},{id:'zoomReset',label:t('zoomReset'),acc:'CmdOrCtrl+0'},S,
@@ -1960,7 +1960,7 @@ document.addEventListener('keydown',e=>{
   let cmd=null;
   if(mod&&!e.altKey){
     const kk=k.toLowerCase();
-    if(/^[1-9]$/.test(k))cmd='view:'+TABS[+k-1];
+    if(/^[1-9]$/.test(k)&&TABS[+k-1])cmd='view:'+TABS[+k-1];
     else if(kk==='p')cmd=e.shiftKey?'newProject':'print';
     else if(k===',')cmd='settings';
     else if(kk==='e')cmd='newEvent';
