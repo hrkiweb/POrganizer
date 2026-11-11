@@ -9,7 +9,7 @@ app data folder:
 | macOS | `~/Library/Application Support/com.personal.organizer/organizer.db` |
 | Linux | `~/.local/share/com.personal.organizer/organizer.db` |
 
-The schema lives in `src-tauri/src/db.rs` (`SCHEMA_V1`). `PRAGMA user_version`
+The schema lives in `src-tauri/src/db.rs` (`SCHEMA_V1`, `SCHEMA_V2`). `PRAGMA user_version`
 tracks the schema version; every future change is a new numbered migration.
 
 ## Storage modes
@@ -64,10 +64,18 @@ Device settings: `device_id`, `backup_folder`, `backup_auto`, `backup_keep`,
 
 ## External calendars
 
-These tables are defined now; the sync code that fills them comes next. Today's
-calendar entries are still stored inside `day` records. They move to `events`
-(calendar `local`) when the richer event editor arrives: start and end time,
-all-day, repeating events, location.
+Appointments made in the Organizer are rows of `events` in the built-in
+calendar `local`; Google and iCloud events will land in the same table with
+their own `calendar_id`. (Up to version 0.8, entries were text in the time
+slots of `day` records; 0.9 converts them automatically into events one time slot long (one hour on
+the 60-minute scale) and keeps their links and categories.)
+
+For local events, `app_data` (added in schema version 2) holds the Organizer's
+own JSON for the event: wall-clock start and end (`2026-11-11T10:30`),
+categories, repeat rule and excluded dates. The other columns are filled from
+it on every save, so the table can be queried and synced like any other
+calendar. The app reads events through the same `db_load` / `db_apply`
+commands as all other data; ids starting with `event:` go to this table.
 
 ### `calendar_accounts`
 
@@ -125,6 +133,8 @@ The built-in calendar `local` ("Organizer") always exists.
 | `url` | `htmlLink` | `URL` |
 | `raw` | full JSON of the event | full `.ics` text |
 | `dirty` | 1 = changed in Organizer, push on next sync | same |
+| `app_data` | – (Organizer events only) | – |
+| `hlc`, `updated_by` | sync clock and device of the last local change | same |
 
 `raw` keeps everything the Organizer does not model (conference links,
 attachments, extended properties), so two-way sync never strips data when it

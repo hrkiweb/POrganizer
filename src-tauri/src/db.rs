@@ -191,6 +191,15 @@ CREATE TABLE IF NOT EXISTS calendar_sync_log (
 );
 "#;
 
+/// v2: Organizer's own event fields (categories, local times, …) and sync clock on events.
+const SCHEMA_V2: &str = r#"
+ALTER TABLE events ADD COLUMN app_data   TEXT;  -- Organizer JSON of the event (categories, local start/end, …)
+ALTER TABLE events ADD COLUMN hlc        TEXT;
+ALTER TABLE events ADD COLUMN updated_by TEXT;
+CREATE INDEX IF NOT EXISTS idx_events_days ON events (calendar_id, start_date, end_date);
+PRAGMA user_version = 2;
+"#;
+
 fn err<E: ToString>(e: E) -> String {
     e.to_string()
 }
@@ -208,6 +217,9 @@ fn migrate(c: &Connection) -> Result<(), String> {
     if v < 1 {
         c.execute_batch(SCHEMA_V1).map_err(err)?;
         c.execute_batch("PRAGMA user_version = 1").map_err(err)?;
+    }
+    if v < 2 {
+        c.execute_batch(SCHEMA_V2).map_err(err)?;
     }
     Ok(())
 }
@@ -247,7 +259,66 @@ pub fn db_load(db: tauri::State<'_, Db>) -> Result<Vec<Rec>, String> {
     let rows = st
         .query_map([], |r| Ok(Rec { id: r.get(0)?, kind: r.get(1)?, data: r.get(2)? }))
         .map_err(err)?;
-    rows.collect::<Result<Vec<_>, _>>().map_err(err)
+    let mut out = rows.collect::<Result<Vec<_>, _>>().map_err(err)?;
+    let mut st = c
+        .prepare("SELECT id, app_data FROM events WHERE deleted = 0 AND calendar_id = 'local' AND app_data IS NOT NULL")
+        .map_err(err)?;
+    let evs = st
+        .query_map([], |r| {
+            Ok(Rec { id: format!("event:{}", r.get::<_, String>(0)?), kind: "event".into(), data: r.get(1)? })
+        })
+        .map_err(err)?;
+    for e in evs {
+        out.push(e.map_err(err)?);
+    }
+    Ok(out)
+}
+
+fn s_of(v: &serde_json::Value, k: &str) -> Option<String> {
+    v.get(k).and_then(|x| x.as_str()).filter(|x| !x.is_empty()).map(|x| x.to_string())
+}
+
+/// Organizer event JSON -> row of the `events` table (calendar 'local').
+fn upsert_event(tx: &rusqlite::Transaction, id: &str, data: &str, now: &str, device: &str, h: &str) -> Result<(), String> {
+    let v: serde_json::Value = serde_json::from_str(data).map_err(err)?;
+    let all_day = v.get("allDay").and_then(|x| x.as_bool()).unwrap_or(false);
+    let start_at = s_of(&v, "_startAt").or_else(|| s_of(&v, "start")).unwrap_or_default();
+    let end_at = s_of(&v, "_endAt").or_else(|| s_of(&v, "end")).unwrap_or_else(|| start_at.clone());
+    let exd = v.get("exdates").filter(|x| x.as_array().map_or(false, |a| !a.is_empty())).map(|x| x.to_string());
+    let created = s_of(&v, "created").unwrap_or_else(|| now.to_string());
+    tx.execute(
+        "INSERT INTO events (id, calendar_id, ical_uid, title, description, location, all_day, start_at, end_at,
+            start_date, end_date, timezone, rrule, exdates, color, app_data, dirty, deleted, created_at, updated_at, hlc, updated_by)
+         VALUES (?1, 'local', ?2, ?3, ?4, ?5, ?6, ?7, ?8, ?9, ?10, ?11, ?12, ?13, ?14, ?15, 1, 0, ?16, ?17, ?18, ?19)
+         ON CONFLICT(id) DO UPDATE SET title = excluded.title, description = excluded.description, location = excluded.location,
+            all_day = excluded.all_day, start_at = excluded.start_at, end_at = excluded.end_at, start_date = excluded.start_date,
+            end_date = excluded.end_date, timezone = excluded.timezone, rrule = excluded.rrule, exdates = excluded.exdates,
+            color = excluded.color, app_data = excluded.app_data, dirty = 1, deleted = 0, updated_at = excluded.updated_at,
+            hlc = excluded.hlc, updated_by = excluded.updated_by",
+        params![
+            id,
+            format!("{}@organizer", id),
+            s_of(&v, "title"),
+            s_of(&v, "desc"),
+            s_of(&v, "loc"),
+            all_day as i64,
+            start_at,
+            end_at,
+            s_of(&v, "_startDate"),
+            s_of(&v, "_endDate"),
+            s_of(&v, "_tz"),
+            s_of(&v, "rrule"),
+            exd,
+            s_of(&v, "color"),
+            data,
+            created,
+            now,
+            h,
+            device
+        ],
+    )
+    .map_err(err)?;
+    Ok(())
 }
 
 #[tauri::command]
@@ -278,13 +349,25 @@ pub fn db_apply(
             .map_err(err)?;
         for u in &upserts {
             let h = hlc(&device);
-            up.execute(params![u.id, u.kind, u.data, u.date_from, u.date_to, u.parent_id, now, device, h])
-                .map_err(err)?;
+            if let Some(eid) = u.id.strip_prefix("event:") {
+                upsert_event(&tx, eid, &u.data, &now, &device, &h)?;
+            } else {
+                up.execute(params![u.id, u.kind, u.data, u.date_from, u.date_to, u.parent_id, now, device, h])
+                    .map_err(err)?;
+            }
             log.execute(params![u.id, "upsert", h, device]).map_err(err)?;
         }
         for id in &deletes {
             let h = hlc(&device);
-            del.execute(params![id, now, device, h]).map_err(err)?;
+            if let Some(eid) = id.strip_prefix("event:") {
+                tx.execute(
+                    "UPDATE events SET deleted = 1, dirty = 1, app_data = NULL, updated_at = ?2, updated_by = ?3, hlc = ?4 WHERE id = ?1",
+                    params![eid, now, device, h],
+                )
+                .map_err(err)?;
+            } else {
+                del.execute(params![id, now, device, h]).map_err(err)?;
+            }
             log.execute(params![id, "delete", h, device]).map_err(err)?;
         }
     }
@@ -323,7 +406,13 @@ pub struct DbInfo {
 #[tauri::command]
 pub fn db_info(db: tauri::State<'_, Db>) -> Result<DbInfo, String> {
     let c = db.conn.lock().map_err(err)?;
-    let records: i64 = c.query_row("SELECT COUNT(*) FROM records WHERE deleted = 0", [], |r| r.get(0)).map_err(err)?;
+    let records: i64 = c
+        .query_row(
+            "SELECT (SELECT COUNT(*) FROM records WHERE deleted = 0) + (SELECT COUNT(*) FROM events WHERE deleted = 0)",
+            [],
+            |r| r.get(0),
+        )
+        .map_err(err)?;
     let changes: i64 = c.query_row("SELECT COUNT(*) FROM changes", [], |r| r.get(0)).map_err(err)?;
     let schema_version: i64 = c.query_row("PRAGMA user_version", [], |r| r.get(0)).map_err(err)?;
     let mut size = std::fs::metadata(&db.path).map(|m| m.len()).unwrap_or(0);
