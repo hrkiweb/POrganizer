@@ -170,6 +170,21 @@ body.marble .sec{background:#d9d9d9;color:#333}
 body.marble .pfoot{background:#d4d4d4;color:#333}
 .tab:focus-visible{outline:2px solid var(--ink)}
 .tabs .tab{background:var(--tc);color:var(--tf)}
+.cover{flex-direction:column;padding-top:12px}
+.leaves{flex:1;min-height:0;display:flex}
+.ttabs{display:flex;align-items:flex-end;gap:3px;padding:0 0 0 34px;margin-bottom:-1px;position:relative;z-index:3;flex:none;overflow:hidden}
+.ttab{padding:7px 16px 6px;border-radius:7px 7px 0 0;background:var(--tc);color:var(--tf);font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;cursor:pointer;white-space:nowrap;user-select:none;box-shadow:inset 0 -2px 3px -2px rgba(0,0,0,.25);transition:padding .12s}
+.ttab:not(.on):hover{padding-top:9px;filter:brightness(1.05)}
+.ttab.on{background:var(--paper);color:var(--ink);padding-top:11px;padding-bottom:7px;font-weight:800;box-shadow:inset 0 4px 0 var(--tc)}
+.ttab:focus-visible{outline:2px solid var(--ink);outline-offset:-2px}
+.ttab .k{opacity:.55;font-weight:600;margin-left:6px;letter-spacing:0}
+body.d-compact .cover{padding-top:8px}
+body.d-compact .ttab{padding:5px 13px 4px;font-size:10px}
+body.d-compact .ttab:not(.on):hover{padding-top:7px}
+body.d-compact .ttab.on{padding-top:8px;padding-bottom:5px}
+body.d-compact .ttabs{padding-left:28px}
+body.d-tight .ttab{padding:4px 10px 3px;font-size:9.5px;letter-spacing:.1em}
+body.d-tight .ttab.on{padding-top:7px;padding-bottom:4px}
 .tabs .tab:not(.on):hover{filter:brightness(1.06)}
 .tabs .tab.on{background:var(--paper);color:var(--ink);box-shadow:inset -5px 0 0 var(--tc);font-weight:800}
 .page{flex:1;min-width:0;background:var(--paper);display:flex;flex-direction:column;position:relative;z-index:1;overflow:hidden}
@@ -551,6 +566,8 @@ body.d-tight .ph{margin-bottom:7px}
 <div class="wrap">
   <aside class="side" id="side"></aside>
   <div class="cover">
+    <div class="ttabs" id="ttabs" role="tablist"></div>
+    <div class="leaves">
     <div class="tabs l" id="stabsL"></div>
     <div class="etabs l" id="etabsL"></div>
     <div class="page left"><div class="pbody" id="lp"></div><div class="pfoot" id="lf"></div></div>
@@ -558,6 +575,7 @@ body.d-tight .ph{margin-bottom:7px}
     <div class="page right"><div class="pbody" id="rp"></div><div class="pfoot" id="rf"></div></div>
     <div class="etabs r" id="etabsR"></div>
     <div class="tabs r" id="stabsR"></div>
+    </div>
   </div>
 </div>
 <div id="dlg" class="modal hidden"><div class="mbox" id="dlgbox"></div></div>
@@ -565,7 +583,7 @@ body.d-tight .ph{margin-bottom:7px}
 <div id="dp"></div>
 <div id="print"></div>
 <script>
-const APP_VERSION='0.6.3';
+const APP_VERSION='0.7.0';
 const KEY='organizer.v1',UIKEY='organizer.ui';
 const IS_MAC=/Mac|iPhone|iPad/.test(navigator.platform||navigator.userAgent);
 const MOD=IS_MAC?'⌘':'Ctrl',ALT=IS_MAC?'⌥':'Alt';
@@ -1407,8 +1425,8 @@ function render(){
   if(CAL_VIEWS.includes(ui.view))ui.calView=ui.view;
   const th=THEMES[ui.theme],d=parse(ui.cur),cur=tabOf(ui.view),vi=TABS.indexOf(cur);
   const stab=v=>{const[bg,fg]=th.r[TAB_COLOR[v]];return`<div class="tab ${cur===v?'on':''}" role="button" tabindex="0" style="--tc:${bg};--tf:${fg}" data-act="cmd" data-c="view:${v}">${t(v)}</div>`};
-  $('#stabsL').innerHTML=TABS.slice(0,vi+1).map(stab).join('');
-  $('#stabsR').innerHTML=TABS.slice(vi+1).map(stab).join('');
+  $('#stabsL').innerHTML='';$('#stabsR').innerHTML='';
+  $('#ttabs').innerHTML=TABS.map((v,i)=>{const[bg,fg]=th.r[TAB_COLOR[v]];return`<div class="ttab ${cur===v?'on':''}" role="tab" aria-selected="${cur===v}" tabindex="0" style="--tc:${bg};--tf:${fg}" data-act="cmd" data-c="view:${v}" title="${esc(t(v))} (${MOD}+${i+1})">${t(v)}</div>`}).join('');
   const[EL,ER]=edgeTabs();$('#etabsL').innerHTML=EL;$('#etabsR').innerHTML=ER;
   const[L,R]=VIEWFN[ui.view]();
   $('#lp').innerHTML=L;$('#rp').innerHTML=R;
