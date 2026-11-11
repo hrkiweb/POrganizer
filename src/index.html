@@ -160,8 +160,8 @@ select.pick{margin-top:6px;color:var(--muted);font-size:12.5px;max-width:100%}
 .page.right .wsh{justify-content:flex-end;flex-direction:row-reverse}
 .wsd.today .wsh{background:var(--accent);color:var(--paper)}
 .wsb{padding:4px 10px;font-size:12.5px;overflow:hidden}
-body.marble{--marble:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='420' height='420'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.012 .03' numOctaves='5' seed='7'/%3E%3CfeColorMatrix values='0 0 0 0 .55  0 0 0 0 .78  0 0 0 0 .76  0 0 0 .55 -.08'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' fill='%2321454b'/%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");--desk:#21454b;--cover:#2b555b;--cover-edge:#173337;--paper:#ffffff;--line:#e4e4e4;--line2:#c4c4c4;--fill:#e2e2e2;--ink:#151515;--muted:#666;--accent:#a30000;--hi:#fffbdc;--dot:#b5b5b5;background-image:var(--marble)}
-body.marble .cover{background-image:var(--marble);border:3px solid #13292c;box-shadow:inset 0 0 0 1px #4f7a80}
+body.marble{--marble:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='360' height='360'%3E%3Cfilter id='g' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.6' numOctaves='3' seed='3' stitchTiles='stitch'/%3E%3CfeDiffuseLighting surfaceScale='2' diffuseConstant='1.1' lighting-color='%235a8a68'%3E%3CfeDistantLight azimuth='225' elevation='50'/%3E%3C/feDiffuseLighting%3E%3C/filter%3E%3Cfilter id='m' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.006' numOctaves='3' seed='11' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 1.4 -.55'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' fill='%2317321f'/%3E%3Crect width='100%25' height='100%25' filter='url(%23g)' opacity='0.3'/%3E%3Crect width='100%25' height='100%25' filter='url(%23m)' opacity='0.42'/%3E%3C/svg%3E");--desk:#17321f;--cover:#1d3a27;--cover-edge:#0f2216;--paper:#ffffff;--line:#e4e4e4;--line2:#c4c4c4;--fill:#e2e2e2;--ink:#151515;--muted:#666;--accent:#a30000;--hi:#fffbdc;--dot:#b5b5b5;background-image:var(--marble)}
+body.marble .cover{background-image:var(--marble);border:3px solid #0e1f14;box-shadow:inset 0 0 0 1px #45704f,inset 0 0 40px rgba(0,0,0,.35)}
 body.marble .bar{background:#ececec;border-bottom:1px solid #b9b9b9;color:#444}
 body.marble .side .sbox{background:#fffdf0}
 body.marble .slot{background:#fffbd8}
@@ -654,7 +654,7 @@ body.d-compact .evgrid{gap:6px 10px}body.d-compact .evsel{padding:4px}
 <div id="dp"></div>
 <div id="print"></div>
 <script>
-const APP_VERSION='0.9.0';
+const APP_VERSION='0.9.1';
 const KEY='organizer.v1',UIKEY='organizer.ui';
 const IS_MAC=/Mac|iPhone|iPad/.test(navigator.platform||navigator.userAgent);
 const MOD=IS_MAC?'⌘':'Ctrl',ALT=IS_MAC?'⌥':'Alt';

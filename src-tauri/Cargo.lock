@@ -2447,7 +2447,7 @@ dependencies = [
 
 [[package]]
 name = "organizer"
-version = "0.9.0"
+version = "0.9.1"
 dependencies = [
  "rusqlite",
  "serde",
