@@ -551,6 +551,26 @@ body.d-tight .mg{min-height:280px}
 body.d-tight .wk{min-height:38px}
 body.d-tight .pfoot{height:22px}
 body.d-tight .ph{margin-bottom:7px}
+body.d-compact .mbox{padding:18px 20px;gap:9px}
+body.d-compact .mbox h2{font-size:14px}
+body.d-compact .mbox select,body.d-compact .mbox input[type=number],body.d-compact .mbox input.txt,body.d-compact .pgrid .fld input,body.d-compact .pgrid .fld select{padding:5px 8px;font-size:13px}
+body.d-compact .fld{gap:4px}
+body.d-compact .fld>label,body.d-compact .fld>.fl{font-size:9.5px}
+body.d-compact .pgrid{gap:8px 14px}
+body.d-compact .bbtn{padding:5px 10px;font-size:10px}
+body.d-compact .mbox .sec{margin:6px 0 0}
+body.d-tight .mbox{padding:14px 16px;gap:7px}
+body.d-tight .mbox select,body.d-tight .mbox input.txt,body.d-tight .pgrid .fld input,body.d-tight .pgrid .fld select{padding:4px 7px;font-size:12px}
+.setgrid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:18px;align-items:start}
+.setcol{display:flex;flex-direction:column;gap:9px}
+.smode{display:flex;flex-direction:column;gap:6px}
+.smode label{display:grid;grid-template-columns:auto 1fr;gap:2px 8px;padding:8px 10px;border:1px solid var(--line2);border-radius:5px;cursor:pointer;align-items:center}
+.smode label .mu{grid-column:2;font-size:11.5px}
+.smode label.on{border-color:var(--ink);box-shadow:inset 0 0 0 1px var(--ink)}
+.smode label.dis{opacity:.6;cursor:not-allowed}
+.smode input[type=radio]{margin:0}
+.dbpath{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:10.5px;word-break:break-all;color:var(--muted)}
+.mbox.wide2{width:min(980px,95vw)}
 </style>
 <style id="pagestyle"></style>
 </head>
@@ -583,7 +603,7 @@ body.d-tight .ph{margin-bottom:7px}
 <div id="dp"></div>
 <div id="print"></div>
 <script>
-const APP_VERSION='0.7.0';
+const APP_VERSION='0.8.0';
 const KEY='organizer.v1',UIKEY='organizer.ui';
 const IS_MAC=/Mac|iPhone|iPad/.test(navigator.platform||navigator.userAgent);
 const MOD=IS_MAC?'⌘':'Ctrl',ALT=IS_MAC?'⌥':'Alt';
@@ -652,7 +672,7 @@ en:{
   contents:'Contents',chapter:'Chapter',startChapter:'Start a chapter',pageColor:'Page color',confidential:'Confidential',showContent:'Show content',
   confHint:'This page is confidential.',createdOn:'Created {d}',modifiedOn:'Modified {d}',byPage:'By page number',byTitle:'By title',byDate:'By date',
   moveUp:'Move up',moveDown:'Move down',pageN:'Page {n}',annivAddPh:'Day and text, e.g. 14 Wedding anniversary',ageN:'{n} years',annivBad:'Start with the day of the month, e.g. 14 Wedding anniversary',
-  density:'Density',dComfort:'Comfortable',dCompact:'Compact',dTight:'Tight',none2:'None',newPage:'+ New page'
+  density:'Density',dComfort:'Comfortable',dCompact:'Compact',dTight:'Tight',none2:'None',newPage:'+ New page',storage:'Data storage',modeLocal:'Local only, with backups',modeLocalHint:'Everything stays on this computer. Backups can go to a folder in Google Drive, OneDrive, iCloud Drive or Dropbox, so they are also on the web.',modeServer:'Server: database and sharing',modeServerHint:'Syncs your organizer between devices and shares calendars, tasks and projects with other people.',soon:'Coming soon',serverUrl:'Server address',backupFolder:'Backup folder',noFolder:'No folder chosen',choose:'Choose…',autoBackup:'Automatic backup',abOff:'Off',abStart:'Every time the app starts',abDaily:'Once a day',keepN:'Keep backups',backupNowBtn:'Back up now',restoreDbBtn:'Restore from backup…',confirmRestore:'Click again to restore {f}',lastBackup:'Last backup: {d}',never:'never',dbLocation:'Database',recordsN:'{n} records',backupDone:'Backup saved',backupFail:'Backup failed: {e}',chooseFolderFirst:'Choose a backup folder first.',browserStorage:'This preview stores data in the browser. The desktop app uses a database file with backups.',saveErr:'Could not save: {e}',migrated:'Your data was moved into the new database.',restoreFail:'Restore failed: {e}'
 },
 hr:{
   print:'Ispis…',printBtnBar:'Ispis',backup:'Sigurnosna kopija',year:'Godina',month:'Mjesec',week:'Tjedan',day:'Dan',contacts:'Kontakti',notes:'Bilješke',
@@ -717,7 +737,7 @@ hr:{
   contents:'Sadržaj',chapter:'Poglavlje',startChapter:'Započni poglavlje',pageColor:'Boja stranice',confidential:'Povjerljivo',showContent:'Prikaži sadržaj',
   confHint:'Ova stranica je povjerljiva.',createdOn:'Izrađeno {d}',modifiedOn:'Izmijenjeno {d}',byPage:'Po broju stranice',byTitle:'Po naslovu',byDate:'Po datumu',
   moveUp:'Pomakni gore',moveDown:'Pomakni dolje',pageN:'Stranica {n}',annivAddPh:'Dan i tekst, npr. 14 Godišnjica braka',ageN:'{n} god.',annivBad:'Počnite danom u mjesecu, npr. 14 Godišnjica braka',
-  density:'Gustoća prikaza',dComfort:'Prozračno',dCompact:'Kompaktno',dTight:'Zbijeno',none2:'Nijedna',newPage:'+ Nova stranica'
+  density:'Gustoća prikaza',dComfort:'Prozračno',dCompact:'Kompaktno',dTight:'Zbijeno',none2:'Nijedna',newPage:'+ Nova stranica',storage:'Pohrana podataka',modeLocal:'Samo lokalno, uz sigurnosne kopije',modeLocalHint:'Sve ostaje na ovom računalu. Sigurnosne kopije mogu ići u mapu u Google Driveu, OneDriveu, iCloud Driveu ili Dropboxu, pa su i na webu.',modeServer:'Poslužitelj: baza podataka i dijeljenje',modeServerHint:'Sinkronizira organizer između uređaja i dijeli kalendare, zadatke i projekte s drugim osobama.',soon:'Uskoro',serverUrl:'Adresa poslužitelja',backupFolder:'Mapa za sigurnosne kopije',noFolder:'Mapa nije odabrana',choose:'Odaberi…',autoBackup:'Automatska sigurnosna kopija',abOff:'Isključeno',abStart:'Pri svakom pokretanju',abDaily:'Jednom dnevno',keepN:'Čuvaj kopija',backupNowBtn:'Napravi kopiju sada',restoreDbBtn:'Vrati iz kopije…',confirmRestore:'Kliknite ponovno za vraćanje {f}',lastBackup:'Zadnja kopija: {d}',never:'nikad',dbLocation:'Baza podataka',recordsN:'{n} zapisa',backupDone:'Sigurnosna kopija je spremljena',backupFail:'Sigurnosna kopija nije uspjela: {e}',chooseFolderFirst:'Najprije odaberite mapu za kopije.',browserStorage:'Ovaj pregled sprema podatke u preglednik. Desktop aplikacija koristi datoteku baze s kopijama.',saveErr:'Spremanje nije uspjelo: {e}',migrated:'Vaši su podaci premješteni u novu bazu.',restoreFail:'Vraćanje nije uspjelo: {e}'
 },
 de:{
   print:'Drucken…',printBtnBar:'Drucken',backup:'Sicherung',year:'Jahr',month:'Monat',week:'Woche',day:'Tag',contacts:'Kontakte',notes:'Notizen',
@@ -782,7 +802,7 @@ de:{
   contents:'Inhalt',chapter:'Kapitel',startChapter:'Kapitel beginnen',pageColor:'Seitenfarbe',confidential:'Vertraulich',showContent:'Inhalt anzeigen',
   confHint:'Diese Seite ist vertraulich.',createdOn:'Erstellt am {d}',modifiedOn:'Geändert am {d}',byPage:'Nach Seitenzahl',byTitle:'Nach Titel',byDate:'Nach Datum',
   moveUp:'Nach oben',moveDown:'Nach unten',pageN:'Seite {n}',annivAddPh:'Tag und Text, z. B. 14 Hochzeitstag',ageN:'{n} Jahre',annivBad:'Beginnen Sie mit dem Tag, z. B. 14 Hochzeitstag',
-  density:'Darstellungsdichte',dComfort:'Großzügig',dCompact:'Kompakt',dTight:'Sehr kompakt',none2:'Keine',newPage:'+ Neue Seite'
+  density:'Darstellungsdichte',dComfort:'Großzügig',dCompact:'Kompakt',dTight:'Sehr kompakt',none2:'Keine',newPage:'+ Neue Seite',storage:'Datenspeicherung',modeLocal:'Nur lokal, mit Sicherungen',modeLocalHint:'Alles bleibt auf diesem Computer. Sicherungen können in einen Ordner in Google Drive, OneDrive, iCloud Drive oder Dropbox gehen und liegen so auch im Web.',modeServer:'Server: Datenbank und Freigabe',modeServerHint:'Synchronisiert den Organizer zwischen Geräten und teilt Kalender, Aufgaben und Projekte mit anderen.',soon:'Demnächst',serverUrl:'Serveradresse',backupFolder:'Sicherungsordner',noFolder:'Kein Ordner gewählt',choose:'Wählen…',autoBackup:'Automatische Sicherung',abOff:'Aus',abStart:'Bei jedem Start',abDaily:'Einmal täglich',keepN:'Sicherungen behalten',backupNowBtn:'Jetzt sichern',restoreDbBtn:'Aus Sicherung wiederherstellen…',confirmRestore:'Zum Wiederherstellen von {f} erneut klicken',lastBackup:'Letzte Sicherung: {d}',never:'nie',dbLocation:'Datenbank',recordsN:'{n} Einträge',backupDone:'Sicherung gespeichert',backupFail:'Sicherung fehlgeschlagen: {e}',chooseFolderFirst:'Wählen Sie zuerst einen Sicherungsordner.',browserStorage:'Diese Vorschau speichert Daten im Browser. Die Desktop-App nutzt eine Datenbankdatei mit Sicherungen.',saveErr:'Speichern fehlgeschlagen: {e}',migrated:'Ihre Daten wurden in die neue Datenbank übernommen.',restoreFail:'Wiederherstellung fehlgeschlagen: {e}'
 }};
 const LOCALES={en:'en-GB',hr:'hr-HR',de:'de-DE'};
 const ALPHA={en:'ABCDEFGHIJKLMNOPQRSTUVWXYZ',hr:'ABCČĆDĐEFGHIJKLMNOPRSŠTUVZŽ',de:'ABCDEFGHIJKLMNOPQRSTUVWXYZ'};
@@ -872,8 +892,46 @@ function fix(){
   Object.values(DB.notes).filter(n=>!n.order).sort((a,b)=>(a.created||'').localeCompare(b.created||'')).forEach(n=>{n.order=++mx});
 }
 fix();
-let saveT;
-function save(now){clearTimeout(saveT);const w=()=>{try{localStorage.setItem(KEY,JSON.stringify(DB))}catch(e){}};now?w():saveT=setTimeout(w,250)}
+let saveT,STORE='browser',SNAP=new Map(),DEVICE='',persistQ=Promise.resolve(),DBINFO=null;
+function save(now){clearTimeout(saveT);const w=()=>{
+  if(STORE==='sqlite'){persistQ=persistQ.then(persistSqlite).catch(err=>{console.error(err);toast(t('saveErr',{e:String(err)}))});return}
+  try{localStorage.setItem(KEY,JSON.stringify(DB))}catch(e){}};now?w():saveT=setTimeout(w,250)}
+/* ---------- records <-> organizer data (SQLite) ---------- */
+function recordsOf(D){
+  const m=new Map(),put=(id,type,data,x={})=>m.set(id,{id,type,data:JSON.stringify(data),date_from:x.from||null,date_to:x.to||null,parent_id:x.parent||null});
+  for(const[k,v]of Object.entries(D.days||{}))put('day:'+k,'day',v,{from:k,to:k});
+  for(const[k,v]of Object.entries(D.weeks||{}))put('week:'+k,'week',v);
+  for(const[k,v]of Object.entries(D.months||{}))put('month:'+k,'month',v,{from:k+'-01',to:k+'-31'});
+  for(const[k,v]of Object.entries(D.contacts||{}))put('contact:'+k,'contact',v);
+  for(const[k,v]of Object.entries(D.notes||{}))put('note:'+k,'note',v);
+  for(const[k,v]of Object.entries(D.projects||{}))put('project:'+k,'project',v,{from:v.start,to:v.due});
+  for(const[k,v]of Object.entries(D.tasks||{}))put('task:'+k,'task',v,{from:v.start,to:v.due});
+  for(const[k,v]of Object.entries(D.calls||{}))put('call:'+k,'call',v,{from:v.date,to:v.date,parent:v.contact?'contact:'+v.contact:null});
+  for(const[k,v]of Object.entries(D.anniv||{}))put('anniv:'+k,'anniv',v);
+  for(const v of D.planner||[])put('planner:'+v.id,'planner',v,{from:v.start,to:v.end});
+  for(const v of D.links||[])put('link:'+lkey(v.a,v.b),'link',v);
+  if(D.profile)put('meta:profile','meta',D.profile);
+  for(const k of['settings','categories','plannerKeys','v'])if(D[k]!==undefined)put('meta:'+k,'meta',D[k]);
+  return m;
+}
+function fromRecords(recs){
+  const D={days:{},weeks:{},months:{},contacts:{},notes:{},projects:{},tasks:{},calls:{},anniv:{},planner:[],links:[],profile:null};
+  const coll={day:'days',week:'weeks',month:'months',contact:'contacts',note:'notes',project:'projects',task:'tasks',call:'calls',anniv:'anniv'};
+  for(const r of recs){let d;try{d=JSON.parse(r.data)}catch(e){continue}const id=r.id.slice(r.id.indexOf(':')+1);
+    if(coll[r.type])D[coll[r.type]][id]=d;else if(r.type==='planner')D.planner.push(d);else if(r.type==='link')D.links.push(d);
+    else if(r.type==='meta'){if(id==='profile')D.profile=d;else D[id]=d}}
+  return D;
+}
+async function persistSqlite(){
+  const m=recordsOf(DB),ups=[],dels=[];
+  for(const[id,r]of m)if(SNAP.get(id)!==r.data)ups.push(r);
+  for(const id of SNAP.keys())if(!m.has(id))dels.push(id);
+  if(!ups.length&&!dels.length)return;
+  await TAURI.core.invoke('db_apply',{upserts:ups,deletes:dels,now:new Date().toISOString(),device:DEVICE});
+  for(const r of ups)SNAP.set(r.id,r.data);for(const id of dels)SNAP.delete(id);
+}
+const kvGet=k=>TAURI.core.invoke('kv_get',{key:k}).catch(()=>null);
+const kvSet=(k,v)=>TAURI.core.invoke('kv_set',{key:k,value:String(v)}).catch(()=>{});
 save(true);
 function get(p){return p.split('.').reduce((o,k)=>o==null?undefined:o[k],DB)}
 function set(p,v){const ks=p.split('.');let o=DB;for(let i=0;i<ks.length-1;i++){if(o[ks[i]]==null)o[ks[i]]={};o=o[ks[i]]}o[ks[ks.length-1]]=v}
@@ -1509,16 +1567,35 @@ function saveProfile(){
 }
 function openSettings(){
   const S=DB.settings,hrs=cur=>Array.from({length:24},(_,h)=>`<option value="${h}" ${h==cur?'selected':''}>${pad(h)}:00</option>`).join('');
-  openDlg(`<h2>${t('settingsTitle')}</h2>
+  openDlg(`<h2>${t('settingsTitle')}</h2><div class="setgrid"><div class="setcol">
   <div class="sec" style="margin:0">${t('appearance')}</div>
   <div class="pgrid"><div class="fld"><label for="sLang">${t('language')}</label><select id="sLang">${langOpts()}</select></div><div class="fld full"><label for="sDen">${t('density')}</label><select id="sDen">${[['comfort',t('dComfort')],['compact',t('dCompact')],['tight',t('dTight')]].map(([k,n])=>`<option value="${k}" ${(ui.density||'compact')===k?'selected':''}>${n}</option>`).join('')}</select></div><div class="fld full"><label for="sDf">${t('dateFormat')}</label><select id="sDf"><option value="auto">${t('dfAuto')}</option>${DFMTS.map(f=>`<option value="${f}" ${DB.settings.dateFmt===f?'selected':''}>${fmtD(today(),f)}</option>`).join('')}</select></div><div class="fld"><label for="sTheme">${t('themeM')}</label><select id="sTheme">${Object.keys(THEMES).map(k=>`<option value="${k}" ${ui.theme===k?'selected':''}>${t('theme_'+k)}</option>`).join('')}</select></div></div>
   <div class="sec" style="margin:4px 0 0">${t('calSec')}</div>
   <div class="pgrid"><div class="fld"><label for="sStart">${t('dayStart')}</label><select id="sStart">${hrs(S.dayStart)}</select></div><div class="fld"><label for="sEnd">${t('dayEnd')}</label><select id="sEnd">${hrs(S.dayEnd)}</select></div>
   <div class="fld"><label for="sSlot">${t('timeScale')}</label><select id="sSlot">${[60,30,15].map(v=>`<option value="${v}" ${+S.slot===v?'selected':''}>${t('minutes',{n:v})}</option>`).join('')}</select></div></div>
+  </div><div class="setcol" id="storageSec"></div></div>
   <div class="err" id="serr"></div>
-  <div class="btns"><button class="bbtn" data-act="closeDlg">${t('cancel')}</button><button class="bbtn pri" data-act="saveSettings">${t('saveProfile')}</button></div>`);
+  <div class="btns"><button class="bbtn" data-act="closeDlg">${t('cancel')}</button><button class="bbtn pri" data-act="saveSettings">${t('saveProfile')}</button></div>`,'wide2');
+  fillStorage();
+}
+async function fillStorage(){
+  const el=$('#storageSec');if(!el)return;
+  const head=`<div class="sec" style="margin:0">${t('storage')}</div>`;
+  const modes=`<div class="smode"><label class="on"><input type="radio" name="smode" value="local" checked><b>${t('modeLocal')}</b><span class="mu">${t('modeLocalHint')}</span></label>
+    <label class="dis"><input type="radio" name="smode" value="server" disabled><b>${t('modeServer')} <span class="chip">${t('soon')}</span></b><span class="mu">${t('modeServerHint')}</span></label></div>`;
+  if(STORE!=='sqlite'){el.innerHTML=head+modes+`<div class="mu">${t('browserStorage')}</div>`;return}
+  const[folder,auto,keep,last,info]=await Promise.all([kvGet('backup_folder'),kvGet('backup_auto'),kvGet('backup_keep'),kvGet('last_backup'),TAURI.core.invoke('db_info').catch(()=>null)]);
+  const a=auto||'daily',k=String(keep||10);
+  el.innerHTML=head+modes+`
+    <div class="fld"><label for="sBf">${t('backupFolder')}</label><div class="row"><input class="txt" id="sBf" value="${esc(folder||'')}" placeholder="${esc(t('noFolder'))}" readonly style="flex:1;min-width:0"><button class="bbtn" data-act="pickFolder">${t('choose')}</button></div></div>
+    <div class="pgrid"><div class="fld"><label for="sAuto">${t('autoBackup')}</label><select id="sAuto">${[['off',t('abOff')],['start',t('abStart')],['daily',t('abDaily')]].map(([v,l])=>`<option value="${v}" ${a===v?'selected':''}>${l}</option>`).join('')}</select></div>
+    <div class="fld"><label for="sKeep">${t('keepN')}</label><select id="sKeep">${['5','10','30','100'].map(v=>`<option ${k===v?'selected':''}>${v}</option>`).join('')}</select></div></div>
+    <div class="row" style="flex-wrap:wrap"><button class="bbtn" data-act="backupNowBtn">${t('backupNowBtn')}</button><button class="bbtn" data-act="restoreDb">${t('restoreDbBtn')}</button></div>
+    <div class="mu" id="lastBk">${t('lastBackup',{d:last?fmtDT(last):t('never')})}</div>
+    ${info?`<div class="mu">${t('dbLocation')}: ${t('recordsN',{n:info.records})} · ${fmtSize(info.size)}</div><div class="dbpath">${esc(info.path)}</div>`:''}`;
 }
 function saveSettings(){
+  if($('#sAuto')){kvSet('backup_auto',$('#sAuto').value);kvSet('backup_keep',$('#sKeep').value)}
   const a=+$('#sStart').value,b=+$('#sEnd').value;if(b<=a){$('#serr').textContent=t('invalidHours');return}
   DB.settings={...DB.settings,dayStart:a,dayEnd:b,slot:+$('#sSlot').value,dateFmt:$('#sDf').value};save(true);
   ui.density=$('#sDen').value;const nl=$('#sLang').value,nt=$('#sTheme').value,chg=nl!==ui.lang||nt!==ui.theme;ui.lang=nl;ui.theme=nt;
@@ -1608,7 +1685,7 @@ const ICON={
 };
 
 /* ---------- links between items ---------- */
-const lkey=(a,b)=>a<b?a+'|'+b:b+'|'+a;
+function lkey(a,b){return a<b?a+'|'+b:b+'|'+a}
 const linksOf=ref=>(DB.links||[]).filter(l=>l.a===ref||l.b===ref).map(l=>l.a===ref?l.b:l.a);
 function addLink(a,b){if(!a||!b||a===b)return false;if(!Array.isArray(DB.links))DB.links=[];if(DB.links.some(l=>lkey(l.a,l.b)===lkey(a,b)))return false;DB.links.push({a,b});return true}
 function delLink(a,b){DB.links=(DB.links||[]).filter(l=>lkey(l.a,l.b)!==lkey(a,b))}
@@ -1871,6 +1948,10 @@ document.addEventListener('click',e=>{
     case'selNote':ui.note=x.dataset.id;break;
     case'delNote':if(!arm(x))return;dropLinks('note:'+ui.note);removeEntityFiles(DB.notes[ui.note]);delete DB.notes[ui.note];ui.note=null;save();toast(t('pageDeleted'));break;
     case'closeDlg':closeDlg();render();return;
+    case'pickFolder':{if(!(TAURI&&TAURI.dialog))return;TAURI.dialog.open({directory:true,multiple:false}).then(p=>{if(!p)return;const f=typeof p==='string'?p:p.path;kvSet('backup_folder',f);$('#sBf').value=f}).catch(()=>{});return}
+    case'backupNowBtn':backupNow(true).then(()=>kvGet('last_backup')).then(l=>{const el=$('#lastBk');if(el&&l)el.textContent=t('lastBackup',{d:fmtDT(l)})});return;
+    case'restoreDb':{if(x.dataset.file){const f=x.dataset.file;persistQ.then(()=>TAURI.core.invoke('restore_backup',{file:f})).then(()=>location.reload()).catch(err=>toast(t('restoreFail',{e:String(err)})));return}
+      kvGet('backup_folder').then(dir=>TAURI.dialog.open({multiple:false,defaultPath:dir||undefined,filters:[{name:'Organizer',extensions:['db']}]})).then(p=>{if(!p)return;const f=typeof p==='string'?p:p.path;x.dataset.file=f;x.textContent=t('confirmRestore',{f:f.split(/[\\/]/).pop()});x.classList.add('pri')}).catch(()=>{});return}
     case'neOk':newEventOk();return;
     case'catPick':openCatPick(x.dataset.path);return;
     case'editCats':openEditCats();return;
@@ -2024,10 +2105,39 @@ document.addEventListener('mouseup',()=>{if(!PD)return;const[a,b]=[PD.a,PD.b].so
   if(a===b){const ps=plannerOn(a);if(ps.length){render();openPeriod(ps[ps.length-1].id);return}}
   const keys=DB.plannerKeys||[];DB.planner.push({id:uid(),key:ui.pkey||(keys[0]&&keys[0].id),start:a,end:b,label:''});save();render()});
 setInterval(()=>{const n=new Date(),c=$('#sclock');if(c)c.textContent=`${pad(n.getHours())}:${pad(n.getMinutes())}`;if($('#todaylbl').textContent!==fullDate(n)){renderChrome();renderSide()}},15000);
-render();
-renderChrome();
-if(!DB.profile&&!ui.welcomed){ui.welcomed=true;saveUI();openProfile(true)}
-if(TAURI&&TAURI.menu){NATIVE=true;$('#menubar').innerHTML='';menuBusy=buildNative().catch(err=>{console.warn('native menu failed',err);NATIVE=false;renderHtmlMenu()})}
+async function bootStorage(){
+  if(!(IS_TAURI_FS&&TAURI.core))return;
+  try{
+    DEVICE=await kvGet('device_id');if(!DEVICE){DEVICE='d_'+uid()+uid();await kvSet('device_id',DEVICE)}
+    const recs=await TAURI.core.invoke('db_load');
+    let migrated=false;
+    if(recs.length){DB=fromRecords(recs);for(const r of recs)SNAP.set(r.id,r.data);fix()}
+    else migrated=true; // first start with the database: current data (browser storage) is written below
+    STORE='sqlite';
+    await persistSqlite();
+    if(migrated){try{localStorage.setItem('organizer.migrated',new Date().toISOString())}catch(e){}if(Object.keys(DB.days).length||Object.keys(DB.contacts).length)setTimeout(()=>toast(t('migrated')),800)}
+    DBINFO=await TAURI.core.invoke('db_info').catch(()=>null);
+  }catch(err){console.error('database',err);STORE='browser';toast(t('saveErr',{e:String(err)}))}
+}
+async function backupNow(manual){
+  if(STORE!=='sqlite')return;
+  const folder=await kvGet('backup_folder');if(!folder){if(manual)toast(t('chooseFolderFirst'));return}
+  const d=new Date(),stamp=`${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}_${pad(d.getHours())}${pad(d.getMinutes())}${pad(d.getSeconds())}`;
+  await persistQ;
+  try{const keep=+(await kvGet('backup_keep')||10);const r=await TAURI.core.invoke('backup_now',{folder,stamp,keep});await kvSet('last_backup',new Date().toISOString());if(manual)toast(t('backupDone'));return r}
+  catch(err){toast(t('backupFail',{e:String(err)}))}
+}
+async function autoBackup(atStart){
+  if(STORE!=='sqlite')return;const mode=(await kvGet('backup_auto'))||'daily';if(mode==='off')return;
+  const last=await kvGet('last_backup');
+  if((mode==='start'&&atStart)||!last||Date.now()-new Date(last).getTime()>864e5)backupNow(false);
+}
+bootStorage().then(()=>{
+  render();renderChrome();
+  if(!DB.profile&&!ui.welcomed){ui.welcomed=true;saveUI();openProfile(true)}
+  if(TAURI&&TAURI.menu){NATIVE=true;$('#menubar').innerHTML='';menuBusy=buildNative().catch(err=>{console.warn('native menu failed',err);NATIVE=false;renderHtmlMenu()})}
+  setTimeout(()=>autoBackup(true),15000);setInterval(()=>autoBackup(false),3600000);
+});
 </script>
 </body>
 </html>

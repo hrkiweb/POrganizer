@@ -5,7 +5,7 @@ A personal organizer in a ring-binder style. It's built with [Tauri 2](https://t
 ## Features
 
 * **Sections:** Year, Month, Week and Day planner pages, an address book, and notes with page templates (lined, dot grid, graph, checklist, Cornell, blank).
-* **Your profile:** set up on first launch, and changeable any time via **File → My profile…** or the name button in the top bar. It is stored locally for now and will become your account when web sync is added.
+* **Your profile:** set up on first launch, and changeable any time via **File → My profile…** or the name button in the top bar. It is stored in the local database and will become your account when server sync is added.
 * **Day time scale:** 60, 30 or 15 minutes (buttons on the Day page). Set the first and last time of day in **File → Settings…** (Ctrl/Cmd+,). Entries are kept when you switch scale.
 * **Projects:** subject (customer or anyone else), group, status, start and due dates, description, people linked from the address book with their roles, and tasks with due dates and an assignee. The project list has search and can be grouped by group, subject or status. Deadlines appear in the calendar views, and each contact lists the projects they're in.
 * **Languages:** English, Hrvatski (Croatian) and Deutsch (German). Choose one under **View → Language** or with the selector in the top bar. Day and month names come from the operating system's date formatting.
@@ -87,16 +87,22 @@ Each OS builds its own installers, so you can't build a Windows `.exe` on a Mac,
 
 ## Where your data is stored
 
-Attached files live in an `attachments` subfolder of the same location. **Backup → Copy** saves your entries and links, but not the attached files themselves, so back up the `attachments` folder too.
-
-
-The app keeps your data in the app's own storage on your computer. Uninstalling the app can remove it, so use **Backup → Copy** now and then. A proper database file (SQLite) and web sync are the next steps in the plan.
+Everything is kept in one database file, `organizer.db`, with attached files in an `attachments` folder next to it. On first start, version 0.8 moves your existing entries into this database automatically.
 
 | OS | Folder |
 |---|---|
-| Windows | `%LOCALAPPDATA%\com.personal.organizer\` |
-| macOS | `~/Library/WebKit/com.personal.organizer/` |
+| Windows | `%APPDATA%\com.personal.organizer\` |
+| macOS | `~/Library/Application Support/com.personal.organizer/` |
 | Linux | `~/.local/share/com.personal.organizer/` |
+
+**Settings → Data storage** chooses how data is kept:
+
+* **Local only, with backups** (available now): the database stays on this computer. Pick a backup folder, ideally inside Google Drive, OneDrive, iCloud Drive or Dropbox, so the copies end up on the web. Backups run automatically (at every start or once a day), keep the newest 5–100 copies, and include attachments. **Restore from backup…** brings back any copy.
+* **Server: database and sharing** (coming soon): sync with your own server and share calendars, tasks and projects with other people.
+
+Don't move `organizer.db` itself into a cloud-synced folder; only the backups belong there.
+
+The full schema, including the tables prepared for Google Calendar and iCloud (CalDAV) sync, is described in [docs/DATA_MODEL.md](docs/DATA_MODEL.md).
 
 ## Things to change
 

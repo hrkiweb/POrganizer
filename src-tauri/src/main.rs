@@ -1,7 +1,10 @@
 // Hide the extra console window on Windows in release builds.
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
+mod db;
+
 use std::path::PathBuf;
+use std::sync::Mutex;
 use std::time::{SystemTime, UNIX_EPOCH};
 use tauri::ipc::{InvokeBody, Request, Response};
 use tauri::{AppHandle, Manager};
@@ -126,6 +129,20 @@ fn reveal_attachment(app: AppHandle, file: String) -> Result<(), String> {
     app.opener().reveal_item_in_dir(p).map_err(|e| e.to_string())
 }
 
+/// Back up the database (and new attachment files) into a folder.
+#[tauri::command]
+fn backup_now(app: AppHandle, db: tauri::State<'_, db::Db>, folder: String, stamp: String, keep: usize) -> Result<serde_json::Value, String> {
+    let att = attachments_dir(&app)?;
+    let info = db::backup_to(&db, &att, &folder, &stamp, keep)?;
+    serde_json::to_value(info).map_err(|e| e.to_string())
+}
+
+/// Restore the database from a backup file; the UI reloads afterwards.
+#[tauri::command]
+fn restore_backup(db: tauri::State<'_, db::Db>, file: String) -> Result<(), String> {
+    db::restore_from(&db, &file)
+}
+
 /// Open a web, mail or phone link in the default application.
 #[tauri::command]
 fn open_url(app: AppHandle, url: String) -> Result<(), String> {
@@ -143,7 +160,22 @@ fn main() {
     tauri::Builder::default()
         .plugin(tauri_plugin_dialog::init())
         .plugin(tauri_plugin_opener::init())
+        .setup(|app| {
+            let dir = app.path().app_data_dir()?;
+            std::fs::create_dir_all(&dir)?;
+            let path = dir.join("organizer.db");
+            let conn = db::open(&path).map_err(|e| std::io::Error::new(std::io::ErrorKind::Other, e))?;
+            app.manage(db::Db { conn: Mutex::new(conn), path });
+            Ok(())
+        })
         .invoke_handler(tauri::generate_handler![
+            db::db_load,
+            db::db_apply,
+            db::db_info,
+            db::kv_get,
+            db::kv_set,
+            backup_now,
+            restore_backup,
             import_file,
             save_attachment,
             read_attachment,
