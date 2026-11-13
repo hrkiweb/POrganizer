@@ -17,9 +17,8 @@ jobs:
         include:
           - platform: windows-latest
             args: ""
-          # Linux paused: GitHub runner hangs installing packages. Re-enable by uncommenting.
-          # - platform: ubuntu-22.04
-          # args: ""
+          - platform: ubuntu-22.04
+            args: ""
           - platform: macos-latest
             args: "--target universal-apple-darwin"
     runs-on: ${{ matrix.platform }}
@@ -36,10 +35,15 @@ jobs:
         timeout-minutes: 20
         run: |
           APT="-o Acquire::Retries=5 -o Acquire::http::Timeout=30 -o Acquire::https::Timeout=30 -o DPkg::Lock::Timeout=120"
+          PKGS="libwebkit2gtk-4.1-dev libappindicator3-dev librsvg2-dev patchelf"
           for i in 1 2 3; do
-            timeout 300 sudo apt-get $APT update && \
-            timeout 600 sudo DEBIAN_FRONTEND=noninteractive apt-get $APT install -y --no-install-recommends libwebkit2gtk-4.1-dev libappindicator3-dev librsvg2-dev patchelf && exit 0
-            echo "apt attempt $i failed, retrying"; sleep 20
+            # --error-on=any: fail when a mirror can't be reached instead of continuing with stale lists
+            if timeout 300 sudo apt-get $APT update --error-on=any && \
+               timeout 600 sudo DEBIAN_FRONTEND=noninteractive apt-get $APT install -y --no-install-recommends $PKGS; then exit 0; fi
+            echo "apt attempt $i failed; switching from the Azure mirror to archive.ubuntu.com"
+            sudo sed -i 's#http://azure.archive.ubuntu.com/ubuntu#http://archive.ubuntu.com/ubuntu#g' /etc/apt/sources.list
+            sudo find /etc/apt/sources.list.d -type f \( -name '*.list' -o -name '*.sources' \) -exec sed -i 's#azure.archive.ubuntu.com#archive.ubuntu.com#g' {} +
+            sleep 15
           done
           exit 1
       - run: npm install
